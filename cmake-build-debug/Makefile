@@ -126,6 +126,60 @@ GBCppClion\fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\GBCppClion.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\GBCppClion.dir\build
 .PHONY : GBCppClion\fast
 
+cpu.obj: cpu.cpp.obj
+
+.PHONY : cpu.obj
+
+# target to build an object file
+cpu.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\GBCppClion.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\GBCppClion.dir\cpu.cpp.obj
+.PHONY : cpu.cpp.obj
+
+cpu.i: cpu.cpp.i
+
+.PHONY : cpu.i
+
+# target to preprocess a source file
+cpu.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\GBCppClion.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\GBCppClion.dir\cpu.cpp.i
+.PHONY : cpu.cpp.i
+
+cpu.s: cpu.cpp.s
+
+.PHONY : cpu.s
+
+# target to generate assembly for a file
+cpu.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\GBCppClion.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\GBCppClion.dir\cpu.cpp.s
+.PHONY : cpu.cpp.s
+
+helpers.obj: helpers.cpp.obj
+
+.PHONY : helpers.obj
+
+# target to build an object file
+helpers.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\GBCppClion.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\GBCppClion.dir\helpers.cpp.obj
+.PHONY : helpers.cpp.obj
+
+helpers.i: helpers.cpp.i
+
+.PHONY : helpers.i
+
+# target to preprocess a source file
+helpers.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\GBCppClion.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\GBCppClion.dir\helpers.cpp.i
+.PHONY : helpers.cpp.i
+
+helpers.s: helpers.cpp.s
+
+.PHONY : helpers.s
+
+# target to generate assembly for a file
+helpers.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\GBCppClion.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\GBCppClion.dir\helpers.cpp.s
+.PHONY : helpers.cpp.s
+
 main.obj: main.cpp.obj
 
 .PHONY : main.obj
@@ -153,6 +207,114 @@ main.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\GBCppClion.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\GBCppClion.dir\main.cpp.s
 .PHONY : main.cpp.s
 
+mm.obj: mm.cpp.obj
+
+.PHONY : mm.obj
+
+# target to build an object file
+mm.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\GBCppClion.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\GBCppClion.dir\mm.cpp.obj
+.PHONY : mm.cpp.obj
+
+mm.i: mm.cpp.i
+
+.PHONY : mm.i
+
+# target to preprocess a source file
+mm.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\GBCppClion.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\GBCppClion.dir\mm.cpp.i
+.PHONY : mm.cpp.i
+
+mm.s: mm.cpp.s
+
+.PHONY : mm.s
+
+# target to generate assembly for a file
+mm.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\GBCppClion.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\GBCppClion.dir\mm.cpp.s
+.PHONY : mm.cpp.s
+
+ops.obj: ops.cpp.obj
+
+.PHONY : ops.obj
+
+# target to build an object file
+ops.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\GBCppClion.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\GBCppClion.dir\ops.cpp.obj
+.PHONY : ops.cpp.obj
+
+ops.i: ops.cpp.i
+
+.PHONY : ops.i
+
+# target to preprocess a source file
+ops.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\GBCppClion.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\GBCppClion.dir\ops.cpp.i
+.PHONY : ops.cpp.i
+
+ops.s: ops.cpp.s
+
+.PHONY : ops.s
+
+# target to generate assembly for a file
+ops.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\GBCppClion.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\GBCppClion.dir\ops.cpp.s
+.PHONY : ops.cpp.s
+
+ppu.obj: ppu.cpp.obj
+
+.PHONY : ppu.obj
+
+# target to build an object file
+ppu.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\GBCppClion.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\GBCppClion.dir\ppu.cpp.obj
+.PHONY : ppu.cpp.obj
+
+ppu.i: ppu.cpp.i
+
+.PHONY : ppu.i
+
+# target to preprocess a source file
+ppu.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\GBCppClion.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\GBCppClion.dir\ppu.cpp.i
+.PHONY : ppu.cpp.i
+
+ppu.s: ppu.cpp.s
+
+.PHONY : ppu.s
+
+# target to generate assembly for a file
+ppu.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\GBCppClion.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\GBCppClion.dir\ppu.cpp.s
+.PHONY : ppu.cpp.s
+
+utils.obj: utils.cpp.obj
+
+.PHONY : utils.obj
+
+# target to build an object file
+utils.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\GBCppClion.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\GBCppClion.dir\utils.cpp.obj
+.PHONY : utils.cpp.obj
+
+utils.i: utils.cpp.i
+
+.PHONY : utils.i
+
+# target to preprocess a source file
+utils.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\GBCppClion.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\GBCppClion.dir\utils.cpp.i
+.PHONY : utils.cpp.i
+
+utils.s: utils.cpp.s
+
+.PHONY : utils.s
+
+# target to generate assembly for a file
+utils.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\GBCppClion.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\GBCppClion.dir\utils.cpp.s
+.PHONY : utils.cpp.s
+
 # Help Target
 help:
 	@echo The following are some of the valid targets for this Makefile:
@@ -162,9 +324,27 @@ help:
 	@echo ... edit_cache
 	@echo ... rebuild_cache
 	@echo ... GBCppClion
+	@echo ... cpu.obj
+	@echo ... cpu.i
+	@echo ... cpu.s
+	@echo ... helpers.obj
+	@echo ... helpers.i
+	@echo ... helpers.s
 	@echo ... main.obj
 	@echo ... main.i
 	@echo ... main.s
+	@echo ... mm.obj
+	@echo ... mm.i
+	@echo ... mm.s
+	@echo ... ops.obj
+	@echo ... ops.i
+	@echo ... ops.s
+	@echo ... ppu.obj
+	@echo ... ppu.i
+	@echo ... ppu.s
+	@echo ... utils.obj
+	@echo ... utils.i
+	@echo ... utils.s
 .PHONY : help
 
 

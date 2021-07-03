@@ -23,11 +23,11 @@ namespace spdlog {
 namespace sinks {
 
 /*
- * Generator of daily log file names in format basename.YYYY-MM-DD.ext
+ * Generator of daily log file names in format basename.YYYY-mm-DD.ext
  */
 struct daily_filename_calculator
 {
-    // Create filename for the form basename.YYYY-MM-DD
+    // Create filename for the form basename.YYYY-mm-DD
     static filename_t calc_filename(const filename_t &filename, const tm &now_tm)
     {
         filename_t basename, ext;

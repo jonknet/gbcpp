@@ -7,9 +7,7 @@
 #include "SDL2/SDL.h"
 #include <string>
 #include "customflags.h"
-
-void init_sdl(SDL_Window* win, SDL_Renderer* ren, SDL_Texture* tex, SDL_Window* windebug, SDL_Renderer* rendebug, SDL_Texture* texdebug);
-void cleanup_sdl(SDL_Texture* tex, SDL_Renderer* ren, SDL_Window* win, SDL_Texture* texdebug, SDL_Renderer* rendebug, SDL_Window* windebug);
+#include "utils.h"
 
 bool DEBUGMODE = false;
 
@@ -18,8 +16,8 @@ int main(int argc, char* argv[]) {
 	// Logger
 
 	auto formatter = std::make_unique<spdlog::pattern_formatter>();
-	formatter->add_flag<registers_flag>('r');
-	formatter->add_flag<opcode_flag>('*').set_pattern("[%T:%e] [%L] [%*] %v [%r]");
+	formatter->add_flag<registers_flag>('r').add_flag<stack_flag>('s').add_flag<opcode_flag>('*');
+	formatter->set_pattern("[%T:%e] [%L] [%*] %v [%r] [%s]");
 	spdlog::set_formatter(std::move(formatter));
 
 	auto max_size = 1048576 * 10;
@@ -46,15 +44,18 @@ int main(int argc, char* argv[]) {
 		spdlog::error("SDL_Init failure");
 	}
 
-	SDL_Window* win = NULL, * windebug = NULL;
-	SDL_Renderer* ren = NULL, * rendebug = NULL;
-	SDL_Texture* tex = NULL, * texdebug = NULL;
+	SDL_Window* win = nullptr, * windebug = nullptr;
+	SDL_Renderer* ren = nullptr, * rendebug = nullptr;
+	SDL_Texture* tex = nullptr, * texdebug = nullptr;
 
 	init_sdl(win, ren, tex, windebug, rendebug, texdebug);
 
-	ppu.settexture(tex);
+	// Init modules
+	mm = new MemMgr();
+	ppu = new Ppu(tex);
+	Cpu::cpu = new Cpu::Cpu();
 
-	if (MM.loadrom(rom)) {
+	if (mm->load_rom(rom)) {
 		cleanup_sdl(tex, ren, win, texdebug, rendebug, windebug);
 		SDL_Quit();
 		return 2;
@@ -72,8 +73,8 @@ int main(int argc, char* argv[]) {
 			}
 		}
 
-		ppu.draw();
-		cpu.exec();
+		ppu->draw();
+		cpu->exec();
 	}
 
 	cleanup_sdl(tex, ren, win, texdebug, rendebug, windebug);
@@ -84,30 +85,4 @@ int main(int argc, char* argv[]) {
 
 	return 0;
 
-}
-
-void init_sdl(SDL_Window* win, SDL_Renderer* ren, SDL_Texture* tex, SDL_Window* windebug, SDL_Renderer* rendebug, SDL_Texture* texdebug) {
-
-
-	win = SDL_CreateWindow("GBinCpp", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 256, 256, SDL_WINDOW_RESIZABLE);
-	ren = SDL_CreateRenderer(win, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
-	tex = SDL_CreateTexture(ren, SDL_PIXELFORMAT_RGB888, SDL_TEXTUREACCESS_STREAMING, 256, 256);
-
-	if (DEBUGMODE) {
-		windebug = SDL_CreateWindow("Debugger", 100, 100, 256, 512, 0);
-		rendebug = SDL_CreateRenderer(windebug, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
-		texdebug = SDL_CreateTexture(rendebug, SDL_PIXELFORMAT_RGB888, SDL_TEXTUREACCESS_STREAMING, 256, 512);
-	}
-}
-
-void cleanup_sdl(SDL_Texture* tex, SDL_Renderer* ren, SDL_Window* win, SDL_Texture* texdebug, SDL_Renderer* rendebug, SDL_Window* windebug) {
-	SDL_DestroyTexture(tex);
-	SDL_DestroyRenderer(ren);
-	SDL_DestroyWindow(win);
-
-	if (DEBUGMODE) {
-		SDL_DestroyTexture(texdebug);
-		SDL_DestroyRenderer(rendebug);
-		SDL_DestroyWindow(windebug);
-	}
 }

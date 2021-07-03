@@ -1,15 +1,13 @@
 #include "ppu.h"
 
-Ppu::Ppu() {
-	
-}
-
-void Ppu::settexture(SDL_Texture* tex) {
-	sdl_tex = tex;
+Ppu::Ppu(SDL_Texture* tex) : sdl_tex{tex} {
+	if(tex == nullptr){
+	    throw;
+	}
 }
 
 void Ppu::draw() {
 
 }
 
-Ppu ppu;
+Ppu* ppu;

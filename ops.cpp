@@ -12,7 +12,7 @@ void Cpu::ld16(u16* t, u16 v) {
 
 void Cpu::ld_i(u16* t) {
 	spdlog::info("LDI [{:x}],A({:x})", *t, _a);
-	MM[*t] = _a;
+    mm[*t] = _a;
 }
 
 void Cpu::ld(u8* t, u8 v) {

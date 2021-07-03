@@ -32,3 +32,17 @@ public:
 	}
 };
 
+class stack_flag : public spdlog::custom_flag_formatter {
+public:
+    void format(const spdlog::details::log_msg&, const std::tm&, spdlog::memory_buf_t& dest) override {
+        char buffer[100];
+        CpuState state = cpu.getstate();
+        sprintf_s(buffer, "STACK %04X %04X", mm[state.sp], mm[state.sp + 1]);
+        std::string str = buffer;
+        dest.append(str.data(), str.data() + str.size());
+    }
+
+    std::unique_ptr<custom_flag_formatter> clone() const override {
+        return spdlog::details::make_unique<stack_flag>();
+    }
+};

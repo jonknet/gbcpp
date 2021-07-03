@@ -292,7 +292,7 @@ public:
     }
 };
 
-// Short MM/DD/YY date, equivalent to %m/%d/%y 08/23/01
+// Short mm/DD/YY date, equivalent to %m/%d/%y 08/23/01
 template<typename ScopedPadder>
 class D_formatter final : public flag_formatter
 {
@@ -548,7 +548,7 @@ public:
     }
 };
 
-// 24-hour HH:MM time, equivalent to %H:%M
+// 24-hour HH:mm time, equivalent to %H:%M
 template<typename ScopedPadder>
 class R_formatter final : public flag_formatter
 {
@@ -568,7 +568,7 @@ public:
     }
 };
 
-// ISO 8601 time format (HH:MM:SS), equivalent to %H:%M:%S
+// ISO 8601 time format (HH:mm:SS), equivalent to %H:%M:%S
 template<typename ScopedPadder>
 class T_formatter final : public flag_formatter
 {
@@ -590,7 +590,7 @@ public:
     }
 };
 
-// ISO 8601 offset from UTC in timezone (+-HH:MM)
+// ISO 8601 offset from UTC in timezone (+-HH:mm)
 template<typename ScopedPadder>
 class z_formatter final : public flag_formatter
 {
@@ -1149,7 +1149,7 @@ SPDLOG_INLINE void pattern_formatter::handle_flag_(char flag, details::padding_i
         break;
 
     case ('D'):
-    case ('x'): // datetime MM/DD/YY
+    case ('x'): // datetime mm/DD/YY
         formatters_.push_back(details::make_unique<details::D_formatter<Padder>>(padding));
         break;
 
@@ -1201,12 +1201,12 @@ SPDLOG_INLINE void pattern_formatter::handle_flag_(char flag, details::padding_i
         formatters_.push_back(details::make_unique<details::r_formatter<Padder>>(padding));
         break;
 
-    case ('R'): // 24-hour HH:MM time
+    case ('R'): // 24-hour HH:mm time
         formatters_.push_back(details::make_unique<details::R_formatter<Padder>>(padding));
         break;
 
     case ('T'):
-    case ('X'): // ISO 8601 time format (HH:MM:SS)
+    case ('X'): // ISO 8601 time format (HH:mm:SS)
         formatters_.push_back(details::make_unique<details::T_formatter<Padder>>(padding));
         break;
 

@@ -1,10 +1,10 @@
 #include "mm.h"
-#include <assert.h>
 #include <fstream>
+#include <filesystem>
 
 using namespace std;
 
-MemMgr::MemMgr() {
+MemMgr::MemMgr() : mem{0},bootrom{DMG_BOOT_ROM} {
 	mem[TIMA] = 0;
 	mem[TMA] = 0;
 	mem[TAC] = 0;
@@ -36,13 +36,6 @@ MemMgr::MemMgr() {
 	mem[WY] = 0;
 	mem[WX] = 0;
 	mem[IE] = 0;
-
-	memcpy_s(bootrom, 256, DMG_BOOT_ROM, 256);
-}
-
-void MemMgr::set(int i, u8 val) {
-	assert(i >= 0 && i <= 0xFFFF);
-	mem[i] = val;
 }
 
 u8& MemMgr::operator[](int i) {
@@ -53,20 +46,15 @@ u8& MemMgr::operator[](int i) {
 	return mem[i];
 }
 
-int MemMgr::loadrom(string filename) {
-	fstream romfile;
-	romfile.open(filename,ios::in | ios::binary);
-	if (romfile.is_open()) {
-		int i = 0;
-		while (!romfile.eof()) {
-			set(i++, romfile.get());
-		}
-		romfile.close();
-		spdlog::info("Romfile loaded");
+inline int MemMgr::load_rom(const string &filename) {
+	ifstream rom{filename,ios::in | ios::binary};
+	if(rom.is_open()) {
+		rom.read(reinterpret_cast<char*>(mem.data()), static_cast<long long>(filesystem::file_size(filename)));
+		spdlog::info("Rom file loaded");
 		return 0;
 	}
 	spdlog::error("Can't open rom file {}", filename);
 	return -1;
 }
 
-MemMgr MM;
+MemMgr* mm;

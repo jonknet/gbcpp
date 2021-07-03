@@ -86,7 +86,31 @@
 				</MakeCommands>
 			</Target>
 		</Build>
+		<Unit filename="C:/Users/Jon/Projects/GBCppClion/cpu.cpp">
+			<Option target="GBCppClion"/>
+		</Unit>
+		<Unit filename="C:/Users/Jon/Projects/GBCppClion/helpers.cpp">
+			<Option target="GBCppClion"/>
+		</Unit>
+		<Unit filename="C:/Users/Jon/Projects/GBCppClion/helpers.h">
+			<Option target="GBCppClion"/>
+		</Unit>
 		<Unit filename="C:/Users/Jon/Projects/GBCppClion/main.cpp">
+			<Option target="GBCppClion"/>
+		</Unit>
+		<Unit filename="C:/Users/Jon/Projects/GBCppClion/mm.cpp">
+			<Option target="GBCppClion"/>
+		</Unit>
+		<Unit filename="C:/Users/Jon/Projects/GBCppClion/ops.cpp">
+			<Option target="GBCppClion"/>
+		</Unit>
+		<Unit filename="C:/Users/Jon/Projects/GBCppClion/opswitch.inc">
+			<Option target="GBCppClion"/>
+		</Unit>
+		<Unit filename="C:/Users/Jon/Projects/GBCppClion/ppu.cpp">
+			<Option target="GBCppClion"/>
+		</Unit>
+		<Unit filename="C:/Users/Jon/Projects/GBCppClion/utils.cpp">
 			<Option target="GBCppClion"/>
 		</Unit>
 		<Unit filename="C:/Users/Jon/Projects/GBCppClion/CMakeLists.txt">
