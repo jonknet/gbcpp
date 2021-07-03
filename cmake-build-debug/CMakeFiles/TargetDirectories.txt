@@ -1,0 +1,3 @@
+C:/Users/Jon/Projects/GBCppClion/cmake-build-debug/CMakeFiles/GBCppClion.dir
+C:/Users/Jon/Projects/GBCppClion/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/Jon/Projects/GBCppClion/cmake-build-debug/CMakeFiles/rebuild_cache.dir
