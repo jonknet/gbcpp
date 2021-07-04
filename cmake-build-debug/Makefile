@@ -42,19 +42,19 @@ NULL=nul
 SHELL = cmd.exe
 
 # The CMake executable.
-CMAKE_COMMAND = "E:\Program Files\JetBrains\CLion 2020.3.1\bin\cmake\win\bin\cmake.exe"
+CMAKE_COMMAND = "C:\Program Files\JetBrains\CLion 2021.1.2\bin\cmake\win\bin\cmake.exe"
 
 # The command to remove a file.
-RM = "E:\Program Files\JetBrains\CLion 2020.3.1\bin\cmake\win\bin\cmake.exe" -E rm -f
+RM = "C:\Program Files\JetBrains\CLion 2021.1.2\bin\cmake\win\bin\cmake.exe" -E rm -f
 
 # Escaping for special characters.
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = E:\Documents\Projects\GBCppClion
+CMAKE_SOURCE_DIR = "C:\Users\Jon\Resilio Sync\Documents\Projects\GBCppClion"
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = E:\Documents\Projects\GBCppClion\cmake-build-debug
+CMAKE_BINARY_DIR = "C:\Users\Jon\Resilio Sync\Documents\Projects\GBCppClion\cmake-build-debug"
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -62,7 +62,7 @@ CMAKE_BINARY_DIR = E:\Documents\Projects\GBCppClion\cmake-build-debug
 # Special rule for the target edit_cache
 edit_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
-	echo >nul && "E:\Program Files\JetBrains\CLion 2020.3.1\bin\cmake\win\bin\cmake.exe" -E echo "No interactive CMake dialog available."
+	echo >nul && "C:\Program Files\JetBrains\CLion 2021.1.2\bin\cmake\win\bin\cmake.exe" -E echo "No interactive CMake dialog available."
 .PHONY : edit_cache
 
 # Special rule for the target edit_cache
@@ -73,7 +73,7 @@ edit_cache\fast: edit_cache
 # Special rule for the target rebuild_cache
 rebuild_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
-	echo >nul && "E:\Program Files\JetBrains\CLion 2020.3.1\bin\cmake\win\bin\cmake.exe" --regenerate-during-build -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+	echo >nul && "C:\Program Files\JetBrains\CLion 2021.1.2\bin\cmake\win\bin\cmake.exe" --regenerate-during-build -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
 .PHONY : rebuild_cache
 
 # Special rule for the target rebuild_cache
@@ -83,9 +83,9 @@ rebuild_cache\fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start E:\Documents\Projects\GBCppClion\cmake-build-debug\CMakeFiles E:\Documents\Projects\GBCppClion\cmake-build-debug\\CMakeFiles\progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start "C:\Users\Jon\Resilio Sync\Documents\Projects\GBCppClion\cmake-build-debug\CMakeFiles" "C:\Users\Jon\Resilio Sync\Documents\Projects\GBCppClion\cmake-build-debug\\CMakeFiles\progress.marks"
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 /nologo -$(MAKEFLAGS) all
-	$(CMAKE_COMMAND) -E cmake_progress_start E:\Documents\Projects\GBCppClion\cmake-build-debug\CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start "C:\Users\Jon\Resilio Sync\Documents\Projects\GBCppClion\cmake-build-debug\CMakeFiles" 0
 .PHONY : all
 
 # The main clean target
@@ -152,6 +152,33 @@ cpu.s: cpu.cpp.s
 cpu.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\GBCppClion.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\GBCppClion.dir\cpu.cpp.s
 .PHONY : cpu.cpp.s
+
+cpuimpl.obj: cpuimpl.cpp.obj
+
+.PHONY : cpuimpl.obj
+
+# target to build an object file
+cpuimpl.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\GBCppClion.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\GBCppClion.dir\cpuimpl.cpp.obj
+.PHONY : cpuimpl.cpp.obj
+
+cpuimpl.i: cpuimpl.cpp.i
+
+.PHONY : cpuimpl.i
+
+# target to preprocess a source file
+cpuimpl.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\GBCppClion.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\GBCppClion.dir\cpuimpl.cpp.i
+.PHONY : cpuimpl.cpp.i
+
+cpuimpl.s: cpuimpl.cpp.s
+
+.PHONY : cpuimpl.s
+
+# target to generate assembly for a file
+cpuimpl.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\GBCppClion.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\GBCppClion.dir\cpuimpl.cpp.s
+.PHONY : cpuimpl.cpp.s
 
 helpers.obj: helpers.cpp.obj
 
@@ -233,33 +260,6 @@ mm.s: mm.cpp.s
 mm.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\GBCppClion.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\GBCppClion.dir\mm.cpp.s
 .PHONY : mm.cpp.s
-
-oplookup.obj: oplookup.cpp.obj
-
-.PHONY : oplookup.obj
-
-# target to build an object file
-oplookup.cpp.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\GBCppClion.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\GBCppClion.dir\oplookup.cpp.obj
-.PHONY : oplookup.cpp.obj
-
-oplookup.i: oplookup.cpp.i
-
-.PHONY : oplookup.i
-
-# target to preprocess a source file
-oplookup.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\GBCppClion.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\GBCppClion.dir\oplookup.cpp.i
-.PHONY : oplookup.cpp.i
-
-oplookup.s: oplookup.cpp.s
-
-.PHONY : oplookup.s
-
-# target to generate assembly for a file
-oplookup.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\GBCppClion.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\GBCppClion.dir\oplookup.cpp.s
-.PHONY : oplookup.cpp.s
 
 ops.obj: ops.cpp.obj
 
@@ -354,6 +354,9 @@ help:
 	@echo ... cpu.obj
 	@echo ... cpu.i
 	@echo ... cpu.s
+	@echo ... cpuimpl.obj
+	@echo ... cpuimpl.i
+	@echo ... cpuimpl.s
 	@echo ... helpers.obj
 	@echo ... helpers.i
 	@echo ... helpers.s
@@ -363,9 +366,6 @@ help:
 	@echo ... mm.obj
 	@echo ... mm.i
 	@echo ... mm.s
-	@echo ... oplookup.obj
-	@echo ... oplookup.i
-	@echo ... oplookup.s
 	@echo ... ops.obj
 	@echo ... ops.i
 	@echo ... ops.s

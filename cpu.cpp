@@ -1,4 +1,6 @@
 #include "stddefs.h"
+#include "cpu.h"
+#include "mm.h"
 
 using namespace CpuNS;
 
@@ -17,7 +19,7 @@ Cpu::Cpu() : s{ 0 }
 	s.stopped = false;
 	s.running = false;
 }
-Cpu::Cpu(MemMgr* mm) : Cpu()
+Cpu::Cpu(MemNS::MemMgr* mm) : Cpu()
 {
 	if (mm == nullptr)
 	{ static_assert(true); }

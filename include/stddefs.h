@@ -1,9 +1,8 @@
-#include "mm.h"
-#include "cpu.h"
-#include "ppu.h"
-#include "ops.h"
-#include "spdlog/spdlog.h"
+#pragma once
+#ifndef __STDDEFS__H
+#define __STDDEFS__H
 
+#include <array>
 
 	typedef unsigned char u8;
 
@@ -30,3 +29,4 @@
 		int length;
 	};
 
+#endif

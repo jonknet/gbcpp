@@ -1,8 +1,10 @@
-#ifndef MM_H
-#define MM_H
+#pragma once
+#ifndef __MM__H
+#define __MM__H
 
 #include "stddefs.h"
 #include <string>
+#include <array>
 
 namespace MemNS {
 	enum memory_regions {
@@ -103,4 +105,5 @@ namespace MemNS {
 
 	extern MemMgr* memmgr;
 }
+
 #endif

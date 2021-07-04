@@ -1,15 +1,23 @@
 #pragma once
-#include "mm.h"
+#ifndef __PPU__H
+#define __PPU__H
+
+#include "stddefs.h"
 #include "SDL2/SDL.h"
 
-class Ppu
+namespace PpuNS
 {
-private:
-	SDL_Texture* sdl_tex;
-public:
-	Ppu(SDL_Texture* tex = nullptr);
-	void settexture(SDL_Texture* tex);
-	void draw();
-};
+	class Ppu
+	{
+	private:
+		SDL_Texture* sdl_tex;
+	public:
+		Ppu(SDL_Texture* tex = nullptr);
+		void settexture(SDL_Texture* tex);
+		void draw();
+	};
 
-extern Ppu* ppu;
+	extern Ppu* ppu;
+}
+
+#endif

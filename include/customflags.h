@@ -1,4 +1,7 @@
 #pragma once
+#ifndef __CUSTOMFLAGS__H
+#define __CUSTOMFLAGS__H
+
 #include "spdlog/pattern_formatter.h"
 #include "cpu.h"
 #include <cstdio>
@@ -46,3 +49,5 @@ public:
         return spdlog::details::make_unique<stack_flag>();
     }
 };
+
+#endif

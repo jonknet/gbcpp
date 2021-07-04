@@ -1,4 +1,7 @@
 #include "stddefs.h"
+#include "spdlog/spdlog.h"
+#include "mm.h"
+#include <cassert>
 #include <fstream>
 #include <filesystem>
 
@@ -42,7 +45,7 @@ void MemMgr::init() {
 
 }
 
-u8 &MemMgr::operator[](int i) {
+u8 &MemMgr::operator[](std::size_t i) {
     assert(i >= 0 && i <= 0xFFFF);
     if (i < 256 && mem[BOOT] == 0) {
         return const_cast<u8 &>(BOOT_ROM[i]);
