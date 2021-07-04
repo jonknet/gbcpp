@@ -1,64 +1,65 @@
-#include "cpu.h"
-#include "mm.h"
-#include "ops.h"
+#include "stddefs.h"
 
-Cpu::Cpu() {
+using namespace CpuNS;
+
+Cpu::Cpu() : s{ 0 }
+{
+	af = 0x01B0;
+	bc = 0x0013;
+	de = 0x00D8;
+	hl = 0x014D;
+	pc = 0;
+	sp = 0xFFFE;
+	s.ime = true;
+	s.cycles = 0;
+	s.lastop = -1;
+	s.halted = false;
+	s.stopped = false;
+	s.running = false;
+}
+Cpu::Cpu(MemMgr* mm) : Cpu()
+{
+	if (mm == nullptr)
+	{ static_assert(true); }
+	if (m == nullptr)
+	{ m = mm; }
+}
+void Cpu::run()
+{
+	s.running = true;
+}
+void Cpu::pause()
+{
+	s.running = false;
+}
+void Cpu::sethalt(bool h)
+{
+	s.halted = h;
+}
+void Cpu::setstop(bool st)
+{
+	s.stopped = st;
+}
+void Cpu::reset()
+{
 	init();
 }
-
-void Cpu::init() {
-	*R.af = 0x01B0;
-	*R.bc = 0x0013;
-	*R.de = 0x00D8;
-	*R.hl = 0x014D;
-	*R.pc = 0;
-	*R.sp = 0xFFFE;
-	ime = true;
-	cycles = 0;
-	lastop = -1;  
-	halted = false;
-	stopped = false;
-	running = false;
+State& Cpu::getstate()
+{
+	return s;
 }
-
-void Cpu::run() {
-	running = true;
-}
-
-void Cpu::pause() {
-	running = false;
-}
-
-void Cpu::sethalt(bool h) {
-	halted = h;
-}
-
-void Cpu::setstop(bool s) {
-	stopped = s;
-}
-
-void Cpu::reset() {
-	init();
-}
-
-s16 Cpu::getlastop() {
-	return lastop;
-}
-CpuState Cpu::getstate() {
-	CpuState state = { _af,_bc,_de,_hl,_pc,_sp };
-	return state;
-}
-
-void Cpu::exec() {
-	lastop = mm[_pc];
+#define mm (*memmgr)
+void Cpu::exec()
+{
+	s.lastop = mm[0];
 	//spdlog::info("OP{0:x} PC{1:x}", mm[_pc], _pc);
 
-	#include "opswitch.inc"
-
-	_pc += ((mm[_pc] != 0xCB) ? opDefinesTbl[mm[_pc]].length : cbDefinesTbl[mm[_pc + 1]].length);
-
-	cycles += ((mm[_pc] != 0xCB) ? opDefinesTbl[mm[_pc]].cycles[0] : cbDefinesTbl[mm[_pc + 1]].cycles[0]);
-	
+	lookup_and_execute();
+	_pc += ((*mm[_pc] != 0xCB) ? opDefinesTbl[*mm[_pc]].length : cbDefinesTbl[*mm[_pc + 1]].length);
+	cycles += ((*mm[_pc] != 0xCB) ? opDefinesTbl[*mm[_pc]].cycles[0] : cbDefinesTbl[*mm[_pc + 1]].cycles[0]);
 }
-
-Cpu* cpu;
+Registers& Cpu::getregisters()
+{
+	return r;
+}
+static Cpu* cpu{ nullptr };

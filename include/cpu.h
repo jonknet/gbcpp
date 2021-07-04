@@ -1,55 +1,39 @@
-#pragma once
+#ifndef CPU_H
+#define CPU_H
 
 #include "stddefs.h"
-#include "ops.h"
+using namespace CpuNS;
+namespace CpuNS {
+	/*
+	#define ZCHK(num) ((num == 0) ? SET(*R.f,ZBIT) : CLR(*R.f,ZBIT))
+	#define HCHKADD(num, op) (((num & 0xF) + op > 0xF) ? SET(*R.f,HBIT) : CLR(*R.f,HBIT))
+	#define HCHKSUB(num, op) (((num & 0xF) < op) ? SET(*R.f,HBIT) : CLR(*R.f,HBIT))
+	#define HCHKADD16(num, op) (((((u16)num & 0xFF) + (u16)op) > 0xFF) ? SET(*R.f,HBIT) : CLR(*R.f,HBIT))
+	#define HCHKSUB16(num, op) (((num & 0xFF) < op) ? SET(*R.f,HBIT) : CLR(*R.f,HBIT))
+	#define CYCHKADD(num, op) (((u16)num + (u16)op > 0xFF) ? SET(*R.f,CBIT) : CLR(*R.f,CBIT))
+	#define CYCHKSUB(num, op) ((num < op) ? SET(*R.f,CBIT) : CLR(*R.f,CBIT))
+	#define CYCHKADD16(num, op) (((u32)num + (u32)op > 0xFFFF) ? SET(*R.f,CBIT) : CLR(*R.f,CBIT))
 
-
-
-#define ZCHK(num) ((num == 0) ? SET(*R.f,ZBIT) : CLR(*R.f,ZBIT))
-#define HCHKADD(num, op) (((num & 0xF) + op > 0xF) ? SET(*R.f,HBIT) : CLR(*R.f,HBIT))
-#define HCHKSUB(num, op) (((num & 0xF) < op) ? SET(*R.f,HBIT) : CLR(*R.f,HBIT))
-#define HCHKADD16(num, op) (((((u16)num & 0xFF) + (u16)op) > 0xFF) ? SET(*R.f,HBIT) : CLR(*R.f,HBIT))
-#define HCHKSUB16(num, op) (((num & 0xFF) < op) ? SET(*R.f,HBIT) : CLR(*R.f,HBIT))
-#define CYCHKADD(num, op) (((u16)num + (u16)op > 0xFF) ? SET(*R.f,CBIT) : CLR(*R.f,CBIT))
-#define CYCHKSUB(num, op) ((num < op) ? SET(*R.f,CBIT) : CLR(*R.f,CBIT))
-#define CYCHKADD16(num, op) (((u32)num + (u32)op > 0xFFFF) ? SET(*R.f,CBIT) : CLR(*R.f,CBIT))
-
-#define GET16 ((mm[(*R.pc)+2] << 8) | (mm[(*R.pc)+1]))
-#define GET8 ((mm[(*R.pc)+1]))
-#define POP8 (MM[(*R.sp)++])
-#define POP16 (mm[(*R.sp)++] | (mm[(*R.sp)++] << 8))
-#define PEEK8 (MM[(*R.sp)])
-#define PEEK16 (mm[(*R.sp)]) | (mm[(*R.sp)+1] << 8)
-#define PUSH8(val) (MM.set(--(*R.sp),val))
-#define PUSH16(val) { mm.set(--(*R.sp), (val & 0xFF00) >> 8); mm.set(--(*R.sp), val & 0xFF); }
-
-
-namespace Cpu
-{
-
-	enum Flags
-	{
-		Z = 0x80,
-		N = 0x40,
-		H = 0x20,
-		C = 0x10
+	#define GET16 ((mm[(*R.pc)+2] << 8) | (mm[(*R.pc)+1]))
+	#define GET8 ((mm[(*R.pc)+1]))
+	#define POP8 (MM[(*R.sp)++])
+	#define POP16 (mm[(*R.sp)++] | (mm[(*R.sp)++] << 8))
+	#define PEEK8 (MM[(*R.sp)])
+	#define PEEK16 (mm[(*R.sp)]) | (mm[(*R.sp)+1] << 8)
+	#define PUSH8(val) (MM.set(--(*R.sp),val))
+	#define PUSH16(val) { mm.set(--(*R.sp), (val & 0xFF00) >> 8); mm.set(--(*R.sp), val & 0xFF); }
+	*/
+	enum Flags {
+		Z = 0x80, N = 0x40, H = 0x20, C = 0x10
+	};
+	enum CheckOp {
+		none = 0, add = 1, sub = 2,
+	};
+	enum HelperType {
+		out = 1, in = 2
 	};
 
-	enum CheckOp
-	{
-		none = 0,
-		add = 1,
-		sub = 2,
-	};
-
-	enum HelperType
-	{
-		out = 1,
-		in = 2
-	};
-
-	typedef struct
-	{
+	typedef struct State {
 		cycles_t cycles;
 		bool ime;
 		bool running;
@@ -58,26 +42,15 @@ namespace Cpu
 		s16 lastop;
 	} State;
 
-
-
-
-
-	void _zero_chk(u16 v1, u16 v2 = 0){
-		if(v1) { return false; }
-		else { return true; }
-	}
-
-
-
-	class Registers
-	{
+	class Registers {
 	private:
-		u16 af_, bc_, de_, hl_, pc_, sp_ = { 0 };
+		u16 af_, bc_, de_, hl_, pc_, sp_;
 	public:
 		u16* af, * bc, * de, * hl, * pc, * sp;
 		u8* a, * f, * b, * c, * d, * e, * h, * l;
 
 		Registers()
+				:af_{ 0 }, bc_{ 0 }, de_{ 0 }, hl_{ 0 }, pc_{ 0 }, sp_{ 0 }
 		{
 			af = &af_;
 			bc = &bc_;
@@ -86,37 +59,45 @@ namespace Cpu
 			pc = &pc_;
 			sp = &sp_;
 			a = (u8*)(af);
-			f = (u8*)(af + 1);
+			f = (u8*)(af+1);
 			b = (u8*)(bc);
-			c = (u8*)(bc + 1);
+			c = (u8*)(bc+1);
 			d = (u8*)(de);
-			e = (u8*)(de + 1);
+			e = (u8*)(de+1);
 			h = (u8*)(hl);
-			l = (u8*)(hl + 1);
+			l = (u8*)(hl+1);
+			::a = *a;
+			::b = *b;
+			::c = *c;
+			::d = *d;
+			::e = *e;
+			::f = *f;
+			::af = *af;
+			::bc = *bc;
+			::de = *de;
+			::hl = *hl;
+			::sp = *sp;
+			::pc = *pc;
 		}
 	};
 
-	class Cpu
-	{
+	class Cpu {
 	private:
-		Registers r;
-		State s;
-		friend Opcodes;
-		void init();
+		ExeModuleImpl* impl;
 	public:
 		Cpu();
+		explicit Cpu(MemMgr* mm);
 		void exec();
 		void run();
 		void pause();
 		void sethalt(bool h);
 		void setstop(bool s);
 		void reset();
-		s16 getlastop();
-		const Registers& getregisters();
+		State& getstate();
+		Registers& getregisters();
 	};
 
 	extern Cpu* cpu;
-
 }
 
-
+#endif

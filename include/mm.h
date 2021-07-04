@@ -1,13 +1,11 @@
-#pragma once
+#ifndef MM_H
+#define MM_H
 
 #include "stddefs.h"
 #include <string>
 
-namespace MemoryMgr
-{
-
-	enum memory_regions
-	{
+namespace MemNS {
+	enum memory_regions {
 		ROM_16KB_00 = 0,
 		ROM_16KB_NN = 0x4000,
 		VRAM_8KB = 0x8000,
@@ -20,9 +18,7 @@ namespace MemoryMgr
 		IOREG_128B = 0xFF00,
 		HRAM_127B = 0xFF80
 	};
-
-	enum io_regs
-	{
+	enum io_regs {
 		P1 = 0xFF00,
 		SB = 0xFF01,
 		SC = 0xFF02,
@@ -69,7 +65,7 @@ namespace MemoryMgr
 		IE = 0xFFFF
 	};
 
-	static std::array<u8, 256> DMG_BOOT_ROM = {
+	const std::array<u8, 256> BOOT_ROM = {
 			0x31, 0xfe, 0xff, 0xaf, 0x21, 0xff, 0x9f, 0x32, 0xcb, 0x7c, 0x20, 0xfb,
 			0x21, 0x26, 0xff, 0x0e, 0x11, 0x3e, 0x80, 0x32, 0xe2, 0x0c, 0x3e, 0xf3,
 			0xe2, 0x32, 0x3e, 0x77, 0x77, 0x3e, 0xfc, 0xe0, 0x47, 0x11, 0x04, 0x01,
@@ -94,17 +90,17 @@ namespace MemoryMgr
 			0x3e, 0x01, 0xe0, 0x50
 	};
 
-	class MemMgr
-	{
+	class MemMgr {
 	private:
-		std::array<u8, 256> bootrom;
-		std::array<u8, 0x10000> mem{ 0 };
+		std::array<u8, 0x10000> mem;
+		void init();
 	public:
 		MemMgr();
 		u8& operator[](int i);
-		int load_rom(const std::string& filename);
+		std::array<u8, 0x10000>& data();
+		static int load_rom(const std::string& filename, MemMgr* mgr);
 	};
 
-	extern MemMgr* mm;
-
+	extern MemMgr* memmgr;
 }
+#endif

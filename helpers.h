@@ -5,33 +5,37 @@
 #ifndef GBCPPCLION_HELPERS_H
 #define GBCPPCLION_HELPERS_H
 
-#include <array>
 #include <stddefs.h>
-#include <cpu.h>
+#include <array>
 
-using BitHelper = bool ()(Cpu::Flags flag, u8& value);
-template<typename T> using CheckHelper = void ()(T value1, T value2);
-template<typename T> using MemoryHelper = T ()(std::array<T, 0x10000>& array);
+using namespace CpuNS;
 
-extern MemoryHelper<u8> 	get8,
-		pop8,
-		peek8,
-		push8;
-extern MemoryHelper<u16> 	get16,
-		pop16,
-		peek16,
-		push16;
+    template<typename T = u8> using BitHelper = bool (Flags flag, T &value);
+    template<typename T = u8> using CheckHelper = void (T value1, T value2);
+    template<typename T = u8> using MemoryHelper = T (std::array<u8, 0x10000> &array);
 
-extern BitHelper set,clr,get;
+    extern MemoryHelper<> get8,
+            pop8,
+            peek8,
+            push8;
 
-CheckHelper<u16> zero_check;
-CheckHelper<u8> halfcy_check_add;
-CheckHelper<u8> halfcy_check_sub;
-CheckHelper<u16> halfcy16_check_add;
-CheckHelper<u16> halfcy16_check_sub;
-CheckHelper<u8> carry_check_add;
-CheckHelper<u8> carry_check_sub;
-CheckHelper<u16> carry16_check_add;
-CheckHelper<u16> carry16_check_sub;
+    extern MemoryHelper<u16> get16,
+            pop16,
+            peek16,
+            push16;
+
+    extern BitHelper<> set, clr, get;
+
+    CheckHelper<> zero_check;
+    CheckHelper<> halfcy_check_add;
+    CheckHelper<> halfcy_check_sub;
+    CheckHelper<u16> halfcy16_check_add;
+    CheckHelper<u16> halfcy16_check_sub;
+    CheckHelper<> carry_check_add;
+    CheckHelper<> carry_check_sub;
+    CheckHelper<u16> carry16_check_add;
+    CheckHelper<u16> carry16_check_sub;
 
 #endif //GBCPPCLION_HELPERS_H
+
+

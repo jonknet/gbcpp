@@ -1,12 +1,9 @@
-#include "spdlog/spdlog.h"
+#include "stddefs.h"
 #include "spdlog/sinks/rotating_file_sink.h"
+#include "customflags.h"
 #include "argh.h"
-#include "mm.h"
-#include "cpu.h"
-#include "ppu.h"
 #include "SDL2/SDL.h"
 #include <string>
-#include "customflags.h"
 #include "utils.h"
 
 bool DEBUGMODE = false;
@@ -51,7 +48,7 @@ int main(int argc, char* argv[]) {
 	init_sdl(win, ren, tex, windebug, rendebug, texdebug);
 
 	// Init modules
-	mm = new MemMgr();
+	mm = new MemMgr(nullptr);
 	ppu = new Ppu(tex);
 	Cpu::cpu = new Cpu::Cpu();
 

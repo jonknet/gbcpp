@@ -2,13 +2,10 @@
 // Created by Jon on 7/3/2021.
 //
 
-#include "stddef.h"
+#include "stddefs.h"
 #include "helpers.h"
-#include "cpu.h"
 
-using namespace Cpu;
-
-
+using namespace CpuNS;
 
 bool set(Flags flag, u8& value){
 	value |= flag;
