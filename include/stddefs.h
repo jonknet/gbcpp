@@ -3,30 +3,22 @@
 #define __STDDEFS__H
 
 #include <array>
+#include <cstdint>
 
-	typedef unsigned char u8;
+using u8 = uint8_t;
+using u16 = uint16_t;
+using u32 = uint32_t;
+using u64 = uint64_t;
+using s8 = int8_t;
+using s16 = int16_t;
+using mem_t = std::array<u8, 0x10000>;
 
-	typedef unsigned short u16;
+static u8 null = 0;
+static u16 null16 = 0;
 
-	typedef unsigned int u32;
-
-	typedef signed char s8;
-
-	typedef signed short s16;
-
-	typedef unsigned short opc;
-
-	typedef unsigned long long cycles_t;
-
-	using gb_memory = std::array<u8, 0x10000>;
-
-	static u8 null = 0;
-
-	static u16 null16 = 0;
-
-	struct OpDef {
-		int cycles[2];
-		int length;
-	};
+struct OpDef {
+	int cycles[2];
+	int length;
+};
 
 #endif

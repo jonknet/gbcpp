@@ -1,67 +1,45 @@
 #include "stddefs.h"
 #include "cpu.h"
 #include "mm.h"
+#include <cassert>
 
-using namespace CpuNS;
+using namespace GBCPP;
 
-Cpu::Cpu() : s{ 0 }
+Cpu::Cpu(MemNS::MemMgr& mm)
 {
-	af = 0x01B0;
-	bc = 0x0013;
-	de = 0x00D8;
-	hl = 0x014D;
-	pc = 0;
-	sp = 0xFFFE;
-	s.ime = true;
-	s.cycles = 0;
-	s.lastop = -1;
-	s.halted = false;
-	s.stopped = false;
-	s.running = false;
-}
-Cpu::Cpu(MemNS::MemMgr* mm) : Cpu()
-{
-	if (mm == nullptr)
-	{ static_assert(true); }
-	if (m == nullptr)
-	{ m = mm; }
+	pImpl = new CpuImpl(mm);
 }
 void Cpu::run()
 {
-	s.running = true;
+	pImpl->state->running = true;
 }
 void Cpu::pause()
 {
-	s.running = false;
+	pImpl->state->running = false;
 }
 void Cpu::sethalt(bool h)
 {
-	s.halted = h;
+	pImpl->state->halted = h;
 }
 void Cpu::setstop(bool st)
 {
-	s.stopped = st;
+	pImpl->state->stopped = st;
 }
 void Cpu::reset()
 {
-	init();
+
 }
-State& Cpu::getstate()
+StateType Cpu::getstate()
 {
-	return s;
+	return *pImpl->state;
 }
 #define mm (*memmgr)
 void Cpu::exec()
 {
-	s.lastop = mm[0];
 	//spdlog::info("OP{0:x} PC{1:x}", mm[_pc], _pc);
-
-	lookup_and_execute();
-	_pc += ((*mm[_pc] != 0xCB) ? opDefinesTbl[*mm[_pc]].length : cbDefinesTbl[*mm[_pc + 1]].length);
-	cycles += ((*mm[_pc] != 0xCB) ? opDefinesTbl[*mm[_pc]].cycles[0] : cbDefinesTbl[*mm[_pc + 1]].cycles[0]);
+	pImpl->lookup_and_execute();
 }
-Registers& Cpu::getregisters()
+Registers Cpu::getregisters()
 {
-	return r;
+	return *pImpl->reg;
 }
-static Cpu* cpu{ nullptr };

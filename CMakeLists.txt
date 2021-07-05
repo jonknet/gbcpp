@@ -5,6 +5,6 @@ set(CMAKE_CXX_STANDARD 17)
 
 include_directories(include)
 
-set(SOURCE_FILES main.cpp cpu.cpp mm.cpp ops.cpp ppu.cpp utils.cpp helpers.cpp cpuimpl.cpp)
+set(SOURCE_FILES main.cpp cpu.cpp mm.cpp ops.cpp ppu.cpp utils.cpp cpuimpl.cpp)
 
 add_executable(GBCppClion ${SOURCE_FILES})

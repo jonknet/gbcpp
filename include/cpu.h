@@ -7,18 +7,19 @@
 #include "mm.h"
 #include "cpuimpl.h"
 
-namespace CpuNS
+namespace GBCPP
 {
 
-	typedef struct
+	struct StateType
 	{
-		cycles_t cycles;
+		u64 cycles;
 		bool ime;
 		bool running;
 		bool halted;
 		bool stopped;
 		s16 lastop;
-	} StateType;
+		StateType() : cycles(0), ime(true), running(false), halted(false), stopped(false), lastop(0) {};
+	};
 
 	enum Flags
 	{
@@ -33,9 +34,6 @@ namespace CpuNS
 		out = 1, in = 2
 	};
 
-
-
-
 	class Registers
 	{
 	private:
@@ -45,7 +43,7 @@ namespace CpuNS
 		u8* a, * f, * b, * c, * d, * e, * h, * l;
 
 		Registers()
-				:af_{ 0 }, bc_{ 0 }, de_{ 0 }, hl_{ 0 }, pc_{ 0 }, sp_{ 0 }
+				:af_{ 0x01B0 }, bc_{ 0x0013 }, de_{ 0x00D8 }, hl_{ 0x014D }, pc_{ 0 }, sp_{ 0xFFFE }
 		{
 			af = &af_;
 			bc = &bc_;
@@ -67,21 +65,18 @@ namespace CpuNS
 	class Cpu
 	{
 	private:
-		CpuImplNS::CpuImpl* pCpuImpl {};
+		CpuImpl* pImpl;
 	public:
-		Cpu();
-		explicit Cpu(MemNS::MemMgr* mm);
+		explicit Cpu(MemNS::MemMgr& mm);
 		void exec();
 		void run();
 		void pause();
 		void sethalt(bool h);
 		void setstop(bool s);
 		void reset();
-		StateType& getstate();
-		Registers& getregisters();
+		StateType getstate();
+		Registers getregisters();
 	};
-
-	extern Cpu* cpu;
 
 }
 

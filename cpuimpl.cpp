@@ -6,21 +6,22 @@
 #include "cpuimpl.h"
 #include "cpu.h"
 #include "mm.h"
+#include "ops.h"
 
-using namespace CpuImplNS;
+using namespace GBCPP;
 
-CpuImpl::CpuImpl(CpuNS::Registers& r, CpuNS::StateType& s, MemNS::MemMgr& m) : s(s), r(r),
-										a(*r.a),b(*r.b),c(*r.c),d(*r.d),e(*r.e),h(*r.h),l(*r.l),f(*r.f),
-										af(*r.af),bc(*r.bc),de(*r.de),hl(*r.hl),sp(*r.sp),pc(*r.pc){
-	this->m = m;
+CpuImpl::CpuImpl(MemNS::MemMgr& mem_mgr) :	reg(), state(), a(*reg->a), b(*reg->b), c(*reg->c), d(*reg->d), e(*reg->e), h(*reg->h), l(*reg->l), f(*reg->f),
+											af(*reg->af), bc(*reg->bc), de(*reg->de), hl(*reg->hl), sp(*reg->sp), pc(*reg->pc) {
+	CpuImpl::m = mem_mgr;
 }
 
 void CpuImpl::lookup_and_execute()
 {
-	switch (m[pc])
+	state->lastop = m[pc];
+	switch (state->lastop)
 	{
 		case 0x00:break;
-		case 0x01:ld16(bc, GET16);
+		case 0x01:ld16(bc, get16(pc+1));
 			break;
 		case 0x02:ld_i(bc);
 			break;
@@ -30,11 +31,11 @@ void CpuImpl::lookup_and_execute()
 			break;
 		case 0x05:dec(b);
 			break;
-		case 0x06:ld(b, GET8);
+		case 0x06:ld(b, get8(pc+1));
 			break;
 		case 0x07:rlca();
 			break;
-		case 0x08:mm[GET16] = (_sp & 0xFF);
+		case 0x08:m[get16(pc+1)] = (sp & 0xFF); m[get16(pc+2)] = (sp & 0xFF00) >> 8;
 			break;
 		case 0x09:add16(bc);
 			break;
@@ -46,13 +47,13 @@ void CpuImpl::lookup_and_execute()
 			break;
 		case 0x0D:dec(c);
 			break;
-		case 0x0E:ld(c, GET8);
+		case 0x0E:ld(c, get8(pc+1));
 			break;
 		case 0x0F:rrca();
 			break;
-		case 0x10:stopped = true;
+		case 0x10:state->stopped = true;
 			break;
-		case 0x11:ld16(de, GET16);
+		case 0x11:ld16(de, get16(pc+1));
 			break;
 		case 0x12:ld_i(de);
 			break;
@@ -62,7 +63,7 @@ void CpuImpl::lookup_and_execute()
 			break;
 		case 0x15:dec(d);
 			break;
-		case 0x16:ld(d, GET8);
+		case 0x16:ld(d, get8(pc+1));
 			break;
 		case 0x17:rla();
 			break;
@@ -78,16 +79,16 @@ void CpuImpl::lookup_and_execute()
 			break;
 		case 0x1D:dec(e);
 			break;
-		case 0x1E:ld(&e, GET8);
+		case 0x1E:ld(e, get8(pc+1));
 			break;
 		case 0x1F:rra();
 			break;
-		case 0x20:jr(!(GET(_f, ZBIT)));
+		case 0x20:jr(!getf(Z));
 			break;
-		case 0x21:ld16(hl, GET16);
+		case 0x21:ld16(hl, get16(pc+1));
 			break;
 		case 0x22:ld_i(hl);
-			(_hl)++;
+			hl++;
 			break;
 		case 0x23:inc16(hl);
 			break;
@@ -95,16 +96,16 @@ void CpuImpl::lookup_and_execute()
 			break;
 		case 0x25:dec(h);
 			break;
-		case 0x26:ld(h, GET8);
+		case 0x26:ld(h, get8(pc+1));
 			break;
 		case 0x27:daa();
 			break;
-		case 0x28:jr(GET(_f, ZBIT));
+		case 0x28:jr(getf(Z));
 			break;
-		case 0x29:add16(_hl);
+		case 0x29:add16(hl);
 			break;
-		case 0x2A:ld(a, _hl);
-			(_hl)++;
+		case 0x2A:ld(a, hl);
+			(hl)++;
 			break;
 		case 0x2B:dec16(hl);
 			break;
@@ -112,18 +113,18 @@ void CpuImpl::lookup_and_execute()
 			break;
 		case 0x2D:dec(l);
 			break;
-		case 0x2E:ld(l, GET8);
+		case 0x2E:ld(l, get8(pc+1));
 			break;
-		case 0x2F:_a = ~_a;
-			SET(_f, NBIT);
-			SET(_f, HBIT);
+		case 0x2F:a = ~a;
+			setf(N);
+			setf(H);
 			break;
-		case 0x30:jr(!GET(_f, CBIT));
+		case 0x30:jr(!getf(C));
 			break;
-		case 0x31:ld16(sp, GET16);
+		case 0x31:ld16(sp, get16(pc+1));
 			break;
 		case 0x32:ld_i(hl);
-			(_hl)--;
+			(hl)--;
 			break;
 		case 0x33:inc16(sp);
 			break;
@@ -131,13 +132,13 @@ void CpuImpl::lookup_and_execute()
 			break;
 		case 0x35:dec(m[hl]);
 			break;
-		case 0x36:ld(m[hl], GET8);
+		case 0x36:ld(m[hl], get8(pc+1));
 			break;
-		case 0x37:SET(_f, CBIT);
-			CLR(_f, NBIT);
-			CLR(_f, HBIT);
+		case 0x37:setf(C);
+		clrf(N);
+		clrf(H);
 			break;
-		case 0x38:jr(GET(_f, CBIT));
+		case 0x38:jr(getf(C)); 
 			break;
 		case 0x39:add16(sp);
 			break;
@@ -150,7 +151,7 @@ void CpuImpl::lookup_and_execute()
 			break;
 		case 0x3D:dec(a);
 			break;
-		case 0x3E:ld(a, GET8);
+		case 0x3E:ld(a, get8(pc+1));
 			break;
 		case 0x3F:ccf();
 			break;
@@ -262,7 +263,7 @@ void CpuImpl::lookup_and_execute()
 			break;
 		case 0x75:ld(m[hl], l);
 			break;
-		case 0x76: s.halted = true;
+		case 0x76: state->halted = true;
 			break;
 		case 0x77:ld(m[hl], a);
 			break;
@@ -410,27 +411,27 @@ void CpuImpl::lookup_and_execute()
 			break;
 		case 0xBF:cp(a);
 			break;
-		case 0xC0:ret(!GET(_f, ZBIT));
+		case 0xC0:ret(!getf(Z));
 			break;
 		case 0xC1:pop(bc);
 			break;
-		case 0xC2:jp(!(GET(_f, ZBIT)));
+		case 0xC2:jp(!(getf(Z)));
 			break;
 		case 0xC3:jp(true);
 			break;
-		case 0xC4:call(!GET(_f, ZBIT));
+		case 0xC4:call(!getf(Z));
 			break;
-		case 0xC5:push(_bc);
+		case 0xC5:push(bc);
 			break;
-		case 0xC6:add(GET8);
+		case 0xC6:add(get8(pc+1));
 			break;
 		case 0xC7:rst(0x00);
 			break;
-		case 0xC8:ret(GET(_f, ZBIT));
+		case 0xC8:ret(getf(Z));
 			break;
 		case 0xC9:ret(true);
 			break;
-		case 0xCA:jp(GET(_f, ZBIT));
+		case 0xCA:jp(getf(Z));
 			break;
 		case 0xCB:
 			switch (m[pc + 1])
@@ -947,47 +948,47 @@ void CpuImpl::lookup_and_execute()
 					break;
 				case 0xFF:set(a, 7);
 					break;
-				default:spdlog::warn("Unknown CB opcode {0:x}", mm[_pc + 1]);
+				default:spdlog::warn("Unknown CB opcode {0:x}", m[pc + 1]);
 					assert(0);
 			}
 			break;
-		case 0xCC:call(GET(_f, ZBIT));
+		case 0xCC:call(getf(Z));
 			break;
 		case 0xCD:call(true);
 			break;
-		case 0xCE:adc(GET8);
+		case 0xCE:adc(get8(pc+1));
 			break;
 		case 0xCF:rst(0x08);
 			break;
-		case 0xD0:ret(!GET(_f, CBIT));
+		case 0xD0:ret(!getf(C));
 			break;
 		case 0xD1:pop(de);
 			break;
-		case 0xD2:jp(!(GET(_f, CBIT)));
+		case 0xD2:jp(!(getf(C)));
 			break;
-		case 0xD4:call(!GET(_f, CBIT));
+		case 0xD4:call(!getf(C));
 			break;
 		case 0xD5:push(de);
 			break;
-		case 0xD6:sub(GET8);
+		case 0xD6:sub(get8(pc+1));
 			break;
 		case 0xD7:rst(0x10);
 			break;
-		case 0xD8:ret(GET(_f, CBIT));
+		case 0xD8:ret(getf(C));
 			break;
 		case 0xD9:spdlog::info("RETI");
-			pc = POP16 - 1;
+			pc = pop16() - 1;
 // Handle end of interrupt
 			break;
-		case 0xDA:jp(GET(_f, CBIT));
+		case 0xDA:jp(getf(C));
 			break;
-		case 0xDC:call(GET(_f, CBIT));
+		case 0xDC:call(getf(C));
 			break;
-		case 0xDE:sbc(GET8);
+		case 0xDE:sbc(get8(pc+1));
 			break;
 		case 0xDF:rst(0x18);
 			break;
-		case 0xE0:ld(&mm[GET8 + 0xFF00], _a);
+		case 0xE0:ld(m[get8(pc+1) + 0xFF00], a);
 			break;
 		case 0xE1:pop(hl);
 			break;
@@ -995,55 +996,58 @@ void CpuImpl::lookup_and_execute()
 			break;
 		case 0xE5:push(hl);
 			break;
-		case 0xE6:_and(GET8);
+		case 0xE6:_and(get8(pc+1));
 			break;
 		case 0xE7:rst(0x20);
 			break;
-		case 0xE8:HCHKADD16(_sp, (signed)GET8);
-			CYCHKADD16(_sp, (signed)GET8);
-			_sp += (signed)GET8;
-			ZCHK(_sp);
-			CLR(_f, NBIT);
+		case 0xE8:half_carry_check_add16(sp, (signed)get8(pc+1));
+			carry_check_add16(sp, (signed)get8(pc+1));
+			sp += (signed)get8(pc+1);
+			zero_check(sp);
+		clrf(N);
 			break;
 		case 0xE9:jp(m[hl]);
 			break;
-		case 0xEA:ld(&mm[GET16], _a);
+		case 0xEA:ld(m[get16(pc+1)], a);
 			break;
-		case 0xEE:_xor(GET8);
+		case 0xEE:_xor(get8(pc+1));
 			break;
 		case 0xEF:rst(0x28);
 			break;
-		case 0xF0:ld(a, mm[GET8 + 0xFF00]);
+		case 0xF0:ld(a, m[get8(pc+1) + 0xFF00]);
 			break;
 		case 0xF1:pop(af);
 			break;
 		case 0xF2:ld(a, m[c]);
 			break;
-		case 0xF3:s.ime = false;
+		case 0xF3:state->ime = false;
 			break;
 		case 0xF5:push(af);
 			break;
-		case 0xF6:_or(GET8);
+		case 0xF6:_or(get8(pc+1));
 			break;
 		case 0xF7:rst(0x30);
 			break;
-		case 0xF8:HCHKADD(_sp, (signed)GET8);
-			CYCHKADD(_sp, (signed)GET8);
-			_hl = _sp + (signed)GET8;
-			CLR(_f, ZBIT);
-			CLR(_f, NBIT);
+		case 0xF8:half_carry_check_add(sp, (signed)get8(pc+1));
+			carry_check_add(sp, (signed)get8(pc+1));
+			hl = sp + (signed)get8(pc+1);
+		clrf(Z);
+		clrf(Z);
 			break;
 		case 0xF9:ld16(sp, hl);
 			break;
-		case 0xFA:ld(a, mm[GET16]);
+		case 0xFA:ld(a, m[get16(pc+1)]);
 			break;
-		case 0xFB:s.ime = true;
+		case 0xFB:state->ime = true;
 			break;
-		case 0xFE:cp(GET8);
+		case 0xFE:cp(get8(pc+1));
 			break;
 		case 0xFF:rst(0x38);
 			break;
 		default:spdlog::error("Unknown opcode {0:x}", m[pc]);
 			assert(0);
 	}
+
+	pc += ((m[pc] != 0xCB) ? OpsNS::opDefinesTbl[m[pc]].length : OpsNS::cbDefinesTbl[m[pc + 1]].length);
+	state->cycles += ((m[pc] != 0xCB) ? OpsNS::opDefinesTbl[m[pc]].cycles[0] : OpsNS::cbDefinesTbl[m[pc + 1]].cycles[0]);
 }

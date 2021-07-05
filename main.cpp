@@ -1,10 +1,14 @@
 #include "stddefs.h"
+#include "spdlog/spdlog.h"
 #include "spdlog/sinks/rotating_file_sink.h"
 #include "customflags.h"
 #include "argh.h"
 #include "SDL2/SDL.h"
-#include <string>
 #include "utils.h"
+#include "mm.h"
+#include "cpu.h"
+#include "ppu.h"
+#include <string>
 
 bool DEBUGMODE = false;
 
@@ -48,11 +52,12 @@ int main(int argc, char* argv[]) {
 	init_sdl(win, ren, tex, windebug, rendebug, texdebug);
 
 	// Init modules
-	mm = new MemMgr(nullptr);
-	ppu = new Ppu(tex);
-	Cpu::cpu = new Cpu::Cpu();
 
-	if (mm->load_rom(rom)) {
+	auto* mem = new MemNS::MemMgr();
+	auto* ppu = new PpuNS::Ppu();
+	auto* cpu = new GBCPP::Cpu(*mem);
+
+	if (MemNS::MemMgr::load_rom(rom,mem)) {
 		cleanup_sdl(tex, ren, win, texdebug, rendebug, windebug);
 		SDL_Quit();
 		return 2;

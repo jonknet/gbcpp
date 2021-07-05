@@ -71,4 +71,4 @@ int MemMgr::load_rom(const std::string &filename, MemMgr *mgr) {
     return -1;
 }
 
-static MemMgr *memmgr{nullptr};
+

@@ -98,12 +98,11 @@ namespace MemNS {
 		void init();
 	public:
 		MemMgr();
-		u8& operator[](int i);
+		u8& operator[](std::size_t i);
 		std::array<u8, 0x10000>& data();
 		static int load_rom(const std::string& filename, MemMgr* mgr);
 	};
 
-	extern MemMgr* memmgr;
 }
 
 #endif
