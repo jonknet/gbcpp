@@ -1,1 +1,3 @@
-/cmake-build-debug/CMakeFiles/GBCppClion.dir/vc140.pdb.rsls
+*.rsls
+cmake-build-debug
+.idea

@@ -1,7 +1,6 @@
 #include "stddefs.h"
 #include "spdlog/spdlog.h"
 #include "spdlog/sinks/rotating_file_sink.h"
-#include "customflags.h"
 #include "argh.h"
 #include "SDL2/SDL.h"
 #include "utils.h"
@@ -10,17 +9,23 @@
 #include "ppu.h"
 #include <string>
 
-bool DEBUG = false;
-
 using namespace GBCPP;
+
+namespace GBCPP
+{
+	bool DEBUG = false;
+
+	MemMgr* mem = new MemMgr();
+	Ppu* ppu = new Ppu();
+	Cpu* cpu = new Cpu(*mem);
+}
 
 int main(int argc, char *argv[]) {
 
   // Logger
 
   auto formatter = std::make_unique<spdlog::pattern_formatter>();
-  formatter->add_flag<registers_flag>('r').add_flag<stack_flag>('s').add_flag<opcode_flag>('*');
-  formatter->set_pattern("[%T:%e] [%L] [%*] %v [%r] [%s]");
+  formatter->set_pattern("[%T:%e] [%L] [%*] %v");
   spdlog::set_formatter(std::move(formatter));
 
   auto max_size = 1048576*10;
@@ -55,10 +60,6 @@ int main(int argc, char *argv[]) {
   init_sdl(win, ren, tex, windebug, rendebug, texdebug);
 
   // Init modules
-
-  auto *mem = new GBCPP::MemMgr();
-  auto *ppu = new GBCPP::Ppu();
-  auto *cpu = new GBCPP::Cpu(*mem);
 
   if (GBCPP::MemMgr::load_rom(rom, mem)) {
 	cleanup_sdl(tex, ren, win, texdebug, rendebug, windebug);

@@ -10,14 +10,14 @@
 
 using namespace GBCPP;
 
-CpuImpl::CpuImpl(GBCPP::MemMgr &mem_mgr)
-	: reg(), state(), a(*reg->a), b(*reg->b), c(*reg->c), d(*reg->d), e(*reg->e), h(*reg->h), l(*reg->l), f(*reg->f),
+CpuImpl::CpuImpl(GBCPP::MemMgr* mem_mgr)
+	: reg(), state(), m(mem_mgr), a(*reg->a), b(*reg->b), c(*reg->c), d(*reg->d), e(*reg->e), h(*reg->h), l(*reg->l), f(*reg->f),
 	  af(*reg->af), bc(*reg->bc), de(*reg->de), hl(*reg->hl), sp(*reg->sp), pc(*reg->pc) {
-  CpuImpl::m = mem_mgr;
 }
 
 void CpuImpl::lookup_and_execute() {
-  state->lastop = m[pc];
+
+  state->lastop = (*m)[pc];
   switch (state->lastop) {
   case 0x00:break;
   case 0x01:ld16(bc, get16(pc + 1));
@@ -34,12 +34,12 @@ void CpuImpl::lookup_and_execute() {
 	break;
   case 0x07:rlca();
 	break;
-  case 0x08:m[get16(pc + 1)] = (sp & 0xFF);
-	m[get16(pc + 2)] = (sp & 0xFF00) >> 8;
+  case 0x08:(*m)[get16(pc + 1)] = (sp & 0xFF);
+	(*m)[get16(pc + 2)] = (sp & 0xFF00) >> 8;
 	break;
   case 0x09:add16(bc);
 	break;
-  case 0x0A:ld(a, m[bc]);
+  case 0x0A:ld(a, (*m)[bc]);
 	break;
   case 0x0B:dec16(bc);
 	break;
@@ -71,7 +71,7 @@ void CpuImpl::lookup_and_execute() {
 	break;
   case 0x19:add16(de);
 	break;
-  case 0x1A:ld(a, m[de]);
+  case 0x1A:ld(a, (*m)[de]);
 	break;
   case 0x1B:dec16(de);
 	break;
@@ -128,11 +128,11 @@ void CpuImpl::lookup_and_execute() {
 	break;
   case 0x33:inc16(sp);
 	break;
-  case 0x34:inc(m[hl]);
+  case 0x34:inc((*m)[hl]);
 	break;
-  case 0x35:dec(m[hl]);
+  case 0x35:dec((*m)[hl]);
 	break;
-  case 0x36:ld(m[hl], get8(pc + 1));
+  case 0x36:ld((*m)[hl], get8(pc + 1));
 	break;
   case 0x37:setf(C);
 	clrf(N);
@@ -142,7 +142,7 @@ void CpuImpl::lookup_and_execute() {
 	break;
   case 0x39:add16(sp);
 	break;
-  case 0x3A:ld(a, m[hl]);
+  case 0x3A:ld(a, (*m)[hl]);
 	(hl)--;
 	break;
   case 0x3B:dec16(sp);
@@ -167,7 +167,7 @@ void CpuImpl::lookup_and_execute() {
 	break;
   case 0x45:ld(b, l);
 	break;
-  case 0x46:ld(b, m[hl]);
+  case 0x46:ld(b, (*m)[hl]);
 	break;
   case 0x47:ld(b, a);
 	break;
@@ -183,7 +183,7 @@ void CpuImpl::lookup_and_execute() {
 	break;
   case 0x4D:ld(c, l);
 	break;
-  case 0x4E:ld(c, m[hl]);
+  case 0x4E:ld(c, (*m)[hl]);
 	break;
   case 0x4F:ld(c, a);
 	break;
@@ -199,7 +199,7 @@ void CpuImpl::lookup_and_execute() {
 	break;
   case 0x55:ld(d, l);
 	break;
-  case 0x56:ld(d, m[hl]);
+  case 0x56:ld(d, (*m)[hl]);
 	break;
   case 0x57:ld(d, a);
 	break;
@@ -215,7 +215,7 @@ void CpuImpl::lookup_and_execute() {
 	break;
   case 0x5D:ld(e, l);
 	break;
-  case 0x5E:ld(e, m[hl]);
+  case 0x5E:ld(e, (*m)[hl]);
 	break;
   case 0x5F:ld(e, a);
 	break;
@@ -231,7 +231,7 @@ void CpuImpl::lookup_and_execute() {
 	break;
   case 0x65:ld(h, l);
 	break;
-  case 0x66:ld(h, m[hl]);
+  case 0x66:ld(h, (*m)[hl]);
 	break;
   case 0x67:ld(h, a);
 	break;
@@ -247,25 +247,25 @@ void CpuImpl::lookup_and_execute() {
 	break;
   case 0x6D:ld(l, l);
 	break;
-  case 0x6E:ld(l, m[hl]);
+  case 0x6E:ld(l, (*m)[hl]);
 	break;
   case 0x6F:ld(l, a);
 	break;
-  case 0x70:ld(m[hl], b);
+  case 0x70:ld((*m)[hl], b);
 	break;
-  case 0x71:ld(m[hl], c);
+  case 0x71:ld((*m)[hl], c);
 	break;
-  case 0x72:ld(m[hl], d);
+  case 0x72:ld((*m)[hl], d);
 	break;
-  case 0x73:ld(m[hl], e);
+  case 0x73:ld((*m)[hl], e);
 	break;
-  case 0x74:ld(m[hl], h);
+  case 0x74:ld((*m)[hl], h);
 	break;
-  case 0x75:ld(m[hl], l);
+  case 0x75:ld((*m)[hl], l);
 	break;
   case 0x76: state->halted = true;
 	break;
-  case 0x77:ld(m[hl], a);
+  case 0x77:ld((*m)[hl], a);
 	break;
   case 0x78:ld(a, b);
 	break;
@@ -279,7 +279,7 @@ void CpuImpl::lookup_and_execute() {
 	break;
   case 0x7D:ld(a, l);
 	break;
-  case 0x7E:ld(a, m[hl]);
+  case 0x7E:ld(a, (*m)[hl]);
 	break;
   case 0x7F:ld(a, a);
 	break;
@@ -295,7 +295,7 @@ void CpuImpl::lookup_and_execute() {
 	break;
   case 0x85:add(l);
 	break;
-  case 0x86:add(m[hl]);
+  case 0x86:add((*m)[hl]);
 	break;
   case 0x87:add(a);
 	break;
@@ -311,7 +311,7 @@ void CpuImpl::lookup_and_execute() {
 	break;
   case 0x8D:adc(l);
 	break;
-  case 0x8E:adc(m[hl]);
+  case 0x8E:adc((*m)[hl]);
 	break;
   case 0x8F:adc(a);
 	break;
@@ -327,7 +327,7 @@ void CpuImpl::lookup_and_execute() {
 	break;
   case 0x95:sub(l);
 	break;
-  case 0x96:sub(m[hl]);
+  case 0x96:sub((*m)[hl]);
 	break;
   case 0x97:sub(a);
 	break;
@@ -343,7 +343,7 @@ void CpuImpl::lookup_and_execute() {
 	break;
   case 0x9D:sbc(l);
 	break;
-  case 0x9E:sbc(m[hl]);
+  case 0x9E:sbc((*m)[hl]);
 	break;
   case 0x9F:sbc(a);
 	break;
@@ -359,7 +359,7 @@ void CpuImpl::lookup_and_execute() {
 	break;
   case 0xA5:_and(l);
 	break;
-  case 0xA6:_and(m[hl]);
+  case 0xA6:_and((*m)[hl]);
 	break;
   case 0xA7:_and(a);
 	break;
@@ -375,7 +375,7 @@ void CpuImpl::lookup_and_execute() {
 	break;
   case 0xAD:_xor(l);
 	break;
-  case 0xAE:_xor(m[hl]);
+  case 0xAE:_xor((*m)[hl]);
 	break;
   case 0xAF:_xor(a);
 	break;
@@ -391,7 +391,7 @@ void CpuImpl::lookup_and_execute() {
 	break;
   case 0xB5:_or(l);
 	break;
-  case 0xB6:_or(m[hl]);
+  case 0xB6:_or((*m)[hl]);
 	break;
   case 0xB7:_or(a);
 	break;
@@ -407,7 +407,7 @@ void CpuImpl::lookup_and_execute() {
 	break;
   case 0xBD:cp(l);
 	break;
-  case 0xBE:cp(m[hl]);
+  case 0xBE:cp((*m)[hl]);
 	break;
   case 0xBF:cp(a);
 	break;
@@ -434,7 +434,7 @@ void CpuImpl::lookup_and_execute() {
   case 0xCA:jp(getf(Z));
 	break;
   case 0xCB:
-	switch (m[pc + 1]) {
+	switch ((*m)[pc + 1]) {
 	case 0x00:rlc(b);
 	  break;
 	case 0x01:rlc(c);
@@ -447,7 +447,7 @@ void CpuImpl::lookup_and_execute() {
 	  break;
 	case 0x05:rlc(l);
 	  break;
-	case 0x06:rlc(m[hl]);
+	case 0x06:rlc((*m)[hl]);
 	  break;
 	case 0x07:rlc(a);
 	  break;
@@ -463,7 +463,7 @@ void CpuImpl::lookup_and_execute() {
 	  break;
 	case 0x0D:rrc(l);
 	  break;
-	case 0x0E:rrc(m[hl]);
+	case 0x0E:rrc((*m)[hl]);
 	  break;
 	case 0x0F:rrc(a);
 	  break;
@@ -479,7 +479,7 @@ void CpuImpl::lookup_and_execute() {
 	  break;
 	case 0x15:rl(l);
 	  break;
-	case 0x16:rl(m[hl]);
+	case 0x16:rl((*m)[hl]);
 	  break;
 	case 0x17:rl(a);
 	  break;
@@ -495,7 +495,7 @@ void CpuImpl::lookup_and_execute() {
 	  break;
 	case 0x1D:rr(l);
 	  break;
-	case 0x1E:rr(m[hl]);
+	case 0x1E:rr((*m)[hl]);
 	  break;
 	case 0x1F:rr(a);
 	  break;
@@ -511,7 +511,7 @@ void CpuImpl::lookup_and_execute() {
 	  break;
 	case 0x25:sla(l);
 	  break;
-	case 0x26:sla(m[hl]);
+	case 0x26:sla((*m)[hl]);
 	  break;
 	case 0x27:sla(a);
 	  break;
@@ -527,7 +527,7 @@ void CpuImpl::lookup_and_execute() {
 	  break;
 	case 0x2D:sra(l);
 	  break;
-	case 0x2E:sra(m[hl]);
+	case 0x2E:sra((*m)[hl]);
 	  break;
 	case 0x2F:sra(a);
 	  break;
@@ -543,7 +543,7 @@ void CpuImpl::lookup_and_execute() {
 	  break;
 	case 0x35:swap(l);
 	  break;
-	case 0x36:swap(m[hl]);
+	case 0x36:swap((*m)[hl]);
 	  break;
 	case 0x37:swap(a);
 	  break;
@@ -559,7 +559,7 @@ void CpuImpl::lookup_and_execute() {
 	  break;
 	case 0x3D:srl(l);
 	  break;
-	case 0x3E:srl(m[hl]);
+	case 0x3E:srl((*m)[hl]);
 	  break;
 	case 0x3F:srl(a);
 	  break;
@@ -575,7 +575,7 @@ void CpuImpl::lookup_and_execute() {
 	  break;
 	case 0x45:bit(l, 0);
 	  break;
-	case 0x46:bit(m[hl], 0);
+	case 0x46:bit((*m)[hl], 0);
 	  break;
 	case 0x47:bit(a, 0);
 	  break;
@@ -591,7 +591,7 @@ void CpuImpl::lookup_and_execute() {
 	  break;
 	case 0x4D:bit(l, 1);
 	  break;
-	case 0x4E:bit(m[hl], 1);
+	case 0x4E:bit((*m)[hl], 1);
 	  break;
 	case 0x4F:bit(a, 1);
 	  break;
@@ -607,7 +607,7 @@ void CpuImpl::lookup_and_execute() {
 	  break;
 	case 0x55:bit(l, 2);
 	  break;
-	case 0x56:bit(m[hl], 2);
+	case 0x56:bit((*m)[hl], 2);
 	  break;
 	case 0x57:bit(a, 2);
 	  break;
@@ -623,7 +623,7 @@ void CpuImpl::lookup_and_execute() {
 	  break;
 	case 0x5D:bit(l, 3);
 	  break;
-	case 0x5E:bit(m[hl], 3);
+	case 0x5E:bit((*m)[hl], 3);
 	  break;
 	case 0x5F:bit(a, 3);
 	  break;
@@ -639,7 +639,7 @@ void CpuImpl::lookup_and_execute() {
 	  break;
 	case 0x65:bit(l, 4);
 	  break;
-	case 0x66:bit(m[hl], 4);
+	case 0x66:bit((*m)[hl], 4);
 	  break;
 	case 0x67:bit(a, 4);
 	  break;
@@ -655,7 +655,7 @@ void CpuImpl::lookup_and_execute() {
 	  break;
 	case 0x6D:bit(l, 5);
 	  break;
-	case 0x6E:bit(m[hl], 5);
+	case 0x6E:bit((*m)[hl], 5);
 	  break;
 	case 0x6F:bit(a, 5);
 	  break;
@@ -671,7 +671,7 @@ void CpuImpl::lookup_and_execute() {
 	  break;
 	case 0x75:bit(l, 6);
 	  break;
-	case 0x76:bit(m[hl], 6);
+	case 0x76:bit((*m)[hl], 6);
 	  break;
 	case 0x77:bit(a, 6);
 	  break;
@@ -687,7 +687,7 @@ void CpuImpl::lookup_and_execute() {
 	  break;
 	case 0x7D:bit(l, 7);
 	  break;
-	case 0x7E:bit(m[hl], 7);
+	case 0x7E:bit((*m)[hl], 7);
 	  break;
 	case 0x7F:bit(a, 7);
 	  break;
@@ -703,7 +703,7 @@ void CpuImpl::lookup_and_execute() {
 	  break;
 	case 0x85:res(l, 0);
 	  break;
-	case 0x86:res(m[hl], 0);
+	case 0x86:res((*m)[hl], 0);
 	  break;
 	case 0x87:res(a, 0);
 	  break;
@@ -719,7 +719,7 @@ void CpuImpl::lookup_and_execute() {
 	  break;
 	case 0x8D:res(l, 1);
 	  break;
-	case 0x8E:res(m[hl], 1);
+	case 0x8E:res((*m)[hl], 1);
 	  break;
 	case 0x8F:res(a, 1);
 	  break;
@@ -735,7 +735,7 @@ void CpuImpl::lookup_and_execute() {
 	  break;
 	case 0x95:res(l, 2);
 	  break;
-	case 0x96:res(m[hl], 2);
+	case 0x96:res((*m)[hl], 2);
 	  break;
 	case 0x97:res(a, 2);
 	  break;
@@ -751,7 +751,7 @@ void CpuImpl::lookup_and_execute() {
 	  break;
 	case 0x9D:res(l, 3);
 	  break;
-	case 0x9E:res(m[hl], 3);
+	case 0x9E:res((*m)[hl], 3);
 	  break;
 	case 0x9F:res(a, 3);
 	  break;
@@ -767,7 +767,7 @@ void CpuImpl::lookup_and_execute() {
 	  break;
 	case 0xA5:res(l, 4);
 	  break;
-	case 0xA6:res(m[hl], 4);
+	case 0xA6:res((*m)[hl], 4);
 	  break;
 	case 0xA7:res(a, 4);
 	  break;
@@ -783,7 +783,7 @@ void CpuImpl::lookup_and_execute() {
 	  break;
 	case 0xAD:res(l, 5);
 	  break;
-	case 0xAE:res(m[hl], 5);
+	case 0xAE:res((*m)[hl], 5);
 	  break;
 	case 0xAF:res(a, 5);
 	  break;
@@ -799,7 +799,7 @@ void CpuImpl::lookup_and_execute() {
 	  break;
 	case 0xB5:res(l, 6);
 	  break;
-	case 0xB6:res(m[hl], 6);
+	case 0xB6:res((*m)[hl], 6);
 	  break;
 	case 0xB7:res(a, 6);
 	  break;
@@ -815,7 +815,7 @@ void CpuImpl::lookup_and_execute() {
 	  break;
 	case 0xBD:res(l, 7);
 	  break;
-	case 0xBE:res(m[hl], 7);
+	case 0xBE:res((*m)[hl], 7);
 	  break;
 	case 0xBF:res(a, 7);
 	  break;
@@ -831,7 +831,7 @@ void CpuImpl::lookup_and_execute() {
 	  break;
 	case 0xC5:set(l, 0);
 	  break;
-	case 0xC6:set(m[hl], 0);
+	case 0xC6:set((*m)[hl], 0);
 	  break;
 	case 0xC7:set(a, 0);
 	  break;
@@ -847,7 +847,7 @@ void CpuImpl::lookup_and_execute() {
 	  break;
 	case 0xCD:set(l, 1);
 	  break;
-	case 0xCE:set(m[hl], 1);
+	case 0xCE:set((*m)[hl], 1);
 	  break;
 	case 0xCF:set(a, 1);
 	  break;
@@ -863,7 +863,7 @@ void CpuImpl::lookup_and_execute() {
 	  break;
 	case 0xD5:set(l, 2);
 	  break;
-	case 0xD6:set(m[hl], 2);
+	case 0xD6:set((*m)[hl], 2);
 	  break;
 	case 0xD7:set(a, 2);
 	  break;
@@ -879,7 +879,7 @@ void CpuImpl::lookup_and_execute() {
 	  break;
 	case 0xDD:set(l, 3);
 	  break;
-	case 0xDE:set(m[hl], 3);
+	case 0xDE:set((*m)[hl], 3);
 	  break;
 	case 0xDF:set(a, 3);
 	  break;
@@ -895,7 +895,7 @@ void CpuImpl::lookup_and_execute() {
 	  break;
 	case 0xE5:set(l, 4);
 	  break;
-	case 0xE6:set(m[hl], 4);
+	case 0xE6:set((*m)[hl], 4);
 	  break;
 	case 0xE7:set(a, 4);
 	  break;
@@ -911,7 +911,7 @@ void CpuImpl::lookup_and_execute() {
 	  break;
 	case 0xED:set(l, 5);
 	  break;
-	case 0xEE:set(m[hl], 5);
+	case 0xEE:set((*m)[hl], 5);
 	  break;
 	case 0xEF:set(a, 5);
 	  break;
@@ -927,7 +927,7 @@ void CpuImpl::lookup_and_execute() {
 	  break;
 	case 0xF5:set(l, 6);
 	  break;
-	case 0xF6:set(m[hl], 6);
+	case 0xF6:set((*m)[hl], 6);
 	  break;
 	case 0xF7:set(a, 6);
 	  break;
@@ -943,11 +943,11 @@ void CpuImpl::lookup_and_execute() {
 	  break;
 	case 0xFD:set(l, 7);
 	  break;
-	case 0xFE:set(m[hl], 7);
+	case 0xFE:set((*m)[hl], 7);
 	  break;
 	case 0xFF:set(a, 7);
 	  break;
-	default:spdlog::warn("Unknown CB opcode {0:x}", m[pc + 1]);
+	default:spdlog::warn("Unknown CB opcode {0:x}", (*m)[pc + 1]);
 	  assert(0);
 	}
 	break;
@@ -987,11 +987,11 @@ void CpuImpl::lookup_and_execute() {
 	break;
   case 0xDF:rst(0x18);
 	break;
-  case 0xE0:ld(m[get8(pc + 1) + 0xFF00], a);
+  case 0xE0:ld((*m)[get8(pc + 1) + 0xFF00], a);
 	break;
   case 0xE1:pop(hl);
 	break;
-  case 0xE2:ld(m[c], a);
+  case 0xE2:ld((*m)[c], a);
 	break;
   case 0xE5:push(hl);
 	break;
@@ -1005,19 +1005,19 @@ void CpuImpl::lookup_and_execute() {
 	zero_check(sp);
 	clrf(N);
 	break;
-  case 0xE9:jp(m[hl]);
+  case 0xE9:jp((*m)[hl]);
 	break;
-  case 0xEA:ld(m[get16(pc + 1)], a);
+  case 0xEA:ld((*m)[get16(pc + 1)], a);
 	break;
   case 0xEE:_xor(get8(pc + 1));
 	break;
   case 0xEF:rst(0x28);
 	break;
-  case 0xF0:ld(a, m[get8(pc + 1) + 0xFF00]);
+  case 0xF0:ld(a, (*m)[get8(pc + 1) + 0xFF00]);
 	break;
   case 0xF1:pop(af);
 	break;
-  case 0xF2:ld(a, m[c]);
+  case 0xF2:ld(a, (*m)[c]);
 	break;
   case 0xF3:state->ime = false;
 	break;
@@ -1035,7 +1035,7 @@ void CpuImpl::lookup_and_execute() {
 	break;
   case 0xF9:ld16(sp, hl);
 	break;
-  case 0xFA:ld(a, m[get16(pc + 1)]);
+  case 0xFA:ld(a, (*m)[get16(pc + 1)]);
 	break;
   case 0xFB:state->ime = true;
 	break;
@@ -1043,10 +1043,10 @@ void CpuImpl::lookup_and_execute() {
 	break;
   case 0xFF:rst(0x38);
 	break;
-  default:spdlog::error("Unknown opcode {0:x}", m[pc]);
+  default:spdlog::error("Unknown opcode {0:x}", (*m)[pc]);
 	assert(0);
   }
 
-  pc += ((m[pc]!=0xCB) ? GBCPP::opDefinesTbl[m[pc]].length : GBCPP::cbDefinesTbl[m[pc + 1]].length);
-  state->cycles += ((m[pc]!=0xCB) ? GBCPP::opDefinesTbl[m[pc]].cycles[0] : GBCPP::cbDefinesTbl[m[pc + 1]].cycles[0]);
+  pc += (((*m)[pc]!=0xCB) ? GBCPP::opDefinesTbl[(*m)[pc]].length : GBCPP::cbDefinesTbl[(*m)[pc + 1]].length);
+  state->cycles += (((*m)[pc]!=0xCB) ? GBCPP::opDefinesTbl[(*m)[pc]].cycles[0] : GBCPP::cbDefinesTbl[(*m)[pc + 1]].cycles[0]);
 }

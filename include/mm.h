@@ -7,6 +7,7 @@
 #include <array>
 
 namespace GBCPP {
+
 enum memory_regions {
   ROM_16KB_00 = 0,
   ROM_16KB_NN = 0x4000,
@@ -20,6 +21,7 @@ enum memory_regions {
   IOREG_128B = 0xFF00,
   HRAM_127B = 0xFF80
 };
+
 enum io_regs {
   P1 = 0xFF00,
   SB = 0xFF01,

@@ -6,7 +6,7 @@
 using namespace GBCPP;
 
 Cpu::Cpu(GBCPP::MemMgr &mm) {
-  pImpl = new CpuImpl(mm);
+  pImpl = new CpuImpl(&mm);
 }
 void Cpu::run() {
   pImpl->state->running = true;

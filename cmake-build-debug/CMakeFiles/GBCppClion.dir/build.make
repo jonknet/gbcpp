@@ -37,19 +37,19 @@ NULL=nul
 SHELL = cmd.exe
 
 # The CMake executable.
-CMAKE_COMMAND = "E:\Program Files\JetBrains\CLion 2020.3.1\bin\cmake\win\bin\cmake.exe"
+CMAKE_COMMAND = "C:\Program Files\JetBrains\CLion 2021.1.2\bin\cmake\win\bin\cmake.exe"
 
 # The command to remove a file.
-RM = "E:\Program Files\JetBrains\CLion 2020.3.1\bin\cmake\win\bin\cmake.exe" -E rm -f
+RM = "C:\Program Files\JetBrains\CLion 2021.1.2\bin\cmake\win\bin\cmake.exe" -E rm -f
 
 # Escaping for special characters.
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = E:\Documents\Projects\GBCppClion
+CMAKE_SOURCE_DIR = "C:\Users\Jon\Resilio Sync\Documents\Projects\GBCppClion"
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = E:\Documents\Projects\GBCppClion\cmake-build-debug
+CMAKE_BINARY_DIR = "C:\Users\Jon\Resilio Sync\Documents\Projects\GBCppClion\cmake-build-debug"
 
 # Include any dependencies generated for this target.
 include CMakeFiles\GBCppClion.dir\depend.make
@@ -60,164 +60,164 @@ include CMakeFiles\GBCppClion.dir\progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles\GBCppClion.dir\flags.make
 
-CMakeFiles\GBCppClion.dir\main.cpp.obj: CMakeFiles\GBCppClion.dir\flags.make
-CMakeFiles\GBCppClion.dir\main.cpp.obj: ..\main.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=E:\Documents\Projects\GBCppClion\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/GBCppClion.dir/main.cpp.obj"
-	C:\PROGRA~2\MICROS~2\2019\COMMUN~1\VC\Tools\MSVC\14.28.29910\bin\Hostx64\x64\cl.exe @<<
- /nologo /TP $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) /FoCMakeFiles\GBCppClion.dir\main.cpp.obj /FdCMakeFiles\GBCppClion.dir\ /FS -c E:\Documents\Projects\GBCppClion\main.cpp
-<<
-
-CMakeFiles\GBCppClion.dir\main.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/GBCppClion.dir/main.cpp.i"
-	C:\PROGRA~2\MICROS~2\2019\COMMUN~1\VC\Tools\MSVC\14.28.29910\bin\Hostx64\x64\cl.exe > CMakeFiles\GBCppClion.dir\main.cpp.i @<<
- /nologo /TP $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E E:\Documents\Projects\GBCppClion\main.cpp
-<<
-
-CMakeFiles\GBCppClion.dir\main.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/GBCppClion.dir/main.cpp.s"
-	C:\PROGRA~2\MICROS~2\2019\COMMUN~1\VC\Tools\MSVC\14.28.29910\bin\Hostx64\x64\cl.exe @<<
- /nologo /TP $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) /FoNUL /FAs /FaCMakeFiles\GBCppClion.dir\main.cpp.s /c E:\Documents\Projects\GBCppClion\main.cpp
-<<
-
-CMakeFiles\GBCppClion.dir\cpu.cpp.obj: CMakeFiles\GBCppClion.dir\flags.make
-CMakeFiles\GBCppClion.dir\cpu.cpp.obj: ..\cpu.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=E:\Documents\Projects\GBCppClion\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/GBCppClion.dir/cpu.cpp.obj"
-	C:\PROGRA~2\MICROS~2\2019\COMMUN~1\VC\Tools\MSVC\14.28.29910\bin\Hostx64\x64\cl.exe @<<
- /nologo /TP $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) /FoCMakeFiles\GBCppClion.dir\cpu.cpp.obj /FdCMakeFiles\GBCppClion.dir\ /FS -c E:\Documents\Projects\GBCppClion\cpu.cpp
-<<
-
-CMakeFiles\GBCppClion.dir\cpu.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/GBCppClion.dir/cpu.cpp.i"
-	C:\PROGRA~2\MICROS~2\2019\COMMUN~1\VC\Tools\MSVC\14.28.29910\bin\Hostx64\x64\cl.exe > CMakeFiles\GBCppClion.dir\cpu.cpp.i @<<
- /nologo /TP $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E E:\Documents\Projects\GBCppClion\cpu.cpp
-<<
-
-CMakeFiles\GBCppClion.dir\cpu.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/GBCppClion.dir/cpu.cpp.s"
-	C:\PROGRA~2\MICROS~2\2019\COMMUN~1\VC\Tools\MSVC\14.28.29910\bin\Hostx64\x64\cl.exe @<<
- /nologo /TP $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) /FoNUL /FAs /FaCMakeFiles\GBCppClion.dir\cpu.cpp.s /c E:\Documents\Projects\GBCppClion\cpu.cpp
-<<
-
-CMakeFiles\GBCppClion.dir\mm.cpp.obj: CMakeFiles\GBCppClion.dir\flags.make
-CMakeFiles\GBCppClion.dir\mm.cpp.obj: ..\mm.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=E:\Documents\Projects\GBCppClion\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/GBCppClion.dir/mm.cpp.obj"
-	C:\PROGRA~2\MICROS~2\2019\COMMUN~1\VC\Tools\MSVC\14.28.29910\bin\Hostx64\x64\cl.exe @<<
- /nologo /TP $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) /FoCMakeFiles\GBCppClion.dir\mm.cpp.obj /FdCMakeFiles\GBCppClion.dir\ /FS -c E:\Documents\Projects\GBCppClion\mm.cpp
-<<
-
-CMakeFiles\GBCppClion.dir\mm.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/GBCppClion.dir/mm.cpp.i"
-	C:\PROGRA~2\MICROS~2\2019\COMMUN~1\VC\Tools\MSVC\14.28.29910\bin\Hostx64\x64\cl.exe > CMakeFiles\GBCppClion.dir\mm.cpp.i @<<
- /nologo /TP $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E E:\Documents\Projects\GBCppClion\mm.cpp
-<<
-
-CMakeFiles\GBCppClion.dir\mm.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/GBCppClion.dir/mm.cpp.s"
-	C:\PROGRA~2\MICROS~2\2019\COMMUN~1\VC\Tools\MSVC\14.28.29910\bin\Hostx64\x64\cl.exe @<<
- /nologo /TP $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) /FoNUL /FAs /FaCMakeFiles\GBCppClion.dir\mm.cpp.s /c E:\Documents\Projects\GBCppClion\mm.cpp
-<<
-
-CMakeFiles\GBCppClion.dir\ops.cpp.obj: CMakeFiles\GBCppClion.dir\flags.make
-CMakeFiles\GBCppClion.dir\ops.cpp.obj: ..\ops.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=E:\Documents\Projects\GBCppClion\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/GBCppClion.dir/ops.cpp.obj"
-	C:\PROGRA~2\MICROS~2\2019\COMMUN~1\VC\Tools\MSVC\14.28.29910\bin\Hostx64\x64\cl.exe @<<
- /nologo /TP $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) /FoCMakeFiles\GBCppClion.dir\ops.cpp.obj /FdCMakeFiles\GBCppClion.dir\ /FS -c E:\Documents\Projects\GBCppClion\ops.cpp
-<<
-
-CMakeFiles\GBCppClion.dir\ops.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/GBCppClion.dir/ops.cpp.i"
-	C:\PROGRA~2\MICROS~2\2019\COMMUN~1\VC\Tools\MSVC\14.28.29910\bin\Hostx64\x64\cl.exe > CMakeFiles\GBCppClion.dir\ops.cpp.i @<<
- /nologo /TP $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E E:\Documents\Projects\GBCppClion\ops.cpp
-<<
-
-CMakeFiles\GBCppClion.dir\ops.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/GBCppClion.dir/ops.cpp.s"
-	C:\PROGRA~2\MICROS~2\2019\COMMUN~1\VC\Tools\MSVC\14.28.29910\bin\Hostx64\x64\cl.exe @<<
- /nologo /TP $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) /FoNUL /FAs /FaCMakeFiles\GBCppClion.dir\ops.cpp.s /c E:\Documents\Projects\GBCppClion\ops.cpp
-<<
-
 CMakeFiles\GBCppClion.dir\ppu.cpp.obj: CMakeFiles\GBCppClion.dir\flags.make
 CMakeFiles\GBCppClion.dir\ppu.cpp.obj: ..\ppu.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=E:\Documents\Projects\GBCppClion\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/GBCppClion.dir/ppu.cpp.obj"
-	C:\PROGRA~2\MICROS~2\2019\COMMUN~1\VC\Tools\MSVC\14.28.29910\bin\Hostx64\x64\cl.exe @<<
- /nologo /TP $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) /FoCMakeFiles\GBCppClion.dir\ppu.cpp.obj /FdCMakeFiles\GBCppClion.dir\ /FS -c E:\Documents\Projects\GBCppClion\ppu.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="C:\Users\Jon\Resilio Sync\Documents\Projects\GBCppClion\cmake-build-debug\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/GBCppClion.dir/ppu.cpp.obj"
+	C:\PROGRA~2\MICROS~2\2019\COMMUN~1\VC\Tools\MSVC\1428~1.299\bin\Hostx64\x64\cl.exe @<<
+ /nologo /TP $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) /FoCMakeFiles\GBCppClion.dir\ppu.cpp.obj /FdCMakeFiles\GBCppClion.dir\ /FS -c "C:\Users\Jon\Resilio Sync\Documents\Projects\GBCppClion\ppu.cpp"
 <<
 
 CMakeFiles\GBCppClion.dir\ppu.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/GBCppClion.dir/ppu.cpp.i"
-	C:\PROGRA~2\MICROS~2\2019\COMMUN~1\VC\Tools\MSVC\14.28.29910\bin\Hostx64\x64\cl.exe > CMakeFiles\GBCppClion.dir\ppu.cpp.i @<<
- /nologo /TP $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E E:\Documents\Projects\GBCppClion\ppu.cpp
+	C:\PROGRA~2\MICROS~2\2019\COMMUN~1\VC\Tools\MSVC\1428~1.299\bin\Hostx64\x64\cl.exe > CMakeFiles\GBCppClion.dir\ppu.cpp.i @<<
+ /nologo /TP $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "C:\Users\Jon\Resilio Sync\Documents\Projects\GBCppClion\ppu.cpp"
 <<
 
 CMakeFiles\GBCppClion.dir\ppu.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/GBCppClion.dir/ppu.cpp.s"
-	C:\PROGRA~2\MICROS~2\2019\COMMUN~1\VC\Tools\MSVC\14.28.29910\bin\Hostx64\x64\cl.exe @<<
- /nologo /TP $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) /FoNUL /FAs /FaCMakeFiles\GBCppClion.dir\ppu.cpp.s /c E:\Documents\Projects\GBCppClion\ppu.cpp
+	C:\PROGRA~2\MICROS~2\2019\COMMUN~1\VC\Tools\MSVC\1428~1.299\bin\Hostx64\x64\cl.exe @<<
+ /nologo /TP $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) /FoNUL /FAs /FaCMakeFiles\GBCppClion.dir\ppu.cpp.s /c "C:\Users\Jon\Resilio Sync\Documents\Projects\GBCppClion\ppu.cpp"
 <<
 
-CMakeFiles\GBCppClion.dir\utils.cpp.obj: CMakeFiles\GBCppClion.dir\flags.make
-CMakeFiles\GBCppClion.dir\utils.cpp.obj: ..\utils.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=E:\Documents\Projects\GBCppClion\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/GBCppClion.dir/utils.cpp.obj"
-	C:\PROGRA~2\MICROS~2\2019\COMMUN~1\VC\Tools\MSVC\14.28.29910\bin\Hostx64\x64\cl.exe @<<
- /nologo /TP $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) /FoCMakeFiles\GBCppClion.dir\utils.cpp.obj /FdCMakeFiles\GBCppClion.dir\ /FS -c E:\Documents\Projects\GBCppClion\utils.cpp
+CMakeFiles\GBCppClion.dir\mm.cpp.obj: CMakeFiles\GBCppClion.dir\flags.make
+CMakeFiles\GBCppClion.dir\mm.cpp.obj: ..\mm.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="C:\Users\Jon\Resilio Sync\Documents\Projects\GBCppClion\cmake-build-debug\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/GBCppClion.dir/mm.cpp.obj"
+	C:\PROGRA~2\MICROS~2\2019\COMMUN~1\VC\Tools\MSVC\1428~1.299\bin\Hostx64\x64\cl.exe @<<
+ /nologo /TP $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) /FoCMakeFiles\GBCppClion.dir\mm.cpp.obj /FdCMakeFiles\GBCppClion.dir\ /FS -c "C:\Users\Jon\Resilio Sync\Documents\Projects\GBCppClion\mm.cpp"
 <<
 
-CMakeFiles\GBCppClion.dir\utils.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/GBCppClion.dir/utils.cpp.i"
-	C:\PROGRA~2\MICROS~2\2019\COMMUN~1\VC\Tools\MSVC\14.28.29910\bin\Hostx64\x64\cl.exe > CMakeFiles\GBCppClion.dir\utils.cpp.i @<<
- /nologo /TP $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E E:\Documents\Projects\GBCppClion\utils.cpp
+CMakeFiles\GBCppClion.dir\mm.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/GBCppClion.dir/mm.cpp.i"
+	C:\PROGRA~2\MICROS~2\2019\COMMUN~1\VC\Tools\MSVC\1428~1.299\bin\Hostx64\x64\cl.exe > CMakeFiles\GBCppClion.dir\mm.cpp.i @<<
+ /nologo /TP $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "C:\Users\Jon\Resilio Sync\Documents\Projects\GBCppClion\mm.cpp"
 <<
 
-CMakeFiles\GBCppClion.dir\utils.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/GBCppClion.dir/utils.cpp.s"
-	C:\PROGRA~2\MICROS~2\2019\COMMUN~1\VC\Tools\MSVC\14.28.29910\bin\Hostx64\x64\cl.exe @<<
- /nologo /TP $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) /FoNUL /FAs /FaCMakeFiles\GBCppClion.dir\utils.cpp.s /c E:\Documents\Projects\GBCppClion\utils.cpp
+CMakeFiles\GBCppClion.dir\mm.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/GBCppClion.dir/mm.cpp.s"
+	C:\PROGRA~2\MICROS~2\2019\COMMUN~1\VC\Tools\MSVC\1428~1.299\bin\Hostx64\x64\cl.exe @<<
+ /nologo /TP $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) /FoNUL /FAs /FaCMakeFiles\GBCppClion.dir\mm.cpp.s /c "C:\Users\Jon\Resilio Sync\Documents\Projects\GBCppClion\mm.cpp"
+<<
+
+CMakeFiles\GBCppClion.dir\cpu.cpp.obj: CMakeFiles\GBCppClion.dir\flags.make
+CMakeFiles\GBCppClion.dir\cpu.cpp.obj: ..\cpu.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="C:\Users\Jon\Resilio Sync\Documents\Projects\GBCppClion\cmake-build-debug\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/GBCppClion.dir/cpu.cpp.obj"
+	C:\PROGRA~2\MICROS~2\2019\COMMUN~1\VC\Tools\MSVC\1428~1.299\bin\Hostx64\x64\cl.exe @<<
+ /nologo /TP $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) /FoCMakeFiles\GBCppClion.dir\cpu.cpp.obj /FdCMakeFiles\GBCppClion.dir\ /FS -c "C:\Users\Jon\Resilio Sync\Documents\Projects\GBCppClion\cpu.cpp"
+<<
+
+CMakeFiles\GBCppClion.dir\cpu.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/GBCppClion.dir/cpu.cpp.i"
+	C:\PROGRA~2\MICROS~2\2019\COMMUN~1\VC\Tools\MSVC\1428~1.299\bin\Hostx64\x64\cl.exe > CMakeFiles\GBCppClion.dir\cpu.cpp.i @<<
+ /nologo /TP $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "C:\Users\Jon\Resilio Sync\Documents\Projects\GBCppClion\cpu.cpp"
+<<
+
+CMakeFiles\GBCppClion.dir\cpu.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/GBCppClion.dir/cpu.cpp.s"
+	C:\PROGRA~2\MICROS~2\2019\COMMUN~1\VC\Tools\MSVC\1428~1.299\bin\Hostx64\x64\cl.exe @<<
+ /nologo /TP $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) /FoNUL /FAs /FaCMakeFiles\GBCppClion.dir\cpu.cpp.s /c "C:\Users\Jon\Resilio Sync\Documents\Projects\GBCppClion\cpu.cpp"
 <<
 
 CMakeFiles\GBCppClion.dir\cpuimpl.cpp.obj: CMakeFiles\GBCppClion.dir\flags.make
 CMakeFiles\GBCppClion.dir\cpuimpl.cpp.obj: ..\cpuimpl.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=E:\Documents\Projects\GBCppClion\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/GBCppClion.dir/cpuimpl.cpp.obj"
-	C:\PROGRA~2\MICROS~2\2019\COMMUN~1\VC\Tools\MSVC\14.28.29910\bin\Hostx64\x64\cl.exe @<<
- /nologo /TP $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) /FoCMakeFiles\GBCppClion.dir\cpuimpl.cpp.obj /FdCMakeFiles\GBCppClion.dir\ /FS -c E:\Documents\Projects\GBCppClion\cpuimpl.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="C:\Users\Jon\Resilio Sync\Documents\Projects\GBCppClion\cmake-build-debug\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/GBCppClion.dir/cpuimpl.cpp.obj"
+	C:\PROGRA~2\MICROS~2\2019\COMMUN~1\VC\Tools\MSVC\1428~1.299\bin\Hostx64\x64\cl.exe @<<
+ /nologo /TP $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) /FoCMakeFiles\GBCppClion.dir\cpuimpl.cpp.obj /FdCMakeFiles\GBCppClion.dir\ /FS -c "C:\Users\Jon\Resilio Sync\Documents\Projects\GBCppClion\cpuimpl.cpp"
 <<
 
 CMakeFiles\GBCppClion.dir\cpuimpl.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/GBCppClion.dir/cpuimpl.cpp.i"
-	C:\PROGRA~2\MICROS~2\2019\COMMUN~1\VC\Tools\MSVC\14.28.29910\bin\Hostx64\x64\cl.exe > CMakeFiles\GBCppClion.dir\cpuimpl.cpp.i @<<
- /nologo /TP $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E E:\Documents\Projects\GBCppClion\cpuimpl.cpp
+	C:\PROGRA~2\MICROS~2\2019\COMMUN~1\VC\Tools\MSVC\1428~1.299\bin\Hostx64\x64\cl.exe > CMakeFiles\GBCppClion.dir\cpuimpl.cpp.i @<<
+ /nologo /TP $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "C:\Users\Jon\Resilio Sync\Documents\Projects\GBCppClion\cpuimpl.cpp"
 <<
 
 CMakeFiles\GBCppClion.dir\cpuimpl.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/GBCppClion.dir/cpuimpl.cpp.s"
-	C:\PROGRA~2\MICROS~2\2019\COMMUN~1\VC\Tools\MSVC\14.28.29910\bin\Hostx64\x64\cl.exe @<<
- /nologo /TP $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) /FoNUL /FAs /FaCMakeFiles\GBCppClion.dir\cpuimpl.cpp.s /c E:\Documents\Projects\GBCppClion\cpuimpl.cpp
+	C:\PROGRA~2\MICROS~2\2019\COMMUN~1\VC\Tools\MSVC\1428~1.299\bin\Hostx64\x64\cl.exe @<<
+ /nologo /TP $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) /FoNUL /FAs /FaCMakeFiles\GBCppClion.dir\cpuimpl.cpp.s /c "C:\Users\Jon\Resilio Sync\Documents\Projects\GBCppClion\cpuimpl.cpp"
+<<
+
+CMakeFiles\GBCppClion.dir\ops.cpp.obj: CMakeFiles\GBCppClion.dir\flags.make
+CMakeFiles\GBCppClion.dir\ops.cpp.obj: ..\ops.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="C:\Users\Jon\Resilio Sync\Documents\Projects\GBCppClion\cmake-build-debug\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/GBCppClion.dir/ops.cpp.obj"
+	C:\PROGRA~2\MICROS~2\2019\COMMUN~1\VC\Tools\MSVC\1428~1.299\bin\Hostx64\x64\cl.exe @<<
+ /nologo /TP $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) /FoCMakeFiles\GBCppClion.dir\ops.cpp.obj /FdCMakeFiles\GBCppClion.dir\ /FS -c "C:\Users\Jon\Resilio Sync\Documents\Projects\GBCppClion\ops.cpp"
+<<
+
+CMakeFiles\GBCppClion.dir\ops.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/GBCppClion.dir/ops.cpp.i"
+	C:\PROGRA~2\MICROS~2\2019\COMMUN~1\VC\Tools\MSVC\1428~1.299\bin\Hostx64\x64\cl.exe > CMakeFiles\GBCppClion.dir\ops.cpp.i @<<
+ /nologo /TP $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "C:\Users\Jon\Resilio Sync\Documents\Projects\GBCppClion\ops.cpp"
+<<
+
+CMakeFiles\GBCppClion.dir\ops.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/GBCppClion.dir/ops.cpp.s"
+	C:\PROGRA~2\MICROS~2\2019\COMMUN~1\VC\Tools\MSVC\1428~1.299\bin\Hostx64\x64\cl.exe @<<
+ /nologo /TP $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) /FoNUL /FAs /FaCMakeFiles\GBCppClion.dir\ops.cpp.s /c "C:\Users\Jon\Resilio Sync\Documents\Projects\GBCppClion\ops.cpp"
+<<
+
+CMakeFiles\GBCppClion.dir\utils.cpp.obj: CMakeFiles\GBCppClion.dir\flags.make
+CMakeFiles\GBCppClion.dir\utils.cpp.obj: ..\utils.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="C:\Users\Jon\Resilio Sync\Documents\Projects\GBCppClion\cmake-build-debug\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/GBCppClion.dir/utils.cpp.obj"
+	C:\PROGRA~2\MICROS~2\2019\COMMUN~1\VC\Tools\MSVC\1428~1.299\bin\Hostx64\x64\cl.exe @<<
+ /nologo /TP $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) /FoCMakeFiles\GBCppClion.dir\utils.cpp.obj /FdCMakeFiles\GBCppClion.dir\ /FS -c "C:\Users\Jon\Resilio Sync\Documents\Projects\GBCppClion\utils.cpp"
+<<
+
+CMakeFiles\GBCppClion.dir\utils.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/GBCppClion.dir/utils.cpp.i"
+	C:\PROGRA~2\MICROS~2\2019\COMMUN~1\VC\Tools\MSVC\1428~1.299\bin\Hostx64\x64\cl.exe > CMakeFiles\GBCppClion.dir\utils.cpp.i @<<
+ /nologo /TP $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "C:\Users\Jon\Resilio Sync\Documents\Projects\GBCppClion\utils.cpp"
+<<
+
+CMakeFiles\GBCppClion.dir\utils.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/GBCppClion.dir/utils.cpp.s"
+	C:\PROGRA~2\MICROS~2\2019\COMMUN~1\VC\Tools\MSVC\1428~1.299\bin\Hostx64\x64\cl.exe @<<
+ /nologo /TP $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) /FoNUL /FAs /FaCMakeFiles\GBCppClion.dir\utils.cpp.s /c "C:\Users\Jon\Resilio Sync\Documents\Projects\GBCppClion\utils.cpp"
+<<
+
+CMakeFiles\GBCppClion.dir\main.cpp.obj: CMakeFiles\GBCppClion.dir\flags.make
+CMakeFiles\GBCppClion.dir\main.cpp.obj: ..\main.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="C:\Users\Jon\Resilio Sync\Documents\Projects\GBCppClion\cmake-build-debug\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/GBCppClion.dir/main.cpp.obj"
+	C:\PROGRA~2\MICROS~2\2019\COMMUN~1\VC\Tools\MSVC\1428~1.299\bin\Hostx64\x64\cl.exe @<<
+ /nologo /TP $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) /FoCMakeFiles\GBCppClion.dir\main.cpp.obj /FdCMakeFiles\GBCppClion.dir\ /FS -c "C:\Users\Jon\Resilio Sync\Documents\Projects\GBCppClion\main.cpp"
+<<
+
+CMakeFiles\GBCppClion.dir\main.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/GBCppClion.dir/main.cpp.i"
+	C:\PROGRA~2\MICROS~2\2019\COMMUN~1\VC\Tools\MSVC\1428~1.299\bin\Hostx64\x64\cl.exe > CMakeFiles\GBCppClion.dir\main.cpp.i @<<
+ /nologo /TP $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "C:\Users\Jon\Resilio Sync\Documents\Projects\GBCppClion\main.cpp"
+<<
+
+CMakeFiles\GBCppClion.dir\main.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/GBCppClion.dir/main.cpp.s"
+	C:\PROGRA~2\MICROS~2\2019\COMMUN~1\VC\Tools\MSVC\1428~1.299\bin\Hostx64\x64\cl.exe @<<
+ /nologo /TP $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) /FoNUL /FAs /FaCMakeFiles\GBCppClion.dir\main.cpp.s /c "C:\Users\Jon\Resilio Sync\Documents\Projects\GBCppClion\main.cpp"
 <<
 
 # Object files for target GBCppClion
 GBCppClion_OBJECTS = \
-"CMakeFiles\GBCppClion.dir\main.cpp.obj" \
-"CMakeFiles\GBCppClion.dir\cpu.cpp.obj" \
-"CMakeFiles\GBCppClion.dir\mm.cpp.obj" \
-"CMakeFiles\GBCppClion.dir\ops.cpp.obj" \
 "CMakeFiles\GBCppClion.dir\ppu.cpp.obj" \
+"CMakeFiles\GBCppClion.dir\mm.cpp.obj" \
+"CMakeFiles\GBCppClion.dir\cpu.cpp.obj" \
+"CMakeFiles\GBCppClion.dir\cpuimpl.cpp.obj" \
+"CMakeFiles\GBCppClion.dir\ops.cpp.obj" \
 "CMakeFiles\GBCppClion.dir\utils.cpp.obj" \
-"CMakeFiles\GBCppClion.dir\cpuimpl.cpp.obj"
+"CMakeFiles\GBCppClion.dir\main.cpp.obj"
 
 # External object files for target GBCppClion
 GBCppClion_EXTERNAL_OBJECTS =
 
-GBCppClion.exe: CMakeFiles\GBCppClion.dir\main.cpp.obj
-GBCppClion.exe: CMakeFiles\GBCppClion.dir\cpu.cpp.obj
-GBCppClion.exe: CMakeFiles\GBCppClion.dir\mm.cpp.obj
-GBCppClion.exe: CMakeFiles\GBCppClion.dir\ops.cpp.obj
 GBCppClion.exe: CMakeFiles\GBCppClion.dir\ppu.cpp.obj
-GBCppClion.exe: CMakeFiles\GBCppClion.dir\utils.cpp.obj
+GBCppClion.exe: CMakeFiles\GBCppClion.dir\mm.cpp.obj
+GBCppClion.exe: CMakeFiles\GBCppClion.dir\cpu.cpp.obj
 GBCppClion.exe: CMakeFiles\GBCppClion.dir\cpuimpl.cpp.obj
+GBCppClion.exe: CMakeFiles\GBCppClion.dir\ops.cpp.obj
+GBCppClion.exe: CMakeFiles\GBCppClion.dir\utils.cpp.obj
+GBCppClion.exe: CMakeFiles\GBCppClion.dir\main.cpp.obj
 GBCppClion.exe: CMakeFiles\GBCppClion.dir\build.make
 GBCppClion.exe: CMakeFiles\GBCppClion.dir\objects1.rsp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=E:\Documents\Projects\GBCppClion\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Linking CXX executable GBCppClion.exe"
-	"E:\Program Files\JetBrains\CLion 2020.3.1\bin\cmake\win\bin\cmake.exe" -E vs_link_exe --intdir=CMakeFiles\GBCppClion.dir --rc="C:\PROGRA~2\Windows Kits\10\bin\10.0.19041.0\x64\rc.exe" --mt="C:\PROGRA~2\Windows Kits\10\bin\10.0.19041.0\x64\mt.exe" --manifests -- C:\PROGRA~2\MICROS~2\2019\COMMUN~1\VC\Tools\MSVC\14.28.29910\bin\Hostx64\x64\link.exe /nologo @CMakeFiles\GBCppClion.dir\objects1.rsp @<<
- /out:GBCppClion.exe /implib:GBCppClion.lib /pdb:E:\Documents\Projects\GBCppClion\cmake-build-debug\GBCppClion.pdb /version:0.0 /machine:x64 /debug /INCREMENTAL /subsystem:console  kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib 
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir="C:\Users\Jon\Resilio Sync\Documents\Projects\GBCppClion\cmake-build-debug\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_8) "Linking CXX executable GBCppClion.exe"
+	"C:\Program Files\JetBrains\CLion 2021.1.2\bin\cmake\win\bin\cmake.exe" -E vs_link_exe --intdir=CMakeFiles\GBCppClion.dir --rc=C:\PROGRA~2\WI3CF2~1\10\bin\100183~1.0\x64\rc.exe --mt=C:\PROGRA~2\WI3CF2~1\10\bin\100183~1.0\x64\mt.exe --manifests -- C:\PROGRA~2\MICROS~2\2019\COMMUN~1\VC\Tools\MSVC\1428~1.299\bin\Hostx64\x64\link.exe /nologo @CMakeFiles\GBCppClion.dir\objects1.rsp @<<
+ /out:GBCppClion.exe /implib:GBCppClion.lib /pdb:"C:\Users\Jon\Resilio Sync\Documents\Projects\GBCppClion\cmake-build-debug\GBCppClion.pdb" /version:0.0 /machine:x64 /debug /INCREMENTAL /subsystem:console   -LIBPATH:C:\Users\Jon\RESILI~1\DOCUME~1\Projects\GBCPPC~1\lib  SDL2.lib SDL2main.lib fmtd.lib kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib 
 <<
 
 # Rule to build all files generated by this target.
@@ -230,6 +230,6 @@ CMakeFiles\GBCppClion.dir\clean:
 .PHONY : CMakeFiles\GBCppClion.dir\clean
 
 CMakeFiles\GBCppClion.dir\depend:
-	$(CMAKE_COMMAND) -E cmake_depends "NMake Makefiles" E:\Documents\Projects\GBCppClion E:\Documents\Projects\GBCppClion E:\Documents\Projects\GBCppClion\cmake-build-debug E:\Documents\Projects\GBCppClion\cmake-build-debug E:\Documents\Projects\GBCppClion\cmake-build-debug\CMakeFiles\GBCppClion.dir\DependInfo.cmake --color=$(COLOR)
+	$(CMAKE_COMMAND) -E cmake_depends "NMake Makefiles" "C:\Users\Jon\Resilio Sync\Documents\Projects\GBCppClion" "C:\Users\Jon\Resilio Sync\Documents\Projects\GBCppClion" "C:\Users\Jon\Resilio Sync\Documents\Projects\GBCppClion\cmake-build-debug" "C:\Users\Jon\Resilio Sync\Documents\Projects\GBCppClion\cmake-build-debug" "C:\Users\Jon\Resilio Sync\Documents\Projects\GBCppClion\cmake-build-debug\CMakeFiles\GBCppClion.dir\DependInfo.cmake" --color=$(COLOR)
 .PHONY : CMakeFiles\GBCppClion.dir\depend
 

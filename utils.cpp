@@ -1,11 +1,13 @@
 #include "stddefs.h"
+#include "spdlog/spdlog.h"
 #include "utils.h"
 #include <array>
 #include <fstream>
 #include "fmt/core.h"
 #include "fmt/format.h"
+#include "cpuimpl.h"
 
-using namespace std;
+using namespace GBCPP;
 
 void init_sdl(SDL_Window *win,
 			  SDL_Renderer *ren,
@@ -42,17 +44,17 @@ void cleanup_sdl(SDL_Texture *tex,
 }
 
 void outputhex(std::string filename) {
-  fstream file;
-  file.open(filename, fstream::out | fstream::trunc);
+  std::fstream file;
+  file.open(filename, std::fstream::out | std::fstream::trunc);
 
   if (!file) {
 	spdlog::error("Error opening output hex file");
 	return;
   }
 
-  (*mm)[BOOT] = 1;
+//
 
-  static std::array<u8, 0x10000> *v = mm->getarray();
+  static std::array<u8, 0x10000> *v = nullptr;
 
   for (int i = 0; i < 0x7EEE; i += 16) {
 	file << fmt::format("{:<#04x} ", i);
@@ -61,10 +63,10 @@ void outputhex(std::string filename) {
 		 fmt::format("{:04x} {:04x} {:04x} {:04x} ", v->at(i + 4), v->at(i + 5), v->at(i + 6), v->at(i + 7)) <<
 		 fmt::format("{:04x} {:04x} {:04x} {:04x} ", v->at(i + 8), v->at(i + 9), v->at(i + 10), v->at(i + 11)) <<
 		 fmt::format("{:04x} {:04x} {:04x} {:04x} ", v->at(i + 12), v->at(i + 13), v->at(i + 14), v->at(i + 15))
-		 << endl;
+		 << std::endl;
   }
 
-  (*mm)[BOOT] = 0;
+  //mem[BOOT] = 0;
 
   file.close();
 }

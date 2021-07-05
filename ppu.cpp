@@ -11,5 +11,3 @@ Ppu::Ppu(SDL_Texture *tex) : sdl_tex{tex} {
 void Ppu::draw() {
 
 }
-
-Ppu *ppu;
