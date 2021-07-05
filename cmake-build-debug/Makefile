@@ -42,19 +42,19 @@ NULL=nul
 SHELL = cmd.exe
 
 # The CMake executable.
-CMAKE_COMMAND = "C:\Program Files\JetBrains\CLion 2021.1.2\bin\cmake\win\bin\cmake.exe"
+CMAKE_COMMAND = "E:\Program Files\JetBrains\CLion 2020.3.1\bin\cmake\win\bin\cmake.exe"
 
 # The command to remove a file.
-RM = "C:\Program Files\JetBrains\CLion 2021.1.2\bin\cmake\win\bin\cmake.exe" -E rm -f
+RM = "E:\Program Files\JetBrains\CLion 2020.3.1\bin\cmake\win\bin\cmake.exe" -E rm -f
 
 # Escaping for special characters.
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = "C:\Users\Jon\Resilio Sync\Documents\Projects\GBCppClion"
+CMAKE_SOURCE_DIR = E:\Documents\Projects\GBCppClion
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = "C:\Users\Jon\Resilio Sync\Documents\Projects\GBCppClion\cmake-build-debug"
+CMAKE_BINARY_DIR = E:\Documents\Projects\GBCppClion\cmake-build-debug
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -62,7 +62,7 @@ CMAKE_BINARY_DIR = "C:\Users\Jon\Resilio Sync\Documents\Projects\GBCppClion\cmak
 # Special rule for the target edit_cache
 edit_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
-	echo >nul && "C:\Program Files\JetBrains\CLion 2021.1.2\bin\cmake\win\bin\cmake.exe" -E echo "No interactive CMake dialog available."
+	echo >nul && "E:\Program Files\JetBrains\CLion 2020.3.1\bin\cmake\win\bin\cmake.exe" -E echo "No interactive CMake dialog available."
 .PHONY : edit_cache
 
 # Special rule for the target edit_cache
@@ -73,7 +73,7 @@ edit_cache\fast: edit_cache
 # Special rule for the target rebuild_cache
 rebuild_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
-	echo >nul && "C:\Program Files\JetBrains\CLion 2021.1.2\bin\cmake\win\bin\cmake.exe" --regenerate-during-build -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+	echo >nul && "E:\Program Files\JetBrains\CLion 2020.3.1\bin\cmake\win\bin\cmake.exe" --regenerate-during-build -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
 .PHONY : rebuild_cache
 
 # Special rule for the target rebuild_cache
@@ -83,9 +83,9 @@ rebuild_cache\fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start "C:\Users\Jon\Resilio Sync\Documents\Projects\GBCppClion\cmake-build-debug\CMakeFiles" "C:\Users\Jon\Resilio Sync\Documents\Projects\GBCppClion\cmake-build-debug\\CMakeFiles\progress.marks"
+	$(CMAKE_COMMAND) -E cmake_progress_start E:\Documents\Projects\GBCppClion\cmake-build-debug\CMakeFiles E:\Documents\Projects\GBCppClion\cmake-build-debug\\CMakeFiles\progress.marks
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 /nologo -$(MAKEFLAGS) all
-	$(CMAKE_COMMAND) -E cmake_progress_start "C:\Users\Jon\Resilio Sync\Documents\Projects\GBCppClion\cmake-build-debug\CMakeFiles" 0
+	$(CMAKE_COMMAND) -E cmake_progress_start E:\Documents\Projects\GBCppClion\cmake-build-debug\CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -179,33 +179,6 @@ cpuimpl.s: cpuimpl.cpp.s
 cpuimpl.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\GBCppClion.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\GBCppClion.dir\cpuimpl.cpp.s
 .PHONY : cpuimpl.cpp.s
-
-helpers.obj: helpers.cpp.obj
-
-.PHONY : helpers.obj
-
-# target to build an object file
-helpers.cpp.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\GBCppClion.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\GBCppClion.dir\helpers.cpp.obj
-.PHONY : helpers.cpp.obj
-
-helpers.i: helpers.cpp.i
-
-.PHONY : helpers.i
-
-# target to preprocess a source file
-helpers.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\GBCppClion.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\GBCppClion.dir\helpers.cpp.i
-.PHONY : helpers.cpp.i
-
-helpers.s: helpers.cpp.s
-
-.PHONY : helpers.s
-
-# target to generate assembly for a file
-helpers.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\GBCppClion.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\GBCppClion.dir\helpers.cpp.s
-.PHONY : helpers.cpp.s
 
 main.obj: main.cpp.obj
 
@@ -357,9 +330,6 @@ help:
 	@echo ... cpuimpl.obj
 	@echo ... cpuimpl.i
 	@echo ... cpuimpl.s
-	@echo ... helpers.obj
-	@echo ... helpers.i
-	@echo ... helpers.s
 	@echo ... main.obj
 	@echo ... main.i
 	@echo ... main.s

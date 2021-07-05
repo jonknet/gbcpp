@@ -10,81 +10,83 @@
 #include "ppu.h"
 #include <string>
 
-bool DEBUGMODE = false;
+bool DEBUG = false;
 
-int main(int argc, char* argv[]) {
+using namespace GBCPP;
 
-	// Logger
+int main(int argc, char *argv[]) {
 
-	auto formatter = std::make_unique<spdlog::pattern_formatter>();
-	formatter->add_flag<registers_flag>('r').add_flag<stack_flag>('s').add_flag<opcode_flag>('*');
-	formatter->set_pattern("[%T:%e] [%L] [%*] %v [%r] [%s]");
-	spdlog::set_formatter(std::move(formatter));
+  // Logger
 
-	auto max_size = 1048576 * 10;
-	auto max_files = 1;
-	auto logger = spdlog::rotating_logger_mt("logger", "app.log", max_size, max_files,true);
-	logger->flush_on(spdlog::level::info);
-	spdlog::set_default_logger(logger);
+  auto formatter = std::make_unique<spdlog::pattern_formatter>();
+  formatter->add_flag<registers_flag>('r').add_flag<stack_flag>('s').add_flag<opcode_flag>('*');
+  formatter->set_pattern("[%T:%e] [%L] [%*] %v [%r] [%s]");
+  spdlog::set_formatter(std::move(formatter));
 
-	// Cmd line parsing
+  auto max_size = 1048576*10;
+  auto max_files = 1;
+  auto logger = spdlog::rotating_logger_mt("logger", "app.log", max_size, max_files, true);
+  logger->flush_on(spdlog::level::info);
+  spdlog::set_default_logger(logger);
 
-	argh::parser cmdl(argv);
+  // Cmd line parsing
 
-	if (cmdl["-d"]) DEBUGMODE = true;
+  argh::parser cmdl(argv);
 
-	std::string rom;
-	if (!(cmdl("--file") >> rom)) {
-		spdlog::error("Must provide rom name (-f romfile)");
-		return 1;
-	}
+  if (cmdl["-d"])
+	DEBUG = true;
 
-	// SDL
+  std::string rom;
+  if (!(cmdl("--file") >> rom)) {
+	spdlog::error("Must provide rom name (-f romfile)");
+	return 1;
+  }
 
-	if (SDL_Init(SDL_INIT_EVERYTHING) != 0) {
-		spdlog::error("SDL_Init failure");
-	}
+  // SDL
 
-	SDL_Window* win = nullptr, * windebug = nullptr;
-	SDL_Renderer* ren = nullptr, * rendebug = nullptr;
-	SDL_Texture* tex = nullptr, * texdebug = nullptr;
+  if (SDL_Init(SDL_INIT_EVERYTHING)!=0) {
+	spdlog::error("SDL_Init failure");
+  }
 
-	init_sdl(win, ren, tex, windebug, rendebug, texdebug);
+  SDL_Window *win = nullptr, *windebug = nullptr;
+  SDL_Renderer *ren = nullptr, *rendebug = nullptr;
+  SDL_Texture *tex = nullptr, *texdebug = nullptr;
 
-	// Init modules
+  init_sdl(win, ren, tex, windebug, rendebug, texdebug);
 
-	auto* mem = new MemNS::MemMgr();
-	auto* ppu = new PpuNS::Ppu();
-	auto* cpu = new GBCPP::Cpu(*mem);
+  // Init modules
 
-	if (MemNS::MemMgr::load_rom(rom,mem)) {
-		cleanup_sdl(tex, ren, win, texdebug, rendebug, windebug);
-		SDL_Quit();
-		return 2;
-	}
+  auto *mem = new GBCPP::MemMgr();
+  auto *ppu = new GBCPP::Ppu();
+  auto *cpu = new GBCPP::Cpu(*mem);
 
-	int quit = 0;
-
-	while (!quit) {
-		SDL_Event event;
-		while (SDL_PollEvent(&event)) {
-			switch (event.type) {
-			case SDL_QUIT:
-				quit = 1;
-				break;
-			}
-		}
-
-		ppu->draw();
-		cpu->exec();
-	}
-
+  if (GBCPP::MemMgr::load_rom(rom, mem)) {
 	cleanup_sdl(tex, ren, win, texdebug, rendebug, windebug);
-
 	SDL_Quit();
+	return 2;
+  }
 
-	spdlog::shutdown();
+  int quit = 0;
 
-	return 0;
+  while (!quit) {
+	SDL_Event event;
+	while (SDL_PollEvent(&event)) {
+	  switch (event.type) {
+	  case SDL_QUIT: quit = 1;
+		break;
+	  }
+	}
+
+	ppu->draw();
+	cpu->exec();
+  }
+
+  cleanup_sdl(tex, ren, win, texdebug, rendebug, windebug);
+
+  SDL_Quit();
+
+  spdlog::shutdown();
+
+  return 0;
 
 }

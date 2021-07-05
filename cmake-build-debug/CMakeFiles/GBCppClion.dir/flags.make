@@ -4,7 +4,7 @@
 # compile CXX with C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/VC/Tools/MSVC/14.28.29910/bin/Hostx64/x64/cl.exe
 CXX_DEFINES = 
 
-CXX_INCLUDES = -IC:\Users\Jon\RESILI~1\DOCUME~1\Projects\GBCPPC~1\include
+CXX_INCLUDES = -IE:\Documents\Projects\GBCppClion\include
 
 CXX_FLAGS = /DWIN32 /D_WINDOWS /GR /EHsc /Zi /Ob0 /Od /RTC1 -MDd -std:c++17
 

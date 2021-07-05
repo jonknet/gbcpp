@@ -1,7 +1,6 @@
 file(REMOVE_RECURSE
   "CMakeFiles/GBCppClion.dir/cpu.cpp.obj"
   "CMakeFiles/GBCppClion.dir/cpuimpl.cpp.obj"
-  "CMakeFiles/GBCppClion.dir/helpers.cpp.obj"
   "CMakeFiles/GBCppClion.dir/main.cpp.obj"
   "CMakeFiles/GBCppClion.dir/mm.cpp.obj"
   "CMakeFiles/GBCppClion.dir/ops.cpp.obj"

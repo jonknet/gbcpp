@@ -7,76 +7,68 @@
 #include "mm.h"
 #include "cpuimpl.h"
 
-namespace GBCPP
-{
+namespace GBCPP {
 
-	struct StateType
-	{
-		u64 cycles;
-		bool ime;
-		bool running;
-		bool halted;
-		bool stopped;
-		s16 lastop;
-		StateType() : cycles(0), ime(true), running(false), halted(false), stopped(false), lastop(0) {};
-	};
+struct StateType {
+  u64 cycles;
+  bool ime;
+  bool running;
+  bool halted;
+  bool stopped;
+  s16 lastop;
+  StateType() : cycles(0), ime(true), running(false), halted(false), stopped(false), lastop(0) {};
+};
 
-	enum Flags
-	{
-		Z = 0x80, N = 0x40, H = 0x20, C = 0x10
-	};
-	enum CheckOp
-	{
-		none = 0, add = 1, sub = 2,
-	};
-	enum HelperType
-	{
-		out = 1, in = 2
-	};
+enum Flags {
+  Z = 0x80, N = 0x40, H = 0x20, C = 0x10
+};
+enum CheckOp {
+  none = 0, add = 1, sub = 2,
+};
+enum HelperType {
+  out = 1, in = 2
+};
 
-	class Registers
-	{
-	private:
-		u16 af_, bc_, de_, hl_, pc_, sp_;
-	public:
-		u16* af, * bc, * de, * hl, * pc, * sp;
-		u8* a, * f, * b, * c, * d, * e, * h, * l;
+class Registers {
+private:
+  u16 af_, bc_, de_, hl_, pc_, sp_;
+public:
+  u16 *af, *bc, *de, *hl, *pc, *sp;
+  u8 *a, *f, *b, *c, *d, *e, *h, *l;
 
-		Registers()
-				:af_{ 0x01B0 }, bc_{ 0x0013 }, de_{ 0x00D8 }, hl_{ 0x014D }, pc_{ 0 }, sp_{ 0xFFFE }
-		{
-			af = &af_;
-			bc = &bc_;
-			de = &de_;
-			hl = &hl_;
-			pc = &pc_;
-			sp = &sp_;
-			a = (u8*)(af);
-			f = (u8*)(af + 1);
-			b = (u8*)(bc);
-			c = (u8*)(bc + 1);
-			d = (u8*)(de);
-			e = (u8*)(de + 1);
-			h = (u8*)(hl);
-			l = (u8*)(hl + 1);
-		}
-	};
+  Registers()
+	  : af_{0x01B0}, bc_{0x0013}, de_{0x00D8}, hl_{0x014D}, pc_{0}, sp_{0xFFFE} {
+	af = &af_;
+	bc = &bc_;
+	de = &de_;
+	hl = &hl_;
+	pc = &pc_;
+	sp = &sp_;
+	a = (u8 *)(af);
+	f = (u8 *)(af + 1);
+	b = (u8 *)(bc);
+	c = (u8 *)(bc + 1);
+	d = (u8 *)(de);
+	e = (u8 *)(de + 1);
+	h = (u8 *)(hl);
+	l = (u8 *)(hl + 1);
+  }
+};
 
-	class Cpu
-	{
-	private:
-		CpuImpl* pImpl;
-	public:
-		explicit Cpu(MemNS::MemMgr& mm);
-		void exec();
-		void run();
-		void pause();
-		void sethalt(bool h);
-		void setstop(bool s);
-		void reset();
-		StateType getstate();
-		Registers getregisters();
-	};
+class Cpu {
+private:
+  CpuImpl *pImpl;
+public:
+  explicit Cpu(MemMgr &mm);
+  void exec();
+  void run();
+  void pause();
+  void sethalt(bool h);
+  void setstop(bool s);
+  void reset();
+  StateType getstate();
+  Registers getregisters();
+};
 
 }
 

@@ -6,8 +6,9 @@
       <file path="$PROJECT_DIR$/include" />
     </sourceRoots>
     <libraryRoots>
-      <file path="$PROJECT_DIR$/dll" />
-      <file path="$PROJECT_DIR$/lib" />
+      <file path="$PROJECT_DIR$/include/SDL2" />
+      <file path="$PROJECT_DIR$/include/fmt" />
+      <file path="$PROJECT_DIR$/include/spdlog" />
     </libraryRoots>
     <excludeRoots>
       <file path="$PROJECT_DIR$/roms" />
