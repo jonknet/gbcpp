@@ -1,6 +1,9 @@
-#include "stddefs.h"
+
 #include "cpu.h"
+#include "stddefs.h"
 #include "mm.h"
+#include "ops.h"
+#include "cpuimpl.h"
 #include <cassert>
 
 using namespace GBCPP;
@@ -8,6 +11,11 @@ using namespace GBCPP;
 Cpu::Cpu(GBCPP::MemMgr &mm) {
   pImpl = new CpuImpl(&mm);
 }
+
+void Cpu::tick(){
+
+}
+
 void Cpu::run() {
   pImpl->state->running = true;
 }
@@ -26,7 +34,7 @@ void Cpu::reset() {
 StateType Cpu::getstate() {
   return *pImpl->state;
 }
-#define mm (*memmgr)
+
 void Cpu::exec() {
   //spdlog::info("OP{0:x} PC{1:x}", mm[_pc], _pc);
   pImpl->lookup_and_execute();
@@ -34,3 +42,4 @@ void Cpu::exec() {
 Registers Cpu::getregisters() {
   return *pImpl->reg;
 }
+

@@ -11,14 +11,7 @@
 
 using namespace GBCPP;
 
-namespace GBCPP
-{
-	bool DEBUG = false;
-
-	MemMgr* mem = new MemMgr();
-	Ppu* ppu = new Ppu();
-	Cpu* cpu = new Cpu(*mem);
-}
+bool GBCPP::DEBUG = false;
 
 int main(int argc, char *argv[]) {
 
@@ -49,10 +42,6 @@ int main(int argc, char *argv[]) {
 
   // SDL
 
-  if (SDL_Init(SDL_INIT_EVERYTHING)!=0) {
-	spdlog::error("SDL_Init failure");
-  }
-
   SDL_Window *win = nullptr, *windebug = nullptr;
   SDL_Renderer *ren = nullptr, *rendebug = nullptr;
   SDL_Texture *tex = nullptr, *texdebug = nullptr;
@@ -61,11 +50,19 @@ int main(int argc, char *argv[]) {
 
   // Init modules
 
+  auto *mem = new MemMgr();
+  auto *ppu = new Ppu(tex);
+  auto *cpu = new Cpu(*mem);
+
+  // Load ROM into memory
+
   if (GBCPP::MemMgr::load_rom(rom, mem)) {
 	cleanup_sdl(tex, ren, win, texdebug, rendebug, windebug);
 	SDL_Quit();
 	return 2;
   }
+
+  // Main Loop
 
   int quit = 0;
 
@@ -73,8 +70,8 @@ int main(int argc, char *argv[]) {
 	SDL_Event event;
 	while (SDL_PollEvent(&event)) {
 	  switch (event.type) {
-	  case SDL_QUIT: quit = 1;
-		break;
+		case SDL_QUIT: quit = 1;
+		  break;
 	  }
 	}
 

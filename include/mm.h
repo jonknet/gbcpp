@@ -1,12 +1,10 @@
 #pragma once
-#ifndef __MM__H
-#define __MM__H
-
 #include "stddefs.h"
 #include <string>
-#include <array>
 
 namespace GBCPP {
+
+const auto ADDRESS_SPACE_SIZE = 0x10000;
 
 enum memory_regions {
   ROM_16KB_00 = 0,
@@ -94,17 +92,17 @@ const std::array<u8, 256> BOOT_ROM = {
 	0x3e, 0x01, 0xe0, 0x50
 };
 
+using gb_mem_t = mem_t<ADDRESS_SPACE_SIZE>;
+
 class MemMgr {
 private:
-  std::array<u8, 0x10000> mem;
+  gb_mem_t mem;
   void init();
 public:
   MemMgr();
   u8 &operator[](std::size_t i);
-  std::array<u8, 0x10000> &data();
+  gb_mem_t &data();
   static int load_rom(const std::string &filename, MemMgr *mgr);
 };
 
 }
-
-#endif

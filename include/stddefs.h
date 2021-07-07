@@ -1,10 +1,6 @@
-#ifndef STDDEFS_H
-#define STDDEFS_H
-
+#pragma once
 #include <cstdint>
 #include <array>
-
-
 
 namespace GBCPP
 {
@@ -15,25 +11,15 @@ namespace GBCPP
 	using u64 = uint64_t;
 	using s8 = int8_t;
 	using s16 = int16_t;
-	using mem_t = std::array<u8, 0x10000>;
+	using reg = u8;
+	template<auto S> using mem_t = std::array<reg, S>;
 
 	static u8 null = 0;
 	static u16 null16 = 0;
-
-	struct OpDef
-	{
-		int cycles[2];
-		int length;
-	};
 
 	class Cpu;
 	class MemMgr;
 	class Ppu;
 
 	extern bool DEBUG;
-
-	extern MemMgr* mem;
-	extern Ppu* ppu;
-	extern Cpu* cpu;
 }
-#endif

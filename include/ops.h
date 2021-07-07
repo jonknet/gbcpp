@@ -1,12 +1,12 @@
 #pragma once
-#ifndef __OPS__H
-#define __OPS__H
-
-#include "stddefs.h"
-#include "mm.h"
-#include "cpu.h"
 
 namespace GBCPP {
+
+struct OpDef
+{
+  int cycles[2];
+  int length;
+};
 
 const OpDef opDefinesTbl[256] = {{{4, 0}, 1},
 								 {{12, 0}, 3},
@@ -522,5 +522,3 @@ const OpDef cbDefinesTbl[256] = {{{8, 0}, 2},
 								 {{16, 0}, 2},
 								 {{8, 0}, 2}};
 }
-
-#endif

@@ -5,7 +5,6 @@
 #include <fstream>
 #include "fmt/core.h"
 #include "fmt/format.h"
-#include "cpuimpl.h"
 
 using namespace GBCPP;
 
@@ -15,6 +14,12 @@ void init_sdl(SDL_Window *win,
 			  SDL_Window *windebug,
 			  SDL_Renderer *rendebug,
 			  SDL_Texture *texdebug) {
+
+  if (SDL_Init(SDL_INIT_EVERYTHING)!=0) {
+	spdlog::error("SDL_Init failure");
+	assert(0);
+  }
+
   win = SDL_CreateWindow("GBinCpp", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 256, 256, SDL_WINDOW_RESIZABLE);
   ren = SDL_CreateRenderer(win, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
   tex = SDL_CreateTexture(ren, SDL_PIXELFORMAT_RGB888, SDL_TEXTUREACCESS_STREAMING, 256, 256);
@@ -43,7 +48,7 @@ void cleanup_sdl(SDL_Texture *tex,
   }
 }
 
-void outputhex(std::string filename) {
+void outputhex(const std::string& filename) {
   std::fstream file;
   file.open(filename, std::fstream::out | std::fstream::trunc);
 

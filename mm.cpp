@@ -45,18 +45,19 @@ void MemMgr::init() {
 
 }
 
-u8 &MemMgr::operator[](std::size_t i) {
+reg &MemMgr::operator[](std::size_t i) {
   assert(i >= 0 && i <= 0xFFFF);
   if (i < 256 && mem[BOOT]==0) {
-	return const_cast<u8 &>(BOOT_ROM[i]);
+	return (reg &)(BOOT_ROM[i]);
   }
   return mem[i];
 }
 
-std::array<u8, 0x10000> &MemMgr::data() {
+gb_mem_t &MemMgr::data() {
   return mem;
 }
 
+// TODO: Need to handle multiple types of cartridges but for now will leave it as is
 int MemMgr::load_rom(const std::string &filename, MemMgr *mgr) {
   std::ifstream rom{filename, std::ios::in | std::ios::binary};
   auto &arr = mgr->data();
