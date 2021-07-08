@@ -17,22 +17,22 @@ void Cpu::tick(){
 }
 
 void Cpu::run() {
-  pImpl->state.running = true;
+  pImpl->s.running = true;
 }
 void Cpu::pause() {
-  pImpl->state.running = false;
+  pImpl->s.running = false;
 }
 void Cpu::sethalt(bool h) {
-  pImpl->state.halted = h;
+  pImpl->s.halted = h;
 }
 void Cpu::setstop(bool st) {
-  pImpl->state.stopped = st;
+  pImpl->s.stopped = st;
 }
 void Cpu::reset() {
 
 }
-StateType Cpu::getstate() {
-  return pImpl->state;
+CpuState Cpu::getstate() {
+  return pImpl->s;
 }
 
 void Cpu::exec() {
@@ -40,6 +40,6 @@ void Cpu::exec() {
   pImpl->lookup_and_execute();
 }
 Registers Cpu::getregisters() {
-  return pImpl->reg;
+  return pImpl->r;
 }
 

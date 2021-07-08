@@ -13,6 +13,7 @@
 using namespace GBCPP;
 
 bool GBCPP::DEBUG = false;
+std::string GBCPP::log_buffer = {};
 
 int main(int argc, char *argv[]) {
 
@@ -22,12 +23,11 @@ int main(int argc, char *argv[]) {
     std::filesystem::remove(std::filesystem::path("app.log"));
   }
 
-  spdlog::set_pattern("[%T:%e] [%L] %v\r\n");
+  spdlog::set_pattern("[%T:%e] [%L] %v \r\n");
   auto max_size = 1048576*10;
   auto max_files = 1;
   auto logger = spdlog::rotating_logger_mt("logger", "app.log", max_size, max_files, false);
   spdlog::set_default_logger(logger);
-  spdlog::flush_on(spdlog::level::info);
 
   // Cmd line parsing
 
