@@ -26,8 +26,8 @@
 #  include <winapifamily.h>
 #endif
 #if (FMT_HAS_INCLUDE(<fcntl.h>) || defined(__APPLE__) || \
-     defined(__linux__)) &&                              \
-    (!defined(WINAPI_FAMILY) || (WINAPI_FAMILY == WINAPI_FAMILY_DESKTOP_APP))
+     defined(__linux__)) && \
+    (!defined(WINAPI_FAMILY) || (WINAPI_FAMILY==WINAPI_FAMILY_DESKTOP_APP))
 #  include <fcntl.h>  // for O_RDONLY
 #  define FMT_USE_FCNTL 1
 #else
@@ -60,9 +60,9 @@
 // equals to EINTR.
 #ifndef _WIN32
 #  define FMT_RETRY_VAL(result, expression, error_result) \
-    do {                                                  \
-      (result) = (expression);                            \
-    } while ((result) == (error_result) && errno == EINTR)
+	do {                                                  \
+	  (result) = (expression);                            \
+	} while ((result) == (error_result) && errno == EINTR)
 #else
 #  define FMT_RETRY_VAL(result, expression, error_result) result = (expression)
 #endif
@@ -97,48 +97,50 @@ FMT_MODULE_EXPORT_BEGIN
     format(std::string("{}"), 42);
   \endrst
  */
-template <typename Char> class basic_cstring_view {
+template<typename Char>
+class basic_cstring_view {
  private:
-  const Char* data_;
+  const Char *data_;
 
  public:
   /** Constructs a string reference object from a C string. */
-  basic_cstring_view(const Char* s) : data_(s) {}
+  basic_cstring_view(const Char *s) : data_(s) {}
 
   /**
     \rst
     Constructs a string reference from an ``std::string`` object.
     \endrst
    */
-  basic_cstring_view(const std::basic_string<Char>& s) : data_(s.c_str()) {}
+  basic_cstring_view(const std::basic_string<Char> &s) : data_(s.c_str()) {}
 
   /** Returns the pointer to a C string. */
-  const Char* c_str() const { return data_; }
+  const Char *c_str() const { return data_; }
 };
 
 using cstring_view = basic_cstring_view<char>;
 using wcstring_view = basic_cstring_view<wchar_t>;
 
-template <typename Char> struct formatter<std::error_code, Char> {
-  template <typename ParseContext>
-  FMT_CONSTEXPR auto parse(ParseContext& ctx) -> decltype(ctx.begin()) {
-    return ctx.begin();
+template<typename Char>
+struct formatter<std::error_code, Char> {
+  template<typename ParseContext>
+  FMT_CONSTEXPR auto parse(ParseContext &ctx) -> decltype(ctx.begin()) {
+	return ctx.begin();
   }
 
-  template <typename FormatContext>
-  FMT_CONSTEXPR auto format(const std::error_code& ec, FormatContext& ctx) const
-      -> decltype(ctx.out()) {
-    auto out = ctx.out();
-    out = detail::write_bytes(out, ec.category().name(),
-                              basic_format_specs<Char>());
-    out = detail::write<Char>(out, Char(':'));
-    out = detail::write<Char>(out, ec.value());
-    return out;
+  template<typename FormatContext>
+  FMT_CONSTEXPR auto format(const std::error_code &ec, FormatContext &ctx) const
+  -> decltype(ctx.out()) {
+	auto out = ctx.out();
+	out = detail::write_bytes(out, ec.category().name(),
+							  basic_format_specs<Char>());
+	out = detail::write<Char>(out, Char(':'));
+	out = detail::write<Char>(out, ec.value());
+	return out;
   }
 };
 
 #ifdef _WIN32
-FMT_API const std::error_category& system_category() FMT_NOEXCEPT;
+FMT_API const std::error_category &system_category() FMT_NOEXCEPT;
 
 FMT_BEGIN_DETAIL_NAMESPACE
 // A converter from UTF-16 to UTF-8.
@@ -152,7 +154,7 @@ class utf16_to_utf8 {
   FMT_API explicit utf16_to_utf8(basic_string_view<wchar_t> s);
   operator string_view() const { return string_view(&buffer_[0], size()); }
   size_t size() const { return buffer_.size() - 1; }
-  const char* c_str() const { return &buffer_[0]; }
+  const char *c_str() const { return &buffer_[0]; }
   std::string str() const { return std::string(&buffer_[0], size()); }
 
   // Performs conversion returning a system error code instead of
@@ -161,12 +163,12 @@ class utf16_to_utf8 {
   FMT_API int convert(basic_string_view<wchar_t> s);
 };
 
-FMT_API void format_windows_error(buffer<char>& out, int error_code,
-                                  const char* message) FMT_NOEXCEPT;
+FMT_API void format_windows_error(buffer<char> &out, int error_code,
+								  const char *message) FMT_NOEXCEPT;
 FMT_END_DETAIL_NAMESPACE
 
 FMT_API std::system_error vwindows_error(int error_code, string_view format_str,
-                                         format_args args);
+										 format_args args);
 
 /**
  \rst
@@ -196,16 +198,16 @@ FMT_API std::system_error vwindows_error(int error_code, string_view format_str,
    }
  \endrst
 */
-template <typename... Args>
+template<typename... Args>
 std::system_error windows_error(int error_code, string_view message,
-                                const Args&... args) {
+								const Args &... args) {
   return vwindows_error(error_code, message, fmt::make_format_args(args...));
 }
 
 // Reports a Windows error without throwing an exception.
 // Can be used to report errors from destructors.
 FMT_API void report_windows_error(int error_code,
-                                  const char* message) FMT_NOEXCEPT;
+								  const char *message) FMT_NOEXCEPT;
 #else
 inline const std::error_category& system_category() FMT_NOEXCEPT {
   return std::system_category();
@@ -223,32 +225,32 @@ void say(const S& format_str, Args&&... args) {
 // A buffered file.
 class buffered_file {
  private:
-  FILE* file_;
+  FILE *file_;
 
   friend class file;
 
-  explicit buffered_file(FILE* f) : file_(f) {}
+  explicit buffered_file(FILE *f) : file_(f) {}
 
  public:
-  buffered_file(const buffered_file&) = delete;
-  void operator=(const buffered_file&) = delete;
+  buffered_file(const buffered_file &) = delete;
+  void operator=(const buffered_file &) = delete;
 
   // Constructs a buffered_file object which doesn't represent any file.
-  buffered_file() FMT_NOEXCEPT : file_(nullptr) {}
+  buffered_file() FMT_NOEXCEPT: file_(nullptr) {}
 
   // Destroys the object closing the file it represents if any.
   FMT_API ~buffered_file() FMT_NOEXCEPT;
 
  public:
-  buffered_file(buffered_file&& other) FMT_NOEXCEPT : file_(other.file_) {
-    other.file_ = nullptr;
+  buffered_file(buffered_file &&other) FMT_NOEXCEPT: file_(other.file_) {
+	other.file_ = nullptr;
   }
 
-  buffered_file& operator=(buffered_file&& other) {
-    close();
-    file_ = other.file_;
-    other.file_ = nullptr;
-    return *this;
+  buffered_file &operator=(buffered_file &&other) {
+	close();
+	file_ = other.file_;
+	other.file_ = nullptr;
+	return *this;
   }
 
   // Opens a file.
@@ -258,19 +260,19 @@ class buffered_file {
   FMT_API void close();
 
   // Returns the pointer to a FILE object representing this file.
-  FILE* get() const FMT_NOEXCEPT { return file_; }
+  FILE *get() const FMT_NOEXCEPT { return file_; }
 
   // We place parentheses around fileno to workaround a bug in some versions
   // of MinGW that define fileno as a macro.
-  FMT_API int(fileno)() const;
+  FMT_API int (fileno)() const;
 
   void vprint(string_view format_str, format_args args) {
-    fmt::vprint(file_, format_str, args);
+	fmt::vprint(file_, format_str, args);
   }
 
-  template <typename... Args>
-  inline void print(string_view format_str, const Args&... args) {
-    vprint(format_str, fmt::make_format_args(args...));
+  template<typename... Args>
+  inline void print(string_view format_str, const Args &... args) {
+	vprint(format_str, fmt::make_format_args(args...));
   }
 };
 
@@ -291,32 +293,32 @@ class file {
  public:
   // Possible values for the oflag argument to the constructor.
   enum {
-    RDONLY = FMT_POSIX(O_RDONLY),  // Open for reading only.
-    WRONLY = FMT_POSIX(O_WRONLY),  // Open for writing only.
-    RDWR = FMT_POSIX(O_RDWR),      // Open for reading and writing.
-    CREATE = FMT_POSIX(O_CREAT),   // Create if the file doesn't exist.
-    APPEND = FMT_POSIX(O_APPEND),  // Open in append mode.
-    TRUNC = FMT_POSIX(O_TRUNC)     // Truncate the content of the file.
+	RDONLY = FMT_POSIX(O_RDONLY),  // Open for reading only.
+	WRONLY = FMT_POSIX(O_WRONLY),  // Open for writing only.
+	RDWR = FMT_POSIX(O_RDWR),      // Open for reading and writing.
+	CREATE = FMT_POSIX(O_CREAT),   // Create if the file doesn't exist.
+	APPEND = FMT_POSIX(O_APPEND),  // Open in append mode.
+	TRUNC = FMT_POSIX(O_TRUNC)     // Truncate the content of the file.
   };
 
   // Constructs a file object which doesn't represent any file.
-  file() FMT_NOEXCEPT : fd_(-1) {}
+  file() FMT_NOEXCEPT: fd_(-1) {}
 
   // Opens a file and constructs a file object representing this file.
   FMT_API file(cstring_view path, int oflag);
 
  public:
-  file(const file&) = delete;
-  void operator=(const file&) = delete;
+  file(const file &) = delete;
+  void operator=(const file &) = delete;
 
-  file(file&& other) FMT_NOEXCEPT : fd_(other.fd_) { other.fd_ = -1; }
+  file(file &&other) FMT_NOEXCEPT: fd_(other.fd_) { other.fd_ = -1; }
 
   // Move assignment is not noexcept because close may throw.
-  file& operator=(file&& other) {
-    close();
-    fd_ = other.fd_;
-    other.fd_ = -1;
-    return *this;
+  file &operator=(file &&other) {
+	close();
+	fd_ = other.fd_;
+	other.fd_ = -1;
+	return *this;
   }
 
   // Destroys the object closing the file it represents if any.
@@ -333,10 +335,10 @@ class file {
   FMT_API long long size() const;
 
   // Attempts to read count bytes from the file into the specified buffer.
-  FMT_API size_t read(void* buffer, size_t count);
+  FMT_API size_t read(void *buffer, size_t count);
 
   // Attempts to write count bytes from the specified buffer to the file.
-  FMT_API size_t write(const void* buffer, size_t count);
+  FMT_API size_t write(const void *buffer, size_t count);
 
   // Duplicates a file descriptor with the dup function and returns
   // the duplicate as a file object.
@@ -348,15 +350,15 @@ class file {
 
   // Makes fd be the copy of this file descriptor, closing fd first if
   // necessary.
-  FMT_API void dup2(int fd, std::error_code& ec) FMT_NOEXCEPT;
+  FMT_API void dup2(int fd, std::error_code &ec) FMT_NOEXCEPT;
 
   // Creates a pipe setting up read_end and write_end file objects for reading
   // and writing respectively.
-  FMT_API static void pipe(file& read_end, file& write_end);
+  FMT_API static void pipe(file &read_end, file &write_end);
 
   // Creates a buffered_file object associated with this file and detaches
   // this file object from the file.
-  FMT_API buffered_file fdopen(const char* mode);
+  FMT_API buffered_file fdopen(const char *mode);
 };
 
 // Returns the memory page size.
@@ -368,9 +370,9 @@ struct buffer_size {
   buffer_size() = default;
   size_t value = 0;
   buffer_size operator=(size_t val) const {
-    auto bs = buffer_size();
-    bs.value = val;
-    return bs;
+	auto bs = buffer_size();
+	bs.value = val;
+	return bs;
   }
 };
 
@@ -380,15 +382,15 @@ struct ostream_params {
 
   ostream_params() {}
 
-  template <typename... T>
+  template<typename... T>
   ostream_params(T... params, int new_oflag) : ostream_params(params...) {
-    oflag = new_oflag;
+	oflag = new_oflag;
   }
 
-  template <typename... T>
+  template<typename... T>
   ostream_params(T... params, detail::buffer_size bs)
-      : ostream_params(params...) {
-    this->buffer_size = bs.value;
+	  : ostream_params(params...) {
+	this->buffer_size = bs.value;
   }
 };
 
@@ -402,45 +404,46 @@ class FMT_API ostream final : private detail::buffer<char> {
   file file_;
 
   void flush() {
-    if (size() == 0) return;
-    file_.write(data(), size());
-    clear();
+	if (size()==0) return;
+	file_.write(data(), size());
+	clear();
   }
 
   void grow(size_t) override;
 
-  ostream(cstring_view path, const detail::ostream_params& params)
-      : file_(path, params.oflag) {
-    set(new char[params.buffer_size], params.buffer_size);
+  ostream(cstring_view path, const detail::ostream_params &params)
+	  : file_(path, params.oflag) {
+	set(new char[params.buffer_size], params.buffer_size);
   }
 
  public:
-  ostream(ostream&& other)
-      : detail::buffer<char>(other.data(), other.size(), other.capacity()),
-        file_(std::move(other.file_)) {
-    other.clear();
-    other.set(nullptr, 0);
+  ostream(ostream &&other)
+	  : detail::buffer<char>(other.data(), other.size(), other.capacity()),
+		file_(std::move(other.file_)) {
+	other.clear();
+	other.set(nullptr, 0);
   }
   ~ostream() {
-    flush();
-    delete[] data();
+	flush();
+	delete[] data();
   }
 
-  template <typename... T>
+  template<typename... T>
   friend ostream output_file(cstring_view path, T... params);
 
   void close() {
-    flush();
-    file_.close();
+	flush();
+	file_.close();
   }
 
   /**
     Formats ``args`` according to specifications in ``fmt`` and writes the
     output to the file.
    */
-  template <typename... T> void print(format_string<T...> fmt, T&&... args) {
-    vformat_to(detail::buffer_appender<char>(*this), fmt,
-               fmt::make_format_args(args...));
+  template<typename... T>
+  void print(format_string<T...> fmt, T &&... args) {
+	vformat_to(detail::buffer_appender<char>(*this), fmt,
+			   fmt::make_format_args(args...));
   }
 };
 
@@ -459,7 +462,7 @@ class FMT_API ostream final : private detail::buffer<char> {
     out.print("Don't {}", "Panic");
   \endrst
  */
-template <typename... T>
+template<typename... T>
 inline ostream output_file(cstring_view path, T... params) {
   return {path, detail::ostream_params(params...)};
 }
@@ -475,7 +478,7 @@ class locale {
   static void freelocale(locale_t loc) { _free_locale(loc); }
 
   static double strtod_l(const char* nptr, char** endptr, _locale_t loc) {
-    return _strtod_l(nptr, endptr, loc);
+	return _strtod_l(nptr, endptr, loc);
   }
 #  endif
 
@@ -488,11 +491,11 @@ class locale {
 
   locale() {
 #  ifndef _WIN32
-    locale_ = FMT_SYSTEM(newlocale(LC_NUMERIC_MASK, "C", nullptr));
+	locale_ = FMT_SYSTEM(newlocale(LC_NUMERIC_MASK, "C", nullptr));
 #  else
-    locale_ = _create_locale(LC_NUMERIC, "C");
+	locale_ = _create_locale(LC_NUMERIC, "C");
 #  endif
-    if (!locale_) FMT_THROW(system_error(errno, "cannot create locale"));
+	if (!locale_) FMT_THROW(system_error(errno, "cannot create locale"));
   }
   ~locale() { freelocale(locale_); }
 
@@ -501,10 +504,10 @@ class locale {
   // Converts string to floating-point number and advances str past the end
   // of the parsed input.
   double strtod(const char*& str) const {
-    char* end = nullptr;
-    double result = strtod_l(str, &end, locale_);
-    str = end;
-    return result;
+	char* end = nullptr;
+	double result = strtod_l(str, &end, locale_);
+	str = end;
+	return result;
   }
 };
 using Locale FMT_DEPRECATED_ALIAS = locale;
