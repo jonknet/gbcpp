@@ -8,6 +8,7 @@
 #include "cpu.h"
 #include "ppu.h"
 #include <string>
+#include <filesystem>
 
 using namespace GBCPP;
 
@@ -17,15 +18,16 @@ int main(int argc, char *argv[]) {
 
   // Logger
 
-  auto formatter = std::make_unique<spdlog::pattern_formatter>();
-  formatter->set_pattern("[%T:%e] [%L] [%*] %v");
-  spdlog::set_formatter(std::move(formatter));
+  if(std::filesystem::exists(std::filesystem::path("app.log"))){
+    std::filesystem::remove(std::filesystem::path("app.log"));
+  }
 
+  spdlog::set_pattern("[%T:%e] [%L] %v\r\n");
   auto max_size = 1048576*10;
   auto max_files = 1;
-  auto logger = spdlog::rotating_logger_mt("logger", "app.log", max_size, max_files, true);
-  logger->flush_on(spdlog::level::info);
+  auto logger = spdlog::rotating_logger_mt("logger", "app.log", max_size, max_files, false);
   spdlog::set_default_logger(logger);
+  spdlog::flush_on(spdlog::level::info);
 
   // Cmd line parsing
 
@@ -36,13 +38,13 @@ int main(int argc, char *argv[]) {
 
   std::string rom;
   if (!(cmdl("--file") >> rom)) {
-	spdlog::error("Must provide rom name (-f romfile)");
+	spdlog::error("Must provide rom name (--file romfile)");
 	return 1;
   }
 
   // SDL
 
-  SDL_Window *win = nullptr, *windebug = nullptr;
+  SDL_Window* win = nullptr, *windebug = nullptr;
   SDL_Renderer *ren = nullptr, *rendebug = nullptr;
   SDL_Texture *tex = nullptr, *texdebug = nullptr;
 

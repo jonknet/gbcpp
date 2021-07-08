@@ -11,8 +11,8 @@ namespace GBCPP
 	using u64 = uint64_t;
 	using s8 = int8_t;
 	using s16 = int16_t;
-	using reg = u8;
-	template<auto S> using mem_t = std::array<reg, S>;
+	template<auto S> using mem_t = std::array<u8, S>;
+	using gb_mem = mem_t<0x10000>;
 
 	static u8 null = 0;
 	static u16 null16 = 0;

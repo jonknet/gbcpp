@@ -45,10 +45,10 @@ void MemMgr::init() {
 
 }
 
-reg &MemMgr::operator[](std::size_t i) {
+u8 &MemMgr::operator[](std::size_t i) {
   assert(i >= 0 && i <= 0xFFFF);
   if (i < 256 && mem[BOOT]==0) {
-	return (reg &)(BOOT_ROM[i]);
+	return (u8 &)(BOOT_ROM[i]);
   }
   return mem[i];
 }

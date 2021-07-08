@@ -4,6 +4,8 @@
 #include "ops.h"
 #include "spdlog/spdlog.h"
 
+#define SPDLOG_EOL " "
+
 namespace GBCPP {
 
 struct StateType {
@@ -55,29 +57,27 @@ class Registers {
 class Cpu::CpuImpl {
  private:
   friend class Cpu;
-  Registers *reg;
-  StateType *state;
+  Registers reg;
+  StateType state;
   MemMgr *m;
 
  public:
   explicit CpuImpl(MemMgr *mem_mgr)
-	  : reg(),
-		state(),
-		m(mem_mgr),
-		a(*reg->a),
-		b(*reg->b),
-		c(*reg->c),
-		d(*reg->d),
-		e(*reg->e),
-		h(*reg->h),
-		l(*reg->l),
-		f(*reg->f),
-		af(*reg->af),
-		bc(*reg->bc),
-		de(*reg->de),
-		hl(*reg->hl),
-		sp(*reg->sp),
-		pc(*reg->pc) {
+	  : m(mem_mgr),
+		a(*reg.a),
+		b(*reg.b),
+		c(*reg.c),
+		d(*reg.d),
+		e(*reg.e),
+		h(*reg.h),
+		l(*reg.l),
+		f(*reg.f),
+		af(*reg.af),
+		bc(*reg.bc),
+		de(*reg.de),
+		hl(*reg.hl),
+		sp(*reg.sp),
+		pc(*reg.pc) {
   }
 
  protected:
@@ -216,27 +216,27 @@ class Cpu::CpuImpl {
 
   // Member Definitions
 
-  static void ld16(u16 &t, u16 v) {
+  static void ld16(u16 t, u16 v) {
 	spdlog::info("LD16 {:x},{:x}", t, v);
 	t = v;
   }
 
-  void ld_i(u16 &t) {
+  void ld_i(u16 t) {
 	spdlog::info("LDI [{:x}],A({:x})", t, a);
-	(*m)[t] = a;
+	(*m).data().at(t) = a;
   }
 
-  static void ld(u8 &t, u16 v) {
+  static void ld(u8 t, u16 v) {
 	spdlog::info("LD {:x},{:x}", t, v);
 	t = v;
   }
 
-  static void inc16(u16 &t) {
+  static void inc16(u16 t) {
 	spdlog::info("INC16 {:x}", t);
 	t += 1;
   }
 
-  void inc(u8 &t) {
+  void inc(u8 t) {
 	spdlog::info("INC {:x}", t);
 	half_carry_check_add(t, 1);
 	t += 1;
@@ -244,12 +244,12 @@ class Cpu::CpuImpl {
 	clrf(N);
   }
 
-  static void dec16(u16 &t) {
+  static void dec16(u16 t) {
 	spdlog::info("DEC16 {:x}", t);
 	t -= 1;
   }
 
-  void dec(u8 &t) {
+  void dec(u8 t) {
 	spdlog::info("DEC {:x}", t);
 	half_carry_check_sub(t, 1);
 	t -= 1;
@@ -392,7 +392,7 @@ class Cpu::CpuImpl {
 	pc = v - 1;
   }
 
-  void pop(u16 &t) {
+  void pop(u16 t) {
 	spdlog::info("POP16 = {:x}", peek16());
 	t = pop16();
   }
@@ -402,7 +402,7 @@ class Cpu::CpuImpl {
 	push16(v);
   }
 
-  void rlc(u8 &t) {
+  void rlc(u8 t) {
 	auto pre = t;
 	(isbitset(t, 7)) ? setf(C) : clrf(C);
 	t <<= 1;
@@ -413,7 +413,7 @@ class Cpu::CpuImpl {
 	spdlog::info("RLC ({:x}) = {:x}", pre, t);
   }
 
-  void rrc(u8 &t) {
+  void rrc(u8 t) {
 	auto pre = t;
 	(isbitset(t, 0)) ? setf(C) : clrf(C);
 	t >>= 1;
@@ -472,7 +472,7 @@ class Cpu::CpuImpl {
 	spdlog::info("RRA ({:x}) = {:x}", pre, a);
   }
 
-  void rl(u8 &t) {
+  void rl(u8 t) {
 	auto pre = t;
 	bool cy = getf(C);
 	(isbitset(t, 7)) ? setf(C) : clrf(C);
@@ -484,7 +484,7 @@ class Cpu::CpuImpl {
 	spdlog::info("RL ({:x}) = {:x}", pre, t);
   }
 
-  void rr(u8 &t) {
+  void rr(u8 t) {
 	auto pre = t;
 	bool cy = getf(C);
 	(isbitset(t, 0)) ? setf(C) : clrf(C);
@@ -496,7 +496,7 @@ class Cpu::CpuImpl {
 	spdlog::info("RR ({:x}) = {:x}", pre, t);
   }
 
-  void sla(u8 &t) {
+  void sla(u8 t) {
 	auto pre = t;
 	(isbitset(t, 7)) ? setf(C) : clrf(C);
 	t <<= 1;
@@ -506,7 +506,7 @@ class Cpu::CpuImpl {
 	spdlog::info("SLA ({:x}) = {:x}", pre, t);
   }
 
-  void sra(u8 &t) {
+  void sra(u8 t) {
 	auto pre = t;
 	(isbitset(t, 0)) ? setf(C) : clrf(C);
 	t >>= 1;
@@ -517,7 +517,7 @@ class Cpu::CpuImpl {
 	spdlog::info("SRA ({:x}) = {:x}", pre, t);
   }
 
-  void swap(u8 &t) {
+  void swap(u8 t) {
 	auto pre = t;
 	t &= 0xFF | (t << 4) | (t >> 4);
 	zero_check(t);
@@ -527,7 +527,7 @@ class Cpu::CpuImpl {
 	spdlog::info("SWAP ({:x}) = {:x}", pre, t);
   }
 
-  void srl(u8 &t) {
+  void srl(u8 t) {
 	auto pre = t;
 	(isbitset(t, 0)) ? setf(C) : clrf(C);
 	t >>= 1;
@@ -544,21 +544,22 @@ class Cpu::CpuImpl {
 	setf(H);
   }
 
-  static void res(u8 &t, int b) {
+  static void res(u8 t, int b) {
 	spdlog::info("RES ({:x}),{:d}", t, b);
 	t &= ~(1 << b);
   }
 
-  static void set(u8 &t, int b) {
+  static void set(u8 t, int b) {
 	spdlog::info("SET ({:x}),{:d}", t, b);
 	t |= (1 << b);
   }
 
  public:
   void lookup_and_execute() {
-	state->lastop = (*m)[pc];
-	assert(state->lastop >= 0 && state->lastop <= 256);
-	switch (state->lastop) {
+	spdlog::set_pattern("[%T:%e] [%L] %36v");
+	state.lastop = (*m)[pc];
+	assert(state.lastop >= 0 && state.lastop <= 256);
+	switch (state.lastop) {
 	  case 0x00:break;
 	  case 0x01:ld16(bc, get16(pc + 1));
 		break;
@@ -591,7 +592,7 @@ class Cpu::CpuImpl {
 		break;
 	  case 0x0F:rrca();
 		break;
-	  case 0x10:state->stopped = true;
+	  case 0x10:state.stopped = true;
 		break;
 	  case 0x11:ld16(de, get16(pc + 1));
 		break;
@@ -803,7 +804,7 @@ class Cpu::CpuImpl {
 		break;
 	  case 0x75:ld((*m)[hl], l);
 		break;
-	  case 0x76: state->halted = true;
+	  case 0x76: state.halted = true;
 		break;
 	  case 0x77:ld((*m)[hl], a);
 		break;
@@ -1559,7 +1560,7 @@ class Cpu::CpuImpl {
 		break;
 	  case 0xF2:ld(a, (*m)[c]);
 		break;
-	  case 0xF3:state->ime = false;
+	  case 0xF3:state.ime = false;
 		break;
 	  case 0xF5:push(af);
 		break;
@@ -1577,7 +1578,7 @@ class Cpu::CpuImpl {
 		break;
 	  case 0xFA:ld(a, (*m)[get16(pc + 1)]);
 		break;
-	  case 0xFB:state->ime = true;
+	  case 0xFB:state.ime = true;
 		break;
 	  case 0xFE:cp(get8(pc + 1));
 		break;
@@ -1586,9 +1587,11 @@ class Cpu::CpuImpl {
 	  default:spdlog::error("Unknown opcode {0:x}", (*m)[pc]);
 		assert(0);
 	}
+	spdlog::set_pattern("%v");
+	spdlog::info("[PC:{:x} A:{:x} B:{:x} C:{:x} D:{:x} E:{:x} H:{:x} L:{:x} SP:{:x} [{:x} {:x}] ]\r\n",pc,a,b,c,d,e,h,l,sp,(*m)[sp],(*m)[sp+1]);
 
 	pc += (((*m)[pc]!=0xCB) ? GBCPP::opDefinesTbl[(*m)[pc]].length : GBCPP::cbDefinesTbl[(*m)[pc + 1]].length);
-	state->cycles +=
+	state.cycles +=
 		(((*m)[pc]!=0xCB) ? GBCPP::opDefinesTbl[(*m)[pc]].cycles[0] : cbDefinesTbl[(*m)[pc + 1]].cycles[0]);
   }
 };
