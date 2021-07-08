@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="GBCppClion"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="msvc8"/>
+		<Option virtualFolders="CMake Files\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="C:/Users/Jon/Resilio Sync/Documents/Projects/GBCppClion/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="nmake /NOLOGO /f &quot;C:\Users\Jon\Resilio Sync\Documents\Projects\GBCppClion\cmake-build-debug\Makefile&quot; VERBOSE=1 all"/>
+					<CompileFile command="nmake /NOLOGO /f &quot;C:\Users\Jon\Resilio Sync\Documents\Projects\GBCppClion\cmake-build-debug\Makefile&quot; VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="nmake /NOLOGO /f &quot;C:\Users\Jon\Resilio Sync\Documents\Projects\GBCppClion\cmake-build-debug\Makefile&quot; VERBOSE=1 clean"/>
+					<DistClean command="nmake /NOLOGO /f &quot;C:\Users\Jon\Resilio Sync\Documents\Projects\GBCppClion\cmake-build-debug\Makefile&quot; VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="GBCppClion">
+				<Option output="C:/Users/Jon/Resilio Sync/Documents/Projects/GBCppClion/cmake-build-debug/GBCppClion.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="C:/Users/Jon/Resilio Sync/Documents/Projects/GBCppClion/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="msvc8"/>
+				<Compiler>
+					<Add directory="C:/Users/Jon/Resilio Sync/Documents/Projects/GBCppClion/include"/>
+					<Add directory="C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.28.29910\ATLMFC\include"/>
+					<Add directory="C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.28.29910\include"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\NETFXSDK\4.8\include\um"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\ucrt"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\shared"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\um"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\winrt"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\cppwinrt"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="nmake /NOLOGO /f &quot;C:\Users\Jon\Resilio Sync\Documents\Projects\GBCppClion\cmake-build-debug\Makefile&quot; VERBOSE=1 GBCppClion"/>
+					<CompileFile command="nmake /NOLOGO /f &quot;C:\Users\Jon\Resilio Sync\Documents\Projects\GBCppClion\cmake-build-debug\Makefile&quot; VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="nmake /NOLOGO /f &quot;C:\Users\Jon\Resilio Sync\Documents\Projects\GBCppClion\cmake-build-debug\Makefile&quot; VERBOSE=1 clean"/>
+					<DistClean command="nmake /NOLOGO /f &quot;C:\Users\Jon\Resilio Sync\Documents\Projects\GBCppClion\cmake-build-debug\Makefile&quot; VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="GBCppClion/fast">
+				<Option output="C:/Users/Jon/Resilio Sync/Documents/Projects/GBCppClion/cmake-build-debug/GBCppClion.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="C:/Users/Jon/Resilio Sync/Documents/Projects/GBCppClion/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="msvc8"/>
+				<Compiler>
+					<Add directory="C:/Users/Jon/Resilio Sync/Documents/Projects/GBCppClion/include"/>
+					<Add directory="C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.28.29910\ATLMFC\include"/>
+					<Add directory="C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.28.29910\include"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\NETFXSDK\4.8\include\um"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\ucrt"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\shared"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\um"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\winrt"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\cppwinrt"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="nmake /NOLOGO /f &quot;C:\Users\Jon\Resilio Sync\Documents\Projects\GBCppClion\cmake-build-debug\Makefile&quot; VERBOSE=1 GBCppClion/fast"/>
+					<CompileFile command="nmake /NOLOGO /f &quot;C:\Users\Jon\Resilio Sync\Documents\Projects\GBCppClion\cmake-build-debug\Makefile&quot; VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="nmake /NOLOGO /f &quot;C:\Users\Jon\Resilio Sync\Documents\Projects\GBCppClion\cmake-build-debug\Makefile&quot; VERBOSE=1 clean"/>
+					<DistClean command="nmake /NOLOGO /f &quot;C:\Users\Jon\Resilio Sync\Documents\Projects\GBCppClion\cmake-build-debug\Makefile&quot; VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="edit_cache">
+				<Option working_dir="C:/Users/Jon/Resilio Sync/Documents/Projects/GBCppClion/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="nmake /NOLOGO /f &quot;C:\Users\Jon\Resilio Sync\Documents\Projects\GBCppClion\cmake-build-debug\Makefile&quot; VERBOSE=1 edit_cache"/>
+					<CompileFile command="nmake /NOLOGO /f &quot;C:\Users\Jon\Resilio Sync\Documents\Projects\GBCppClion\cmake-build-debug\Makefile&quot; VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="nmake /NOLOGO /f &quot;C:\Users\Jon\Resilio Sync\Documents\Projects\GBCppClion\cmake-build-debug\Makefile&quot; VERBOSE=1 clean"/>
+					<DistClean command="nmake /NOLOGO /f &quot;C:\Users\Jon\Resilio Sync\Documents\Projects\GBCppClion\cmake-build-debug\Makefile&quot; VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rebuild_cache">
+				<Option working_dir="C:/Users/Jon/Resilio Sync/Documents/Projects/GBCppClion/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="nmake /NOLOGO /f &quot;C:\Users\Jon\Resilio Sync\Documents\Projects\GBCppClion\cmake-build-debug\Makefile&quot; VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="nmake /NOLOGO /f &quot;C:\Users\Jon\Resilio Sync\Documents\Projects\GBCppClion\cmake-build-debug\Makefile&quot; VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="nmake /NOLOGO /f &quot;C:\Users\Jon\Resilio Sync\Documents\Projects\GBCppClion\cmake-build-debug\Makefile&quot; VERBOSE=1 clean"/>
+					<DistClean command="nmake /NOLOGO /f &quot;C:\Users\Jon\Resilio Sync\Documents\Projects\GBCppClion\cmake-build-debug\Makefile&quot; VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="C:/Users/Jon/Resilio Sync/Documents/Projects/GBCppClion/cpu.cpp">
+			<Option target="GBCppClion"/>
+		</Unit>
+		<Unit filename="C:/Users/Jon/Resilio Sync/Documents/Projects/GBCppClion/cpuimpl.cpp">
+			<Option target="GBCppClion"/>
+		</Unit>
+		<Unit filename="C:/Users/Jon/Resilio Sync/Documents/Projects/GBCppClion/main.cpp">
+			<Option target="GBCppClion"/>
+		</Unit>
+		<Unit filename="C:/Users/Jon/Resilio Sync/Documents/Projects/GBCppClion/mm.cpp">
+			<Option target="GBCppClion"/>
+		</Unit>
+		<Unit filename="C:/Users/Jon/Resilio Sync/Documents/Projects/GBCppClion/ops.cpp">
+			<Option target="GBCppClion"/>
+		</Unit>
+		<Unit filename="C:/Users/Jon/Resilio Sync/Documents/Projects/GBCppClion/ppu.cpp">
+			<Option target="GBCppClion"/>
+		</Unit>
+		<Unit filename="C:/Users/Jon/Resilio Sync/Documents/Projects/GBCppClion/utils.cpp">
+			<Option target="GBCppClion"/>
+		</Unit>
+		<Unit filename="C:/Users/Jon/Resilio Sync/Documents/Projects/GBCppClion/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>
