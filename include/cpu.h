@@ -4,7 +4,7 @@ namespace GBCPP
 {
 	class MemMgr;
 	class Registers;
-	struct StateType;
+	struct CpuState;
 
 	class Cpu
 	{
@@ -17,7 +17,7 @@ namespace GBCPP
 	  void sethalt(bool h);
 	  void setstop(bool s);
 	  void reset();
-	  StateType getstate();
+	  CpuState getstate();
 	  Registers getregisters();
 	  class CpuImpl;
 	protected:

@@ -1,6 +1,7 @@
 #pragma once
 #include <cstdint>
 #include <array>
+#include <string>
 
 namespace GBCPP
 {
@@ -17,9 +18,6 @@ namespace GBCPP
 	static u8 null = 0;
 	static u16 null16 = 0;
 
-	class Cpu;
-	class MemMgr;
-	class Ppu;
-
 	extern bool DEBUG;
+	extern std::string log_buffer;
 }

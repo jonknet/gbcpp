@@ -6,6 +6,7 @@
 #include "fmt/core.h"
 #include "fmt/format.h"
 #include "SDL2/SDL.h"
+#include <cstdarg>
 
 using namespace GBCPP;
 
@@ -74,5 +75,11 @@ void outputhex(const std::string& filename) {
   //mem[BOOT] = 0;
 
   file.close();
+}
+
+void lookup_registry_name_by_address(const void* address, Registers& regs){
+  if(address == (void*)regs.a){
+
+  }
 }
 
