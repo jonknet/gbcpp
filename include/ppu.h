@@ -67,7 +67,7 @@ private:
   MemMgr* mem_mgr;
   std::array<u8,0x5A00> frm_b;
   PpuState state;
-  void draw_line(u8 line);
+  void draw_line();
   int search();
   u16 get_address_tile_by_index(s16 index);
   void render_tile_to_colors(u16 address, std::array<u8,8*16>& tile_pixels);
