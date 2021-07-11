@@ -3,8 +3,11 @@
 #include "SDL2/SDL.h"
 #include <array>
 #include <bitset>
+#include <vector>
 
 namespace GBCPP {
+
+class MemMgr;
 
 enum class LcdcFlags {
   bg_win_en = 1,
@@ -31,19 +34,44 @@ struct Tile {
 struct Sprite {
   u8 y_pos = 0;
   u8 x_pos = 0;
-  u8 index = 0;
+  u16 address = 0;
   std::bitset<8> flags = {0};
+};
+
+enum PpuMode {
+  HBLANK_0,
+  VBLANK_1,
+  SEARCH_2,
+  DRAW_3,
+  IDLE
+};
+
+struct PpuState {
+  PpuMode currentMode = SEARCH_2;
+  int currentCycle = 0;
+  int currentLine = -1;
+  int lineObjects = -1;
+  int currentX = 0;
+  std::vector<Sprite> spritesOnLine = std::vector<Sprite>(10);
 };
 
 const u8 DefaultPalette[4] = { 0xFF, 0xAB, 0x66, 0x00 };
 
 class Ppu {
  public:
-  explicit Ppu(SDL_Texture *tex);
-  void draw();
+  explicit Ppu(MemMgr* mem_mgr, SDL_Texture *tex);
+  void tick();
+
 private:
   SDL_Texture *sdl_tex;
-  static void render_tile_to_colors(Tile& tile, const gb_mem& gb_memory,std::array<u8,8*8>& tile_pixels);
+  MemMgr* mem_mgr;
+  std::array<u8,0x5A00> frm_b;
+  PpuState state;
+  void draw_line(u8 line);
+  int search();
+  u16 get_address_tile_by_index(s16 index);
+  void render_tile_to_colors(u16 address, std::array<u8,8*16>& tile_pixels);
+  void render_line_of_tile(u16 address, u8 linenumber, std::array<u8,8>& line_pixels);
 
 };
 

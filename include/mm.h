@@ -6,7 +6,7 @@ namespace GBCPP {
 
 const auto ADDRESS_SPACE_SIZE = 0x10000;
 
-enum memory_regions {
+enum memory_regions : u16 {
   ROM_16KB_00 = 0,
   ROM_16KB_NN = 0x4000,
   VRAM_8KB = 0x8000,
@@ -20,7 +20,7 @@ enum memory_regions {
   HRAM_127B = 0xFF80
 };
 
-enum io_regs {
+enum io_regs :  u16 {
   P1 = 0xFF00,
   SB = 0xFF01,
   SC = 0xFF02,

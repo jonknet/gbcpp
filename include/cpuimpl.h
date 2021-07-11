@@ -275,6 +275,7 @@ class Cpu::CpuImpl {
 	log_buffer = fmt::format("{:64s}",fmt::format("{:s} A,{:x}", __func__, v))  + log_buffer;
 	half_carry_check_sub(*r.a, v);
 	carry_check_sub(*r.a, v);
+	*r.a = v;
 	(*r.a==v) ? setf(Z) : clrf(Z);
 	setf(N);
   }

@@ -9,6 +9,7 @@
 #include "ppu.h"
 #include <string>
 #include <filesystem>
+#include "portable-file-dialogs.h"
 
 using namespace GBCPP;
 
@@ -19,14 +20,16 @@ int main(int argc, char *argv[]) {
 
   // Logger
 
-  if(std::filesystem::exists(std::filesystem::path("app.log"))){
-    std::filesystem::remove(std::filesystem::path("app.log"));
+  if(std::filesystem::exists(std::filesystem::path("logs"))){
+    std::filesystem::remove_all(std::filesystem::path("logs"));
+
   }
+  std::filesystem::create_directory(std::filesystem::path("logs"));
 
   spdlog::set_pattern("[%T:%e] [%L] %v \r\n");
   auto max_size = 1048576*10;
-  auto max_files = 1;
-  auto logger = spdlog::rotating_logger_mt("logger", "app.log", max_size, max_files, false);
+  auto max_files = 5;
+  auto logger = spdlog::rotating_logger_mt("logger", "logs/app.log", max_size, max_files, false);
   spdlog::set_default_logger(logger);
 
   // Cmd line parsing
@@ -37,10 +40,13 @@ int main(int argc, char *argv[]) {
 	DEBUG = true;
 
   std::string rom;
-  if (!(cmdl("--file") >> rom)) {
-	spdlog::error("Must provide rom name (--file romfile)");
-	return 1;
-  }
+  auto selection = pfd::open_file("Select a file", ".",
+								  { "Game Boy Rom Files", "*.gb",
+									"All Files", "*" },
+								  pfd::opt::multiselect).result();
+  assert(!selection.empty());
+  rom = selection[0];
+  spdlog::info("Selected: {}",rom);
 
   // SDL
 
