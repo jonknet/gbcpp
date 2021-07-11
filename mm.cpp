@@ -46,11 +46,12 @@ void MemMgr::init() {
 }
 
 u8 &MemMgr::operator[](std::size_t i) {
-  assert(i >= 0 && i <= 0xFFFF);
+  i = static_cast<u16>(i);
+  assert(i >= 0 && i < 0x10000);
   if (i < 256 && mem[BOOT]==0) {
 	return (u8 &)(BOOT_ROM[i]);
   }
-  return mem[i];
+  return mem[(u16)i];
 }
 
 gb_mem_t &MemMgr::data() {

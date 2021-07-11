@@ -13,7 +13,20 @@ Cpu::Cpu(GBCPP::MemMgr &mm) {
 }
 
 void Cpu::tick(){
-
+  if(pImpl->s.current_state == OpState::RUNNING){
+    if(pImpl->s.remaining_cycles == 4){
+      pImpl->s.current_state = OpState::IDLE;
+    }
+    pImpl->s.remaining_cycles -= 4;
+  } else if(pImpl->s.current_state == OpState::IDLE){
+    pImpl->s.current_state = OpState::RUNNING;
+    if(((*pImpl->m)[pImpl->r.pc]) == 0xCB){
+      pImpl->s.remaining_cycles = 4 + cbDefinesTbl[((*pImpl->m)[pImpl->r.pc+1])].cycles[0];
+    } else {
+      pImpl->s.remaining_cycles = opDefinesTbl[((*pImpl->m)[pImpl->r.pc])].cycles[0];
+    }
+    exec();
+  }
 }
 
 void Cpu::run() {

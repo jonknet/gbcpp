@@ -11,8 +11,6 @@
 #include <filesystem>
 #include "portable-file-dialogs.h"
 
-using namespace GBCPP;
-
 bool GBCPP::DEBUG = false;
 std::string GBCPP::log_buffer = {};
 
@@ -59,7 +57,7 @@ int main(int argc, char *argv[]) {
   // Init modules
 
   auto *mem = new MemMgr();
-  auto *ppu = new Ppu(tex);
+  auto *ppu = new Ppu(mem,tex);
   auto *cpu = new Cpu(*mem);
 
   // Load ROM into memory
@@ -83,8 +81,12 @@ int main(int argc, char *argv[]) {
 	  }
 	}
 
-	ppu->draw();
-	cpu->exec();
+	ppu->tick();
+	cpu->tick();
+
+	if((*mem)[SC] == 0x81) {
+	  std::cout << (*mem)[SB];
+    }
   }
 
   cleanup_sdl(tex, ren, win, texdebug, rendebug, windebug);
