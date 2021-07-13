@@ -14,7 +14,7 @@ add_executable(GBCppClion ${SOURCE_FILES})
 
 target_include_directories(GBCppClion PUBLIC include include/lib)
 
-target_link_libraries(GBCppClion SDL2 SDL2main fmtd)
+target_link_libraries(GBCppClion SDL2 SDL2main)
 #
 #add_subdirectory(tests)
 
