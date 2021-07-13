@@ -3,22 +3,16 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 
-#include "stddefs.h"
-#include "spdlog/spdlog.h"
-#include "spdlog/sinks/rotating_file_sink.h"
-#include "argh.h"
-#include "SDL2/SDL.h"
-#include "utils.h"
-#include "mm.h"
-#include "cpu.h"
-#include "system/Ppu.h"
+
+#include "lib/spdlog/spdlog.h"
+#include "lib/spdlog/sinks/rotating_file_sink.h"
+#include "lib/argh.h"
+#include "lib/SDL2/SDL.h"
 #include <string>
 #include <filesystem>
-#include "portable-file-dialogs.h"
-#include "Instruction.h"
+#include "lib/portable-file-dialogs.h"
 
-bool ModernBoy::DEBUG = false;
-std::string ModernBoy::log_buffer;
+
 
 int main(int argc, char *argv[]) {
 
@@ -41,9 +35,6 @@ int main(int argc, char *argv[]) {
 
   argh::parser cmdl(argv);
 
-  if (cmdl["-d"])
-	DEBUG = true;
-
   std::string rom;
   auto selection = pfd::open_file("Select a file", ".",
 								  {"Game Boy Rom Files", "*.gb",
@@ -59,46 +50,6 @@ int main(int argc, char *argv[]) {
   SDL_Renderer *ren = nullptr, *rendebug = nullptr;
   SDL_Texture *tex = nullptr, *texdebug = nullptr;
 
-  init_sdl(win, ren, tex, windebug, rendebug, texdebug);
-
-  // Init modules
-
-  auto *mem = new MemMgr();
-  auto *ppu = new Ppu(mem, tex);
-  auto *cpu = new Cpu(*mem);
-
-  // Load ROM into memory
-
-  if (GBCPP::MemMgr::load_rom(rom, mem)) {
-	cleanup_sdl(tex, ren, win, texdebug, rendebug, windebug);
-	SDL_Quit();
-	return 2;
-  }
-
-  // Main Loop
-
-  int quit = 0;
-
-  while (!quit) {
-	SDL_Event event;
-	while (SDL_PollEvent(&event)) {
-	  switch (event.type) {
-		case SDL_QUIT: quit = 1;
-		  break;
-	  }
-	}
-
-	ppu->tick();
-	cpu->tick();
-
-	if ((*mem)[SC] == 0x81) {
-	  std::cout << (*mem)[SB];
-	}
-  }
-
-  cleanup_sdl(tex, ren, win, texdebug, rendebug, windebug);
-
-  SDL_Quit();
 
   spdlog::shutdown();
 
