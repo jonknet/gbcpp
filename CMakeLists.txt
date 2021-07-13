@@ -18,5 +18,5 @@ target_link_libraries(GBCppClion SDL2 SDL2main)
 #
 #add_subdirectory(tests)
 
-install(FILES dll/fmtd.dll dll/SDL2.dll DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
+#install(FILES dll/fmtd.dll dll/SDL2.dll DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
 
