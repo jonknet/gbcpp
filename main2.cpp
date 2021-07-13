@@ -13,7 +13,6 @@
 #include "lib/portable-file-dialogs.h"
 
 
-#fart
 int main(int argc, char *argv[]) {
 
   // Logger
