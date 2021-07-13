@@ -3,7 +3,6 @@ project(GBCppClion CXX)
 
 set(CMAKE_CXX_STANDARD 17)
 
-
 link_directories(lib)
 
 #add_library(cpuimpl_lib STATIC cpu.cpp include/cpuimpl.h)
@@ -11,6 +10,8 @@ link_directories(lib)
 set(SOURCE_FILES main2.cpp)
 
 add_executable(GBCppClion ${SOURCE_FILES})
+
+target_compile_features(GBCppClion PUBLIC cxx_std_17 cxx_filesystem)
 
 target_include_directories(GBCppClion PUBLIC include include/lib)
 
