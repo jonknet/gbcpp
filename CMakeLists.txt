@@ -3,7 +3,7 @@ project(GBCppClion)
 
 set(CMAKE_CXX_STANDARD 17)
 
-include_directories(include include/component include/interface include/system include/lib)
+target_include_directories(GBCppClion PUBLIC include)
 link_directories(lib)
 
 #add_library(cpuimpl_lib STATIC cpu.cpp include/cpuimpl.h)
