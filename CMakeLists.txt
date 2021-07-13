@@ -1,5 +1,5 @@
-cmake_minimum_required(VERSION 3.19)
-project(GBCppClion)
+cmake_minimum_required(VERSION 3.12)
+project(GBCppClion CXX)
 
 set(CMAKE_CXX_STANDARD 17)
 
