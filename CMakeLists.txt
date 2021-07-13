@@ -11,7 +11,7 @@ set(SOURCE_FILES main2.cpp)
 
 add_executable(GBCppClion ${SOURCE_FILES})
 
-target_compile_features(GBCppClion PUBLIC cxx_std_17 cxx_filesystem)
+target_compile_features(GBCppClion PUBLIC cxx_std_17)
 
 target_include_directories(GBCppClion PUBLIC include include/lib)
 
