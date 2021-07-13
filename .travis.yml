@@ -1,4 +1,3 @@
-os: windows
 sudo: false
 language: cpp
 
@@ -8,26 +7,18 @@ addons:
     token:
       secure: "mUcotljmc368Jddmr/a7Aw48uFfgiu5n1kiqTeZ+L2/drhqkvLd/FpNdY1LjfvhI/uPrd/qjnzFO7oJMa9V+fyhyMcn/oxcxO41WhKXEiD+iwyDMOmdCOcvl4OG9HnZ2F3tvbQYdwTSnPTFixKV+SSKx9SQenVfBku+xnPLy4qKUxRKpOFyU5bB9ahgX6go7/qRp0s4M5iO9zmgCYbwGvKEOizCmvudxAkb2WP+1aqXy3wtCVMnctG07SVEb+iJPxo3Um9UCCexT4W3tyNr7R06TN006BxwM4DbyKaJYAyUTkhCyXo8uS7hDwJ5xk2rIuRcFwWG/WoorTuaVwhw/DjWrzVQTLZsWOnj3mAwSHWcjtq8hK+V6ih1K+eJWrIHj4zH01N371zYLtQ/85xAOS/BbeeQjpfe5pmA00oXQbBzP21wc6yqU64O6n4Q8KllUYsAd2vZZN9hC/SwQulRJwRI/rlhobPWJv+IxWokxp0NXDT0vaM9LQWUnZZ5NLFpkGhl1IWtBkFfI4yQXYj9gG2QYLkUsa1rzI7Cqf2MSS+OeeQnjrXHBPJfBk9mtmQUobwZWse+vHRXl3vB6CiomeUnaQ1tfJ/3/PydmyoEubQO4ba2DYPbpxKxguKJ2kWfrVfuyGA44bBC2teFdQmaPat8nMKTyqS2xLEbqs5oRDzE=" # encrypted value of your token
 script:
-  # windows requires a few extra steps
-    # Install java
-  - export JAVA_HOME=${JAVA_HOME:-'/c/Program Files/OpenJDK/openjdk-11.0.7_10'}
-  - export PATH=${JAVA_HOME}/bin:${PATH}
-  - choco install openjdk11 -y --version 11.0.7.10
-    # Download build-wrapper
-  - curl "https://sonarcloud.io/static/cpp/build-wrapper-win-x86.zip" --output build-wrapper-win-x86.zip
-  - unzip build-wrapper-win-x86.zip
   # Prepare the build system
   - mkdir build
   - cd build
   - cmake ..
   - cd ..
+  - NUMBER_OF_PROCESSORS=$(nproc --all)
   # Wraps the compilation with the Build Wrapper to generate configuration (used
   # later by the SonarQube Scanner) into the "bw-output" folder
-  - build-wrapper-win-x86/build-wrapper-win-x86-64.exe --out-dir bw-output cmake --build build/
+  - build-wrapper-linux-x86-64 --out-dir bw-output cmake --build build/
   # And finally run the SonarQube analysis - read the "sonar-project.properties"
   # file to see the specific configuration
-  - echo ${TRAVIS_HOME} ${NUMBER_OF_PROCESSORS} 
-  - ${TRAVIS_HOME}/.sonarscanner/sonar-scanner/bin/sonar-scanner.bat -Dsonar.cfamily.cache.enabled=true -Dsonar.cfamily.cache.path=${TRAVIS_HOME}/.cfamily -Dsonar.cfamily.threads=${NUMBER_OF_PROCESSORS}
+  - sonar-scanner -Dsonar.cfamily.cache.enabled=true -Dsonar.cfamily.cache.path=${TRAVIS_HOME}/.cfamily -Dsonar.cfamily.threads=${NUMBER_OF_PROCESSORS}
 
 cache:
   directories:
