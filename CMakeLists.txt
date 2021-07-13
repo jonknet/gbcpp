@@ -15,7 +15,7 @@ target_compile_features(GBCppClion PUBLIC cxx_std_17)
 
 target_include_directories(GBCppClion PUBLIC include include/lib)
 
-target_link_libraries(GBCppClion SDL2 SDL2main)
+target_link_libraries(GBCppClion SDL2 SDL2main stdc++fs)
 #
 #add_subdirectory(tests)
 
