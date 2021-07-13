@@ -1,10 +1,9 @@
 #pragma once
 #include "stddefs.h"
-#include "mm.h"
+#include "Mmu.h"
 #include "ops.h"
 #include "spdlog/spdlog.h"
-#include "nameof.h"
-#include "cpu.h"
+#include "Cpu.h"
 
 namespace GBCPP {
 
@@ -38,23 +37,7 @@ enum Flags {
   Z = 0x80, N = 0x40, H = 0x20, C = 0x10
 };
 
-struct Registers {
 
-  u16 af, bc, de, hl, pc, sp;
-  u8 *a, *f, *b, *c, *d, *e, *h, *l;
-
-  Registers()
-      : af{0x01B0}, bc{0x0013}, de{0x00D8}, hl{0x014D}, pc{0}, sp{0xFFFE} {
-    a = (u8 *) &(af) + 1;
-    f = (u8 *) &(af);
-    b = (u8 *) &(bc) + 1;
-    c = (u8 *) &(bc);
-    d = (u8 *) &(de) + 1;
-    e = (u8 *) &(de);
-    h = (u8 *) &(hl) + 1;
-    l = (u8 *) &(hl);
-  }
-};
 
 class Cpu::CpuImpl {
  public:
@@ -360,7 +343,7 @@ class Cpu::CpuImpl {
     log_buffer =
         fmt::format("{:64s}", fmt::format("{:s} {:d} : Oldr.pc {:x} : Newr.pc {:x}", __func__, cond, r.pc, peek16()))
             + log_buffer;
-    r.pc = ((cond) ? pop16() - 1 : 0);
+    r.pc = ((cond) ? pop16() - 1 : r.pc);
   }
 
   void rst(u8 v) {
@@ -550,7 +533,7 @@ class Cpu::CpuImpl {
         *r.l,
         r.sp,
         (*m)[r.sp],
-        (*m)[r.sp - 1]);
+        (*m)[r.sp + 1]);
     s.lastop = (*m)[r.pc];
     s.lastop_cb = ((*m)[r.pc] == 0xCB);
     assert(s.lastop >= 0 && s.lastop <= 256);

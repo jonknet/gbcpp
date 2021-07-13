@@ -1,0 +1,5 @@
+ [requires]
+sml/1.1.4
+
+ [generators]
+ cmake

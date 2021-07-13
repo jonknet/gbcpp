@@ -2,14 +2,14 @@
 
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-#define CATCH_CONFIG_MAIN
-#include "catch.hpp"
-#include "cpu.h"
-#include "cpuimpl.h"
+int main(){
+	return 1;
+}
+int hi(){
+  union {
+    int i;
+  } u;
 
-using namespace GBCPP;
+  return 1;
 
- class CpuImplTest : public Cpu::CpuImpl {
- public:
-
-};
+}

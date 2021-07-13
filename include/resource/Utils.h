@@ -2,7 +2,7 @@
 #include "SDL2/SDL.h"
 #include <string>
 #include "stddefs.h"
-#include "cpuimpl.h"
+#include "CpuImpl.h"
 
 using namespace GBCPP;
 

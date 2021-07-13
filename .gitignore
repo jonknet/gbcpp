@@ -3,3 +3,7 @@ cmake-build-debug
 .idea
 /cmake-build-debug-visual-studio/
 /cmake-build-debug/
+/.PVS-Studio/
+/cmake-build-debug-mingw/
+/cmake-build-release-visual-studio/
+

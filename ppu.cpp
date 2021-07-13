@@ -6,6 +6,10 @@
 #include <iterator>
 #include <algorithm>
 #include <functional>
+#include <boost/sml.hpp>
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+
+// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using namespace GBCPP;
 
@@ -14,41 +18,41 @@ Ppu::Ppu(MemMgr *mem_mgr, SDL_Texture *tex) : sdl_tex{tex},frm_b{0},mem_mgr(mem_
 }
 
 void Ppu::tick() {
-  switch (state.currentMode) {
+  switch (ppu_state_.currentMode) {
 	case HBLANK_0:
-	  if (state.currentCycle > (52 - (state.spritesOnLine.size() * 3))) {
+	  if (ppu_state_.currentCycle > (52 - (ppu_state_.spritesOnLine.size() * 3))) {
 		if ((*mem_mgr)[LY] < 143) {
-		  state.currentMode = SEARCH_2;
+		  ppu_state_.currentMode = SEARCH_2;
 		} else {
-		  state.currentMode = VBLANK_1;
+		  ppu_state_.currentMode = VBLANK_1;
 		}
-		state.currentCycle = -1;
+		ppu_state_.currentCycle = -1;
 		(*mem_mgr)[LY] += 1;
 	  }
 	  break;
 	case VBLANK_1:
-	  if (state.currentCycle == 114) {
+	  if (ppu_state_.currentCycle == 114) {
 		(*mem_mgr)[LY] += 1;
-	  } else if (state.currentCycle > 1140) {
-		state.currentMode = SEARCH_2;
-		state.currentCycle = -1;
+	  } else if (ppu_state_.currentCycle > 1140) {
+		ppu_state_.currentMode = SEARCH_2;
+		ppu_state_.currentCycle = -1;
         (*mem_mgr)[LY] = 0;
 	  }
 	  break;
 	case SEARCH_2:
-	  if (state.currentCycle > 20) {
-		state.currentMode = DRAW_3;
-		state.currentCycle = -1;
+	  if (ppu_state_.currentCycle > 20) {
+		ppu_state_.currentMode = DRAW_3;
+		ppu_state_.currentCycle = -1;
 	  }
-	  if (state.currentCycle == 0) {
+	  if (ppu_state_.currentCycle == 0) {
 		search();
 	  }
 	  break;
 	case DRAW_3:
-	  if (state.currentCycle > (43 + (state.spritesOnLine.size() * 3))) {
-		state.currentMode = HBLANK_0;
-		state.currentCycle = -1;
-	  } else if (state.currentCycle == 0) {
+	  if (ppu_state_.currentCycle > (43 + (ppu_state_.spritesOnLine.size() * 3))) {
+		ppu_state_.currentMode = HBLANK_0;
+		ppu_state_.currentCycle = -1;
+	  } else if (ppu_state_.currentCycle == 0) {
         for(int i = 0; i < 144; ++i){
             draw_line();
             (*mem_mgr)[LY] += 1;
@@ -57,13 +61,13 @@ void Ppu::tick() {
 	  break;
 	case IDLE: break;
   }
-  ++state.currentCycle;
+  ++ppu_state_.currentCycle;
 }
 
 int Ppu::search() {
-  state.spritesOnLine.clear();
+  ppu_state_.spritesOnLine.clear();
   int vert_size = ((*mem_mgr)[LCDC] & (u8)LcdcFlags::obj_size) ? 16 : 8;
-  for (int i = 0; i < 40 && state.spritesOnLine.size() <= 10; i++) {
+  for (int i = 0; i < 40 && ppu_state_.spritesOnLine.size() <= 10; i++) {
 	u16 oam_index = OAM_160B + (i * 4);
 	u8 tile_y = (*mem_mgr)[oam_index];
 	u8 ly = (*mem_mgr)[LY];
@@ -75,11 +79,11 @@ int Ppu::search() {
 		  (*mem_mgr)[oam_index + 1],
 		  static_cast<u16>(((*mem_mgr)[oam_index + 2] * 16) + VRAM_8KB),
 		  std::bitset<8>((*mem_mgr)[oam_index + 3])};
-	  state.spritesOnLine.push_back(spr);
+	  ppu_state_.spritesOnLine.push_back(spr);
 	}
   }
 
-  return static_cast<int>(state.spritesOnLine.size());
+  return static_cast<int>(ppu_state_.spritesOnLine.size());
 }
 
 u16 Ppu::get_address_tile_by_index(s16 index,TileAddressMode address_mode) {
@@ -124,7 +128,7 @@ void Ppu::draw_line() {
 
   }
 
-  for (auto &spr : state.spritesOnLine) {
+  for (auto &spr : ppu_state_.spritesOnLine) {
 	int top_line = spr.y_pos - 16;
 	int sprite_line = std::abs((*mem_mgr)[LY] - top_line);
 

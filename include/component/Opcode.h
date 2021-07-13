@@ -1,0 +1,8 @@
+//
+// Created by Commvault on 7/12/2021.
+//
+
+#ifndef TESTS_INCLUDE_COMPONENT_OPCODE_H_
+#define TESTS_INCLUDE_COMPONENT_OPCODE_H_
+
+#endif //TESTS_INCLUDE_COMPONENT_OPCODE_H_
